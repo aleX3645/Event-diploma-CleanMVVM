@@ -2,6 +2,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,14 +32,27 @@ android {
     kotlinOptions {
         jvmTarget = Versions.jvmTarget
     }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+
+    dynamicFeatures = [':feature_event_list']
 }
 
 dependencies {
 
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_x
+    kapt 'com.android.databinding:compiler:3.1.4'
+
     implementation Deps.appcompat
     implementation Deps.materials
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+
     testImplementation Deps.junit
     androidTestImplementation Deps.android_x_junit
     androidTestImplementation Deps.espresso

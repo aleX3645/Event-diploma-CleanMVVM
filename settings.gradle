@@ -1,2 +1,3 @@
+include ':feature_event_list'
 include ':app'
 rootProject.name = "EventDiploma_MVVM"

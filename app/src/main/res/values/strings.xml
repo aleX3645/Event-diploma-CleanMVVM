@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EventDiploma_MVVM</string>
+    <string name="title_feature_event_list">Event module</string>
+
+    <string name="feed">Афиша</string>
+    <string name="tickets">Билеты</string>
+    <string name="favorite">Избранное</string>
 </resources>
