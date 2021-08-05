@@ -22,8 +22,5 @@ class NavHostActivity : AppCompatActivity() {
 
     private fun initBottomNavigation() {
         binding.bottomNavigation.setupWithNavController(navController)
-
-        // Disables reselection of bottom menu item, so fragments are not recreated when clicking on the same menu item
-        //binding.bottomNavigation.setOnNavigationItemReselectedListener { }
     }
 }

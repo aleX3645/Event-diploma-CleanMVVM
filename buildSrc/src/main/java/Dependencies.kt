@@ -15,6 +15,7 @@ object Versions {
     val kotlinX = "1.6.0"
     val appcompat = "1.3.1"
     val materials = "1.4.0"
+    val navigation = "2.3.5"
 
     val junit = "4.13.2"
     val junitX = "1.1.3"
@@ -36,4 +37,7 @@ object Deps {
     val junit = "junit:junit:${Versions.junit}"
     val android_x_junit = "androidx.test.ext:junit:${Versions.junitX}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    val navDynamicFeatures = "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigation}"
+    val navNavigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    val navUI = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 }

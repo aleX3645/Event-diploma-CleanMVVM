@@ -45,13 +45,12 @@ dependencies {
 
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_x
-    kapt 'com.android.databinding:compiler:3.1.4'
 
     implementation Deps.appcompat
     implementation Deps.materials
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation Deps.navDynamicFeatures
+    implementation Deps.navNavigationFragment
+    implementation Deps.navUI
 
     testImplementation Deps.junit
     androidTestImplementation Deps.android_x_junit

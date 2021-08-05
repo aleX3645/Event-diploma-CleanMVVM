@@ -9,7 +9,6 @@ buildscript {
     dependencies {
         classpath Deps.gradle
         classpath Deps.kotlin_gradle
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
