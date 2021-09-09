@@ -7,8 +7,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath Deps.gradle
-        classpath Deps.kotlin_gradle
+
+        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
     }
 }
 
@@ -17,8 +19,4 @@ allprojects {
         google()
         jcenter()
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

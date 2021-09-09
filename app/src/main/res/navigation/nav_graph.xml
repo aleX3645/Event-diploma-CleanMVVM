@@ -2,9 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/eventListFeatureGraph">
+    app:startDestination="@id/ConferenceListFeatureGraph">
     <include-dynamic
-        android:id="@+id/eventListFeatureGraph"
-        app:moduleName="feature_event_list"
-        app:graphResName="event_list_graph"/>
+        android:id="@+id/ConferenceListFeatureGraph"
+        app:moduleName="feature_conference_list"
+        app:graphResName="conference_list_graph"/>
 </navigation>

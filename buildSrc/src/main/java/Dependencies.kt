@@ -1,33 +1,24 @@
 
 object Versions {
-    val kotlin = "1.4.32"
+    const val jvmTarget = "1.8"
+    const val gradleVersion = "4.1.1"
 
-    val compileSdkVersion = 30
-    val buildToolsVersion = "30.0.3"
-    val minSdkVersion = 21
-    val targetSdkVersion = 30
-    val versionCode = 1
-    val versionName = "1.0"
+    const val kotlinX = "1.6.0"
+    const val appcompat = "1.3.1"
+    const val materials = "1.4.0"
+    const val navigation = "2.3.5"
 
-    val jvmTarget = "1.8"
-    val gradleVersion = "4.1.1"
-
-    val kotlinX = "1.6.0"
-    val appcompat = "1.3.1"
-    val materials = "1.4.0"
-    val navigation = "2.3.5"
-
-    val junit = "4.13.2"
-    val junitX = "1.1.3"
-    val espresso = "3.4.0"
+    const val junit = "4.13.2"
+    const val junitX = "1.1.3"
+    const val espresso = "3.3.0"
 }
 
 object Deps {
     val app_name = "com.alex3645.eventdiploma_mvvm"
 
-    val gradle = "com.android.tools.build:gradle:${Versions.gradleVersion}"
-    val kotlin_gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-    val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    const val gradle = "com.android.tools.build:gradle:${Versions.gradleVersion}"
+    const val kotlin_gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${AndroidConfig.kotlin}"
+    val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${AndroidConfig.kotlin}"
 
     val kotlin_x = "androidx.core:core-ktx:${Versions.kotlinX}"
     val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
