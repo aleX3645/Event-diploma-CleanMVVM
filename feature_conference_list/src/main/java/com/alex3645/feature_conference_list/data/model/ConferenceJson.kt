@@ -2,34 +2,32 @@ package com.alex3645.feature_conference_list.data.model
 
 
 import com.alex3645.feature_conference_list.domain.model.Conference
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class ConferenceJson(
-    @Json(name = "category")
+    @SerializedName("category")
     val category: Int,
-    @Json(name = "date_end")
+    @SerializedName("date_end")
     val dateEnd: String,
-    @Json(name = "date_start")
+    @SerializedName("date_start")
     val dateStart: String,
-    @Json(name = "description")
+    @SerializedName("description")
     val description: String,
-    @Json(name = "events")
+    @SerializedName("events")
     val eventsJson: List<EventJson>,
-    @Json(name = "id")
+    @SerializedName("id")
     val id: Int,
-    @Json(name = "is_cancelled")
+    @SerializedName("is_cancelled")
     val isCancelled: Boolean,
-    @Json(name = "location")
+    @SerializedName("location")
     val location: String,
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String,
-    @Json(name = "organizer_id")
+    @SerializedName("organizer_id")
     val organizerId: Int,
-    @Json(name = "status")
+    @SerializedName("status")
     val status: Int,
-    @Json(name = "tariffs")
+    @SerializedName("tariffs")
     val tariffsJson: List<TariffJson>
 ){
     internal fun toDomainModel() : Conference{

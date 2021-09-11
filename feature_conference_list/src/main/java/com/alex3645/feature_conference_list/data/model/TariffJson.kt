@@ -2,22 +2,20 @@ package com.alex3645.feature_conference_list.data.model
 
 
 import com.alex3645.feature_conference_list.domain.model.Tariff
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class TariffJson(
-    @Json(name = "conference_id")
+    @SerializedName("conference_id")
     val conferenceId: Int,
-    @Json(name = "cost")
+    @SerializedName("cost")
     val cost: Double,
-    @Json(name = "id")
+    @SerializedName("id")
     val id: Int,
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String,
-    @Json(name = "tickets_left")
+    @SerializedName("tickets_left")
     val ticketsLeft: Int,
-    @Json(name = "tickets_total")
+    @SerializedName("tickets_total")
     val ticketsTotal: Int
 ){
     internal fun toDomainModel(): Tariff{

@@ -1,7 +1,5 @@
 package com.alex3645.feature_conference_list.domain.model
 
-import com.alex3645.feature_conference_list.data.model.TariffJson
-
 data class Conference(
     val category: Int,
     val dateEnd: String,

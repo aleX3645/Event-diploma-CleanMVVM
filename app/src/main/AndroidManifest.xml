@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EventDiploma_MVVM">
+        android:theme="@style/Theme.EventDiploma_MVVM"
+        android:usesCleartextTraffic="true">
         <activity android:name="com.alex3645.app.presentation.NavHostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
