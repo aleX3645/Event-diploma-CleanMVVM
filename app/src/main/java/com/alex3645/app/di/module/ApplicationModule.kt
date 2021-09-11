@@ -6,11 +6,14 @@ import com.alex3645.app.App
 import com.alex3645.app.di.scope.PerApplication
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object ApplicationModule{
+class ApplicationModule(private val app: App) {
+
+    @Provides
+    @Singleton
+    fun provideApplication(): App {
+        return app
+    }
 }

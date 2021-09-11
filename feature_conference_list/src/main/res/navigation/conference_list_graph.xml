@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/recyclerFragment"
-        android:name="com.alex3645.feature_conference_list.presentation.eventRecyclerView.EventRecyclerFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerFragment"
         android:label="AlbumListFragment"
         app:moduleName="feature_conference_list">
     </fragment>

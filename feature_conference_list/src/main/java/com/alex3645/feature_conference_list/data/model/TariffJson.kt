@@ -1,7 +1,7 @@
 package com.alex3645.feature_conference_list.data.model
 
 
-import com.alex3645.feature_event_list.domain.model.Tariff
+import com.alex3645.feature_conference_list.domain.model.Tariff
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -20,12 +20,14 @@ data class TariffJson(
     @Json(name = "tickets_total")
     val ticketsTotal: Int
 ){
-    fun toDomainModel() =
-        Tariff(
+    internal fun toDomainModel(): Tariff{
+        return Tariff(
             conferenceId = this.conferenceId,
-            cost = this.cost, id = this.id,
+            cost = this.cost,
+            id = this.id,
             name = this.name,
             ticketsLeft = this.ticketsLeft,
             ticketsTotal = this.ticketsTotal
         )
+    }
 }

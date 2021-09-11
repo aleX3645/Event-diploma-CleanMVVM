@@ -1,19 +1,18 @@
 package com.alex3645.feature_conference_list.domain.model
 
-import com.alex3645.feature_event_list.domain.model.Tariff
-
+import com.alex3645.feature_conference_list.data.model.TariffJson
 
 data class Conference(
     val category: Int,
     val dateEnd: String,
     val dateStart: String,
     val description: String,
-    val event: List<Event>,
+    val events: List<Event>,
     val id: Int,
     val isCancelled: Boolean,
     val location: String,
     val name: String,
     val organizerId: Int,
     val status: Int,
-    val tariff: List<Tariff>
-)
+    val tariffs: List<Tariff>
+    )

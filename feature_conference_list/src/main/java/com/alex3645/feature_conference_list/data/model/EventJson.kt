@@ -24,13 +24,16 @@ data class EventJson(
     @Json(name = "speaker_id")
     val speakerId: Int
 ){
-    fun toDomainModel() =
-        Event(conferenceId = this.conferenceId,
+    internal fun toDomainModel(): Event {
+        return Event(
+            conferenceId = this.conferenceId,
             dateEnd = this.dateEnd,
             dateStart = this.dateStart,
             description = this.description,
             events = this.events,
             id = this.id,
             name = this.name,
-            speakerId = this.speakerId)
+            speakerId = this.speakerId
+        )
+    }
 }

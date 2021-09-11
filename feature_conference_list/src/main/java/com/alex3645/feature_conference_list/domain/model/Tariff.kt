@@ -1,4 +1,4 @@
-package com.alex3645.feature_event_list.domain.model
+package com.alex3645.feature_conference_list.domain.model
 
 import com.squareup.moshi.Json
 

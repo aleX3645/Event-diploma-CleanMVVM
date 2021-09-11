@@ -16,7 +16,7 @@ data class ConferenceJson(
     @Json(name = "description")
     val description: String,
     @Json(name = "events")
-    val eventJson: List<EventJson>,
+    val eventsJson: List<EventJson>,
     @Json(name = "id")
     val id: Int,
     @Json(name = "is_cancelled")
@@ -30,10 +30,22 @@ data class ConferenceJson(
     @Json(name = "status")
     val status: Int,
     @Json(name = "tariffs")
-    val tariffJson: List<TariffJson>
+    val tariffsJson: List<TariffJson>
 ){
-    fun toDomainModel() =
-        Conference(category = this.category, dateEnd = this.dateEnd, dateStart = this.dateStart, description = this.description,
-        event = this.eventJson.map { it.toDomainModel() }, id = this.id, isCancelled = this.isCancelled, location = this.location, name = this.name, organizerId = this.organizerId, status = this.status,
-        tariff = this.tariffJson.map { it.toDomainModel() })
+    internal fun toDomainModel() : Conference{
+        return  Conference(
+            category = this.category,
+            dateEnd = this.dateEnd,
+            dateStart = this.dateStart,
+            description = this.description,
+            events = this.eventsJson.map{it.toDomainModel()},
+            id = this.id,
+            isCancelled = this.isCancelled,
+            location = this.location,
+            name = this.name,
+            organizerId = this.organizerId,
+            status = this.status,
+            tariffs = this.tariffsJson.map { it.toDomainModel() }
+        )
+    }
 }
