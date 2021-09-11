@@ -12,27 +12,30 @@ import javax.inject.Inject
 
 class ConferenceRecyclerViewModel @Inject constructor(val loadNextConferencesUseCase: LoadNextConferencesUseCase):
     BaseViewModel<ConferenceRecyclerViewModel.ViewState, ConferenceRecyclerViewModel.Action>(ViewState()){
-    val conferences: MutableLiveData<List<Conference>> = MutableLiveData()
+    private val conferences: MutableList<Conference> = mutableListOf()
 
     override fun onLoadData() {
         loadNextConferences()
     }
 
     override fun onReduceState(viewAction: Action) = when (viewAction){
-        is Action.ConferenceListLoadingSuccess -> state.copy(
-            isLoading = false,
-            isError = false,
-            conferences = viewAction.conferences
-        )
+        is Action.ConferenceListLoadingSuccess -> {
+            this.conferences.addAll(viewAction.conferences)
+            state.copy(
+                isLoading = false,
+                isError = false,
+                conferences = this.conferences
+            )
+        }
         is Action.ConferenceListLoadingFailure -> state.copy(
             isLoading = false,
-            isError = true,
-            conferences = listOf()
+            isError = false,
+            conferences = this.conferences
         )
         else -> state.copy(
             isLoading = false,
             isError = true,
-            conferences = listOf()
+            conferences = this.conferences
         )
     }
 

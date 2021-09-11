@@ -58,6 +58,8 @@ class ConferenceRecyclerFragment: Fragment() {
 
         //Toast.makeText(context, "error1", Toast.LENGTH_LONG).show()
         observe(viewModel.stateLiveData, stateObserver)
+
+        binding.progressBar.isVisible = true
         viewModel.loadData()
     }
 

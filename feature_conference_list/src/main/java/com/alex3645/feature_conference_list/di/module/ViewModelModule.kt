@@ -7,22 +7,26 @@ import com.alex3645.feature_conference_list.di.util.ViewModelFactory
 import com.alex3645.feature_conference_list.domain.remote.ConferenceRemoteDataSource
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
-import com.squareup.moshi.Moshi
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 class ViewModelModule {
 
     @Provides
-    fun provideRetrofit() : Retrofit = Retrofit.Builder()
+    fun provideRetrofit(gson: Gson) : Retrofit = Retrofit.Builder()
         .baseUrl(MainApiServerAddress.LOCAL_SERVER)
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
+
+    @Provides
+    fun provideGson(): Gson = GsonBuilder().create()
 
     @Provides
     fun provideListApiConfService(retrofit: Retrofit): ApiRetrofitConferenceService {
