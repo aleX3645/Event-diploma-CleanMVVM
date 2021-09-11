@@ -5,19 +5,28 @@ import androidx.lifecycle.viewModelScope
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
+import com.alex3645.feature_conference_list.di.component.DaggerViewModelComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ConferenceRecyclerViewModel @Inject constructor(val loadNextConferencesUseCase: LoadNextConferencesUseCase):
+class ConferenceRecyclerViewModel():
     BaseViewModel<ConferenceRecyclerViewModel.ViewState, ConferenceRecyclerViewModel.Action>(ViewState()){
-    private val conferences: MutableList<Conference> = mutableListOf()
+
+    @Inject
+    lateinit var loadNextConferencesUseCase: LoadNextConferencesUseCase
+
+    init{
+        DaggerViewModelComponent.factory().create().inject(this)
+    }
 
     override fun onLoadData() {
         loadNextConferences()
     }
 
+    private val conferences: MutableList<Conference> = mutableListOf()
     override fun onReduceState(viewAction: Action) = when (viewAction){
         is Action.ConferenceListLoadingSuccess -> {
             this.conferences.addAll(viewAction.conferences)
