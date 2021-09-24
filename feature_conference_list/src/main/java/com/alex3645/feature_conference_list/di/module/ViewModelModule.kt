@@ -6,6 +6,7 @@ import com.alex3645.feature_conference_list.data.network.service.MainApiServerAd
 import com.alex3645.feature_conference_list.di.util.ViewModelFactory
 import com.alex3645.feature_conference_list.domain.remote.ConferenceRemoteDataSource
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
+import com.alex3645.feature_conference_list.usecase.AuthUseCase
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -46,6 +47,11 @@ class ViewModelModule {
     @Provides
     fun provideConferenceUseCase(conferenceRepository: ConferenceRepository): LoadNextConferencesUseCase {
         return LoadNextConferencesUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideAuthUseCase(conferenceRepository: ConferenceRepository): AuthUseCase {
+        return AuthUseCase(conferenceRepository)
     }
 
 

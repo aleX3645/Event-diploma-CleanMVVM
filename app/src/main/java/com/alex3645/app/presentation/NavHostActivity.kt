@@ -2,6 +2,7 @@ package com.alex3645.app.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.alex3645.eventdiploma_mvvm.R
@@ -17,6 +18,7 @@ class NavHostActivity : AppCompatActivity() {
 
         binding = ActivityNavHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initBottomNavigation()
     }
 

@@ -1,7 +1,6 @@
 package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.navGraphViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
@@ -50,26 +49,48 @@ class ConferenceRecyclerFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val context = requireContext()
+        initRecycler()
+        observe(viewModel.stateLiveData, stateObserver)
 
-        conferenceAdapter.setOnDebouncedClickListener {
-            //
-        }
+        binding.swipeContainer.isRefreshing = true
+        viewModel.loadData()
+    }
+
+    private  fun initRecycler(){
+        initActions()
 
         binding.recyclerView.adapter = conferenceAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+    }
 
-        //Toast.makeText(context, "error1", Toast.LENGTH_LONG).show()
-        observe(viewModel.stateLiveData, stateObserver)
+    private fun initActions(){
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.loadDataFromStart()
+        }
 
-        binding.progressBar.isVisible = true
-        viewModel.loadData()
+        conferenceAdapter.setOnDebouncedClickListener {
+            viewModel.navigateToConferenceDetail(findNavController(),it)
+        }
+
+        binding.topNavigationAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.auth -> {
+                    viewModel.navigateToAccountAuth(findNavController())
+                    true
+                }
+                R.id.search -> {
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private val stateObserver = Observer<ConferenceRecyclerViewModel.ViewState> {
         conferenceAdapter.conferences = it.conferences
 
-        binding.progressBar.isVisible = it.isLoading
+        binding.swipeContainer.isRefreshing = it.isLoading
         if(it.isError){
             Toast.makeText(context, "error", Toast.LENGTH_LONG).show()
         }

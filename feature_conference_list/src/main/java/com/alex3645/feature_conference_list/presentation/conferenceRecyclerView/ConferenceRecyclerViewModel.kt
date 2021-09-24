@@ -2,6 +2,7 @@ package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -26,6 +27,13 @@ class ConferenceRecyclerViewModel():
         loadNextConferences()
     }
 
+    fun loadDataFromStart() {
+        conferences.clear()
+        loadNextConferencesUseCase.dropData()
+
+        onLoadData()
+    }
+
     private val conferences: MutableList<Conference> = mutableListOf()
     override fun onReduceState(viewAction: Action) = when (viewAction){
         is Action.ConferenceListLoadingSuccess -> {
@@ -48,7 +56,7 @@ class ConferenceRecyclerViewModel():
         )
     }
 
-    fun loadNextConferences(){
+    private fun loadNextConferences(){
         viewModelScope.launch {
             loadNextConferencesUseCase().also { result ->
                 val action = when (result) {
@@ -65,6 +73,16 @@ class ConferenceRecyclerViewModel():
                 sendAction(action)
             }
         }
+    }
+
+    fun navigateToConferenceDetail(navController: NavController, conference: Conference){
+        val action = ConferenceRecyclerFragmentDirections.actionConferenceListToConferenceDetail(conference)
+        navController.navigate(action)
+    }
+
+    fun navigateToAccountAuth(navController: NavController){
+        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToAuth()
+        navController.navigate(action)
     }
 
 

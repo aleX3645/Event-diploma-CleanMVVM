@@ -6,8 +6,57 @@
     <fragment
         android:id="@+id/recyclerFragment"
         android:name="com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerFragment"
-        android:label="AlbumListFragment"
+        android:label="ConferenceListFragment"
         app:moduleName="feature_conference_list">
+        <action
+            android:id="@+id/actionConferenceListToConferenceDetail"
+            app:destination="@id/conferenceDetailFragment"/>
+        <action
+            android:id="@+id/actionRecyclerToAuth"
+            app:destination="@id/authFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.authView.AuthFragment"
+        android:label="AuthFragment"
+        app:moduleName="feature_conference_list">
+    </fragment>
+
+    <fragment
+        android:id="@+id/conferenceDetailFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.conferenceDetail.ConferenceDetailFragment"
+        android:label="ConferenceDetailFragment"
+        app:moduleName="feature_conference_list">
+        <action
+            android:id="@+id/actionConferenceToEventList"
+            app:destination="@id/eventListFragment"/>
+        <argument
+            android:name="conference"
+            app:argType="com.alex3645.feature_conference_list.domain.model.Conference" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.eventRecyclerView.EventRecyclerFragment"
+        android:label="EventListFragment"
+        app:moduleName="feature_conference_list">
+        <action
+            android:id="@+id/actionEventListToEvent"
+            app:destination="@id/eventFragment"/>
+        <argument
+            android:name="conference"
+            app:argType="com.alex3645.feature_conference_list.domain.model.Conference" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.eventDetailView.EventDetailFragment"
+        android:label="EventFragment"
+        app:moduleName="feature_conference_list">
+        <argument
+            android:name="event"
+            app:argType="com.alex3645.feature_conference_list.domain.model.Event" />
     </fragment>
 
 </navigation>

@@ -5,4 +5,7 @@
     <string name="feed">Афиша</string>
     <string name="tickets">Билеты</string>
     <string name="favorite">Избранное</string>
+
+    <string name="find">Поиск</string>
+    <string name="auth">Аккаунт</string>
 </resources>

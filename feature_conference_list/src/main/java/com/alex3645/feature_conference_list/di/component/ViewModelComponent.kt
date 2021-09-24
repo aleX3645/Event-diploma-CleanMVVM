@@ -1,6 +1,8 @@
 package com.alex3645.feature_conference_list.di.component
 
 import com.alex3645.feature_conference_list.di.module.ViewModelModule
+import com.alex3645.feature_conference_list.presentation.authView.AuthFragment
+import com.alex3645.feature_conference_list.presentation.authView.AuthViewModel
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerFragment
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerViewModel
 import dagger.Component
@@ -13,4 +15,5 @@ interface ViewModelComponent {
     }
 
     fun inject(conferenceRecyclerViewModel: ConferenceRecyclerViewModel)
+    fun inject(authFragment: AuthViewModel)
 }

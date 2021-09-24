@@ -14,7 +14,7 @@ data class ConferenceJson(
     @SerializedName("description")
     val description: String,
     @SerializedName("events")
-    val eventsJson: List<EventJson>,
+    val eventsJson: ArrayList<EventJson>,
     @SerializedName("id")
     val id: Int,
     @SerializedName("is_cancelled")
@@ -28,7 +28,7 @@ data class ConferenceJson(
     @SerializedName("status")
     val status: Int,
     @SerializedName("tariffs")
-    val tariffsJson: List<TariffJson>
+    val tariffsJson: ArrayList<TariffJson>
 ){
     internal fun toDomainModel() : Conference{
         return  Conference(

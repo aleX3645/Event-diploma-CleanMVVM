@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:viewBindingIgnore="false">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topNavigationAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/nav_bottom_menu"
-        app:subtitleTextColor="@color/white"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary">
-    </com.google.android.material.appbar.MaterialToolbar>
-
     <fragment
         android:id="@+id/navHostFragment"
         android:name="androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment"
@@ -25,7 +14,7 @@
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topNavigationAppBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"

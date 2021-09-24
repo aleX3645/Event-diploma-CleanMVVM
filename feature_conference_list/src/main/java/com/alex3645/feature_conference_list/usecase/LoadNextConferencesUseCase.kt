@@ -15,8 +15,6 @@ class LoadNextConferencesUseCase @Inject constructor(private val conferenceRepos
     private var pageNumber = 0;
     private val pageSize = 5;
     suspend operator fun invoke() : Result{
-
-
         try{
             var confList: List<Conference> = conferenceRepository.getConferences(pageSize = pageSize, pageNumber = pageNumber)
 
@@ -30,5 +28,7 @@ class LoadNextConferencesUseCase @Inject constructor(private val conferenceRepos
         }
     }
 
-
+    fun dropData(){
+        pageNumber = 0;
+    }
 }
