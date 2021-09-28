@@ -41,8 +41,12 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener{
         //searchView.
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
 
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("Not yet implemented")
     }
 
 
