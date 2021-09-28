@@ -1,8 +1,8 @@
 package com.alex3645.feature_conference_list.usecase
 
 import android.provider.Settings
+import com.alex3645.feature_conference_list.data.model.AccResponse
 import com.alex3645.feature_conference_list.data.model.AuthRequest
-import com.alex3645.feature_conference_list.data.model.AuthResponse
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
 import java.lang.Exception
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AuthUseCase @Inject constructor(private val conferenceRepository: ConferenceRepository){
 
     interface Result {
-        data class Success(val authResponse: AuthResponse) : Result
+        data class Success(val authResponse: AccResponse) : Result
         data class Error(val e: Throwable) : Result
     }
 

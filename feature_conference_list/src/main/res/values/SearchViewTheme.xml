@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView.ActionBar">
+        <item name="layout">@layout/support_search_view</item>
+        <item name="commitIcon">@drawable/ic_search</item>
+        <item name="colorControlNormal">@color/teal_700</item>
+        <item name="colorControlHighlight">@color/teal_200</item>
+        <item name="android:maxWidth">9999dp</item>
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="hintTextColor">@color/teal_700</item>
+        <item name="android:textColorHint">@color/teal_700</item>
+        <item name="iconifiedByDefault">true</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="searchViewStyle">@style/SearchViewTheme</item>
+    </style>
+
+</resources>

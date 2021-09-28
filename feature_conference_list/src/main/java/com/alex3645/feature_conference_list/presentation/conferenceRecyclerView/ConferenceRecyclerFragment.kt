@@ -1,9 +1,7 @@
 package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -42,8 +40,28 @@ class ConferenceRecyclerFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = FragmentRecyclerListBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.conference_upper_appbar_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.auth -> {
+                viewModel.navigateToAccountAuth(findNavController())
+                true
+            }
+            R.id.search -> {
+                viewModel.navigateToSearch(findNavController())
+                true
+            }
+            else -> false
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,20 +88,6 @@ class ConferenceRecyclerFragment: Fragment() {
 
         conferenceAdapter.setOnDebouncedClickListener {
             viewModel.navigateToConferenceDetail(findNavController(),it)
-        }
-
-        binding.topNavigationAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.auth -> {
-                    viewModel.navigateToAccountAuth(findNavController())
-                    true
-                }
-                R.id.search -> {
-
-                    true
-                }
-                else -> false
-            }
         }
     }
 

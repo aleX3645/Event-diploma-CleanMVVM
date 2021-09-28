@@ -85,6 +85,10 @@ class ConferenceRecyclerViewModel():
         navController.navigate(action)
     }
 
+    fun navigateToSearch(navController: NavController){
+        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToSearch()
+        navController.navigate(action)
+    }
 
     data class ViewState(
         val isLoading: Boolean = true,

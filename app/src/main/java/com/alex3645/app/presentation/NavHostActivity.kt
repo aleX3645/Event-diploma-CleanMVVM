@@ -19,7 +19,12 @@ class NavHostActivity : AppCompatActivity() {
         binding = ActivityNavHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initUpperNavigation()
         initBottomNavigation()
+    }
+
+    private fun initUpperNavigation() {
+        setSupportActionBar(binding.topNavigationAppBar)
     }
 
     private fun initBottomNavigation() {

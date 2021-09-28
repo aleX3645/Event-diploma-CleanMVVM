@@ -2,10 +2,12 @@ package com.alex3645.feature_conference_list.domain.remote
 
 import android.util.Log
 import com.alex3645.base.data.BaseDataSource
+import com.alex3645.feature_conference_list.data.model.AccResponse
 import com.alex3645.feature_conference_list.data.model.AuthRequest
-import com.alex3645.feature_conference_list.data.model.AuthResponse
+import com.alex3645.feature_conference_list.data.model.UserRegJson
 import com.alex3645.feature_conference_list.data.network.service.ApiRetrofitConferenceService
 import com.alex3645.feature_conference_list.domain.model.Conference
+import com.alex3645.feature_conference_list.domain.model.User
 import retrofit2.http.Body
 import javax.inject.Inject
 
@@ -16,7 +18,11 @@ class ConferenceRemoteDataSource @Inject constructor(
         return conferenceService.getAllConferences(pageSize,pageNumber).map { it.toDomainModel() }
     }
 
-    suspend fun auth(authRequest: AuthRequest) : AuthResponse{
+    suspend fun auth(authRequest: AuthRequest) : AccResponse {
         return conferenceService.auth(authRequest)
+    }
+
+    suspend fun register(userReg: UserRegJson) : AccResponse{
+        return conferenceService.regAsUser(userReg)
     }
 }

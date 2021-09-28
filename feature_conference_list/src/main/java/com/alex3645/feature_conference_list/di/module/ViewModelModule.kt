@@ -8,6 +8,7 @@ import com.alex3645.feature_conference_list.domain.remote.ConferenceRemoteDataSo
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
 import com.alex3645.feature_conference_list.usecase.AuthUseCase
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
+import com.alex3645.feature_conference_list.usecase.RegistrationUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Binds
@@ -52,6 +53,11 @@ class ViewModelModule {
     @Provides
     fun provideAuthUseCase(conferenceRepository: ConferenceRepository): AuthUseCase {
         return AuthUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideRegUseCase(conferenceRepository: ConferenceRepository): RegistrationUseCase {
+        return RegistrationUseCase(conferenceRepository)
     }
 
 

@@ -2,13 +2,14 @@ package com.alex3645.feature_conference_list.presentation.authView
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.base.delegate.observer
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
-import com.alex3645.feature_conference_list.data.model.AuthResponse
 import com.alex3645.feature_conference_list.di.component.DaggerViewModelComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
+import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerFragmentDirections
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerViewModel
 import com.alex3645.feature_conference_list.usecase.AuthUseCase
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
@@ -79,6 +80,11 @@ class AuthViewModel : BaseViewModel<AuthViewModel.ViewState, AuthViewModel.Actio
                 errorMessage = "Произошла непредвиденная ошибка"
             )
         }
+    }
+
+    fun navigateToReg(navController: NavController){
+        val action = AuthFragmentDirections.actionAuthToReg()
+        navController.navigate(action)
     }
 
 
