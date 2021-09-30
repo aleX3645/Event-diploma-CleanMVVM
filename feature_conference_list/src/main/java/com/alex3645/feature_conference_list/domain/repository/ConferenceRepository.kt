@@ -12,11 +12,20 @@ class ConferenceRepository @Inject constructor(
     private val remoteDataSource: ConferenceRemoteDataSource
 ) {
     suspend fun getConferences(pageSize: Int, pageNumber: Int) =
-        remoteDataSource.getConferences(pageSize,pageNumber)
+            remoteDataSource.getConferences(pageSize,pageNumber)
 
     suspend fun auth(authRequest: AuthRequest) =
-        remoteDataSource.auth(authRequest)
+            remoteDataSource.auth(authRequest)
 
     suspend fun register(regUser: UserRegJson) =
-        remoteDataSource.register(regUser)
+            remoteDataSource.register(regUser)
+
+    suspend fun searchConferences(text: String) =
+            remoteDataSource.searchConferences(text)
+
+    suspend fun searchEvents(text: String) =
+        remoteDataSource.searchEvents(text)
+
+    suspend fun searchUsers(text: String) =
+        remoteDataSource.searchUsers(text)
 }

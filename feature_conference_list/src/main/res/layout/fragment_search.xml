@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        style = "@style/Widget.MaterialComponents.TabLayout.Colored"
         app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem

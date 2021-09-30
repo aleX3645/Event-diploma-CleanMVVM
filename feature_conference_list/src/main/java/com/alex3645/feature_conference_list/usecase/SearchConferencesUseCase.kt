@@ -1,32 +1,25 @@
 package com.alex3645.feature_conference_list.usecase
 
-import android.provider.Settings
-import com.alex3645.feature_conference_list.data.model.AccResponse
-import com.alex3645.feature_conference_list.data.model.AuthRequest
+import android.util.Log
 import com.alex3645.feature_conference_list.domain.model.Conference
-import com.alex3645.feature_conference_list.domain.model.Event
-import com.alex3645.feature_conference_list.domain.model.User
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
-import java.lang.Exception
-import java.net.PasswordAuthentication
 import javax.inject.Inject
 
 class SearchConferencesUseCase @Inject constructor(private val conferenceRepository: ConferenceRepository){
-    interface ResultConferences {
-        data class SuccessConferences(val confList: List<Conference>) : ResultConferences
-        data class Error(val e: Throwable) : ResultConferences
+    interface Result {
+        data class Success(val confList: List<Conference>) : Result
+        data class Error(val e: Throwable) : Result
     }
 
 
-    suspend fun findConferences(conferenceName: String) : ResultConferences{
-       /* return try{
-            val authResponse = conferenceRepository.auth(AuthRequest(Settings.Secure.ANDROID_ID,authentication.userName,authentication.password.toString()))
-
-            return Result.Success(authResponse)
+    suspend operator fun invoke(conferenceName: String) : Result{
+       return try{
+            val conferenceList = conferenceRepository.searchConferences(conferenceName)
+            return Result.Success(conferenceList)
 
         }catch (e: Exception){
             Result.Error(e)
-        }*/
-        return ResultConferences.Error(Throwable())
+        }
+        return Result.Error(Throwable())
     }
 }

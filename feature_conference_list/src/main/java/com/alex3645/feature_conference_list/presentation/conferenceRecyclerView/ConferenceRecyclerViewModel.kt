@@ -9,6 +9,8 @@ import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
 import com.alex3645.feature_conference_list.di.component.DaggerViewModelComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
+import com.alex3645.feature_conference_list.domain.model.Event
+import com.alex3645.feature_conference_list.domain.model.User
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject

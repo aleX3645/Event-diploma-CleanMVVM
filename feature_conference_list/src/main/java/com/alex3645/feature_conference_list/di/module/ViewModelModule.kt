@@ -6,9 +6,7 @@ import com.alex3645.feature_conference_list.data.network.service.MainApiServerAd
 import com.alex3645.feature_conference_list.di.util.ViewModelFactory
 import com.alex3645.feature_conference_list.domain.remote.ConferenceRemoteDataSource
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
-import com.alex3645.feature_conference_list.usecase.AuthUseCase
-import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
-import com.alex3645.feature_conference_list.usecase.RegistrationUseCase
+import com.alex3645.feature_conference_list.usecase.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Binds
@@ -58,6 +56,21 @@ class ViewModelModule {
     @Provides
     fun provideRegUseCase(conferenceRepository: ConferenceRepository): RegistrationUseCase {
         return RegistrationUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideSearchConferencesUseCase(conferenceRepository: ConferenceRepository): SearchConferencesUseCase {
+        return SearchConferencesUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideSearchEventsUseCase(conferenceRepository: ConferenceRepository): SearchEventsUseCase {
+        return SearchEventsUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideSearchUsersUseCase(conferenceRepository: ConferenceRepository): SearchUsersUseCase {
+        return SearchUsersUseCase(conferenceRepository)
     }
 
 
