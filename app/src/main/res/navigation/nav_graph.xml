@@ -7,4 +7,8 @@
         android:id="@+id/ConferenceListFeatureGraph"
         app:moduleName="feature_conference_list"
         app:graphResName="conference_list_graph"/>
+    <include-dynamic
+        android:id="@+id/AccountFeatureGraph"
+        app:moduleName="feature_account"
+        app:graphResName="account_graph"/>
 </navigation>

@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
-import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.ConferenceRecyclerViewModel
 import com.alex3645.feature_event_list.databinding.FragmentConferenceDetailBinding
