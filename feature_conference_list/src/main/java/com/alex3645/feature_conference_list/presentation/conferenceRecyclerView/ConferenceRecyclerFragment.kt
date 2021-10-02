@@ -3,14 +3,13 @@ package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
-import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
+import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView.ConferenceAdapter
 import com.alex3645.feature_event_list.R
 import com.alex3645.feature_event_list.databinding.FragmentRecyclerListBinding
@@ -32,7 +31,7 @@ class ConferenceRecyclerFragment: Fragment() {
     }
 
     private fun injectDependency() {
-        DaggerFragmentComponent.factory().create().inject(this)
+        DaggerConferenceListFragmentComponent.factory().create().inject(this)
     }
 
     override fun onCreateView(

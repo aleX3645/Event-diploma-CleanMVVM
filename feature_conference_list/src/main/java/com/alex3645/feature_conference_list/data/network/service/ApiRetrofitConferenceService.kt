@@ -7,15 +7,6 @@ interface ApiRetrofitConferenceService {
     @GET("api/usr/getAllConferences/")
     suspend fun getAllConferences(@Query("pageSize") pageSize: Int, @Query("pageNumber") pageNumber: Int): List<ConferenceJson>
 
-    @POST("api/login/user/")
-    suspend fun auth(@Body authRequest: AuthRequest) : AccResponse
-
-    @POST("api/login/organizer/")
-    suspend fun authAsOrganizer(@Body authRequest: AuthRequest) : AccResponse
-
-    @POST("api/reg/user/")
-    suspend fun regAsUser(@Body user: UserRegJson) : AccResponse
-
     @GET("api/usr/searchConferences/{val}")
     suspend fun searchConferences(@Path("val") conferenceName: String) : List<ConferenceJson>
 

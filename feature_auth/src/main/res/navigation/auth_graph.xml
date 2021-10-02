@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/authFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.authView.AuthFragment"
+        android:label="AuthFragment"
+        app:moduleName="feature_conference_list">
+        <action
+            android:id="@+id/actionAuthToReg"
+            app:destination="@id/registrationFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.registrationView.RegistrationFragment"
+        android:label="RegFragment"
+        app:moduleName="feature_conference_list">
+    </fragment>
+
+
+</navigation>

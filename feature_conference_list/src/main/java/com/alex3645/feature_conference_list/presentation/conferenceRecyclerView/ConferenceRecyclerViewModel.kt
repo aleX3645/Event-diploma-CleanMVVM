@@ -1,16 +1,12 @@
 package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
-import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
-import com.alex3645.feature_conference_list.di.component.DaggerViewModelComponent
+import com.alex3645.feature_conference_list.di.component.DaggerConferenceViewModelComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
-import com.alex3645.feature_conference_list.domain.model.Event
-import com.alex3645.feature_conference_list.domain.model.User
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +18,7 @@ class ConferenceRecyclerViewModel():
     lateinit var loadNextConferencesUseCase: LoadNextConferencesUseCase
 
     init{
-        DaggerViewModelComponent.factory().create().inject(this)
+        DaggerConferenceViewModelComponent.factory().create().inject(this)
     }
 
     override fun onLoadData() {

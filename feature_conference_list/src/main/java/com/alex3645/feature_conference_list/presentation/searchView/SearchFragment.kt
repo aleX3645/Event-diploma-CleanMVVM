@@ -3,7 +3,6 @@ package com.alex3645.feature_conference_list.presentation.searchView
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
-import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
+import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
 import com.alex3645.feature_conference_list.presentation.searchView.recycler.SearchConferenceAdapter
 import com.alex3645.feature_conference_list.presentation.searchView.recycler.SearchEventAdapter
 import com.alex3645.feature_conference_list.presentation.searchView.recycler.SearchUserAdapter
@@ -39,7 +38,7 @@ class SearchFragment : Fragment(){
     }
 
     private fun injectDependency() {
-        DaggerFragmentComponent.factory().create().inject(this)
+        DaggerConferenceListFragmentComponent.factory().create().inject(this)
     }
 
     override fun onCreateView(

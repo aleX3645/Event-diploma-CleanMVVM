@@ -6,17 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alex3645.base.extension.observe
-import com.alex3645.feature_conference_list.di.component.DaggerFragmentComponent
-import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView.ConferenceAdapter
+import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
 import com.alex3645.feature_conference_list.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 import com.alex3645.feature_event_list.databinding.EventRecyclerListBinding
-import com.alex3645.feature_event_list.databinding.FragmentConferenceDetailBinding
-import com.alex3645.feature_event_list.databinding.FragmentRecyclerListBinding
 import javax.inject.Inject
 
 class EventRecyclerFragment : Fragment() {
@@ -36,7 +31,7 @@ class EventRecyclerFragment : Fragment() {
     }
 
     private fun injectDependency() {
-        DaggerFragmentComponent.factory().create().inject(this)
+        DaggerConferenceListFragmentComponent.factory().create().inject(this)
     }
 
     override fun onCreateView(

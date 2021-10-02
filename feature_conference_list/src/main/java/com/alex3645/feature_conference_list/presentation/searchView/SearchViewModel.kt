@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
-import com.alex3645.feature_conference_list.di.component.DaggerViewModelComponent
+import com.alex3645.feature_conference_list.di.component.DaggerConferenceViewModelComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.domain.model.Event
 import com.alex3645.feature_conference_list.domain.model.User
@@ -19,7 +19,7 @@ class SearchViewModel :
     BaseViewModel<SearchViewModel.ViewState, SearchViewModel.Action>(ViewState()){
 
     init{
-        DaggerViewModelComponent.factory().create().inject(this)
+        DaggerConferenceViewModelComponent.factory().create().inject(this)
     }
 
     @Inject
