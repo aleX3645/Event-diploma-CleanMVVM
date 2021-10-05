@@ -7,18 +7,29 @@
         android:id="@+id/authFragment"
         android:name="com.alex3645.feature_conference_list.presentation.authView.AuthFragment"
         android:label="AuthFragment"
-        app:moduleName="feature_conference_list">
+        app:moduleName="feature_auth">
         <action
             android:id="@+id/actionAuthToReg"
             app:destination="@id/registrationFragment"/>
+        <action
+            android:id="@+id/actionAuthToAccount"
+            app:destination="@id/accountFeatureGraph"/>
     </fragment>
 
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.alex3645.feature_conference_list.presentation.registrationView.RegistrationFragment"
         android:label="RegFragment"
-        app:moduleName="feature_conference_list">
+        app:moduleName="feature_auth">
+        <action
+            android:id="@+id/actionRegToAccount"
+            app:destination="@id/accountFeatureGraph"/>
     </fragment>
+
+    <include-dynamic
+        android:id="@+id/accountFeatureGraph"
+        app:moduleName="feature_account"
+        app:graphResName="account_graph"/>
 
 
 </navigation>

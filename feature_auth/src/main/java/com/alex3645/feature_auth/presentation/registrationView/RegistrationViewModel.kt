@@ -1,20 +1,25 @@
 package com.alex3645.feature_conference_list.presentation.registrationView
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
+import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_auth.data.model.UserRegJson
+import com.alex3645.feature_auth.di.module.AuthViewModelModule
 import com.alex3645.feature_auth.usecase.RegistrationUseCase
 import com.alex3645.feature_conference_list.di.component.DaggerAuthViewModelComponent
+import com.alex3645.feature_conference_list.presentation.authView.AuthFragmentDirections
 
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RegistrationViewModel: BaseViewModel<RegistrationViewModel.ViewState, RegistrationViewModel.Action>(ViewState()) {
+class RegistrationViewModel(application: Application): BaseAndroidViewModel<RegistrationViewModel.ViewState, RegistrationViewModel.Action>(ViewState(), application) {
 
     init{
-        DaggerAuthViewModelComponent.factory().create().inject(this)
+        DaggerAuthViewModelComponent.factory().create(AuthViewModelModule(application.applicationContext)).inject(this)
     }
 
     @Inject
@@ -72,5 +77,10 @@ class RegistrationViewModel: BaseViewModel<RegistrationViewModel.ViewState, Regi
                 errorMessage = "Произошла непредвиденная ошибка"
             )
         }
+    }
+
+    fun navigateToAccount(navController: NavController){
+        val action = AuthFragmentDirections.actionAuthToAccount()
+        navController.navigate(action)
     }
 }

@@ -1,20 +1,26 @@
-package com.alex3645.feature_conference_list.presentation.authView
+package com.alex3645.feature_auth.presentation.authView
 
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
+import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_auth.di.module.AuthViewModelModule
 import com.alex3645.feature_auth.usecase.AuthUseCase
 import com.alex3645.feature_conference_list.di.component.DaggerAuthViewModelComponent
+import com.alex3645.feature_conference_list.presentation.authView.AuthFragment
+import com.alex3645.feature_conference_list.presentation.authView.AuthFragmentDirections
 import kotlinx.coroutines.launch
 import java.net.PasswordAuthentication
 import javax.inject.Inject
 
-class AuthViewModel : BaseViewModel<AuthViewModel.ViewState, AuthViewModel.Action>(ViewState()) {
+class AuthViewModel(application: Application) : BaseAndroidViewModel<AuthViewModel.ViewState, AuthViewModel.Action>(ViewState(), application) {
 
     init{
-        DaggerAuthViewModelComponent.factory().create().inject(this)
+        DaggerAuthViewModelComponent.factory().create(AuthViewModelModule(application.applicationContext)).inject(this)
     }
 
     @Inject
@@ -80,6 +86,10 @@ class AuthViewModel : BaseViewModel<AuthViewModel.ViewState, AuthViewModel.Actio
         navController.navigate(action)
     }
 
+    fun navigateToAccount(navController: NavController){
+        val action = AuthFragmentDirections.actionAuthToAccount()
+        navController.navigate(action)
+    }
 
 
 }

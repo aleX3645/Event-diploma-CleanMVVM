@@ -1,6 +1,9 @@
-package com.alex3645.feature_conference_list.di.module
+package com.alex3645.feature_auth.di.module
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.alex3645.app.data.api.AppConstants
 import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_auth.data.network.service.ApiRetrofitAuthService
 import com.alex3645.feature_auth.data.repositoryImpl.AuthRepositoryImpl
@@ -9,21 +12,49 @@ import com.alex3645.feature_auth.usecase.AuthUseCase
 import com.alex3645.feature_auth.usecase.RegistrationUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.alex3645.feature_auth.data.database.AccountDatabase
+import com.alex3645.app.di.module.ApplicationModule
+import com.alex3645.feature_auth.data.database.AccountAuthDao
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import javax.inject.Singleton
 
+
 @Module
-class AuthViewModelModule {
+class AuthViewModelModule(val context: Context) {
+
+    @Provides
+    fun provideContext(): Context {
+        return context
+    }
+
+    @Provides
+    fun provideRoomBuilder(context: Context) = Room.databaseBuilder(
+        context.applicationContext,
+        AccountDatabase::class.java, AppConstants.ACCOUNT_DB_NAME
+    )
+
+    @Provides
+    fun provideRoomDB(builder: RoomDatabase.Builder<AccountDatabase>) : AccountDatabase{
+        val factory = SupportFactory(SQLiteDatabase.getBytes(AppConstants.DB_CODE_PHRASE.toCharArray()))
+        builder.openHelperFactory(factory)
+        return builder.build()
+    }
+
+    @Provides
+    fun provideAccountsDao(roomDatabase: AccountDatabase) : AccountAuthDao =
+        roomDatabase.accounts()
 
     @Provides
     fun provideRetrofit(gson: Gson) : Retrofit = Retrofit.Builder()
         .baseUrl(ServerConstants.LOCAL_SERVER)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
+
 
     @Provides
     fun provideGson(): Gson = GsonBuilder().create()
@@ -34,17 +65,17 @@ class AuthViewModelModule {
     }
 
     @Provides
-    fun provideRepository(retrofitService: ApiRetrofitAuthService): AuthRepository {
-        return AuthRepositoryImpl(retrofitService)
+    fun provideRepository(retrofitService: ApiRetrofitAuthService, accountDao: AccountAuthDao): AuthRepository {
+        return AuthRepositoryImpl(retrofitService,accountDao)
     }
 
     @Provides
-    fun provideAuthUseCase(conferenceRepository: AuthRepository): AuthUseCase {
-        return AuthUseCase(conferenceRepository)
+    fun provideAuthUseCase(conferenceRepository: AuthRepository, context: Context): AuthUseCase {
+        return AuthUseCase(conferenceRepository, context)
     }
 
     @Provides
-    fun provideRegUseCase(conferenceRepository: AuthRepository): RegistrationUseCase {
-        return RegistrationUseCase(conferenceRepository)
+    fun provideRegUseCase(conferenceRepository: AuthRepository, context: Context): RegistrationUseCase {
+        return RegistrationUseCase(conferenceRepository,context)
     }
 }

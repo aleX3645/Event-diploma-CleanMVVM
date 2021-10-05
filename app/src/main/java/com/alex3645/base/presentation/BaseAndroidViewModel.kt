@@ -1,6 +1,6 @@
 package com.alex3645.base.presentation
 
-import android.util.Log
+import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,8 +8,8 @@ import com.alex3645.base.extension.asLiveData
 import com.alex3645.eventdiploma_mvvm.BuildConfig
 import kotlin.properties.Delegates
 
-abstract class BaseViewModel<ViewState : BaseViewState, ViewAction : BaseAction>(initialState: ViewState) :
-    ViewModel() {
+abstract class BaseAndroidViewModel<ViewState : BaseViewState, ViewAction : BaseAction>(initialState: ViewState, application: Application) :
+    AndroidViewModel(application) {
 
     private val stateMutableLiveData = MutableLiveData<ViewState>()
     val stateLiveData = stateMutableLiveData.asLiveData()

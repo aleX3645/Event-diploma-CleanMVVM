@@ -1,15 +1,18 @@
 package com.alex3645.feature_conference_list.di.component
 
-import com.alex3645.feature_conference_list.di.module.AuthViewModelModule
-import com.alex3645.feature_conference_list.presentation.authView.AuthViewModel
+import android.app.Activity
+import android.content.Context
+import com.alex3645.feature_auth.di.module.AuthViewModelModule
+import com.alex3645.feature_auth.presentation.authView.AuthViewModel
 import com.alex3645.feature_conference_list.presentation.registrationView.RegistrationViewModel
+import dagger.BindsInstance
 import dagger.Component
 
 @Component(modules = [AuthViewModelModule::class])
 interface AuthViewModelComponent {
     @Component.Factory
     interface Factory {
-        fun create(): AuthViewModelComponent
+        fun create(authViewModelModule: AuthViewModelModule): AuthViewModelComponent
     }
 
     fun inject(authViewModel: AuthViewModel)
