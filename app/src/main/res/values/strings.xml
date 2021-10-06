@@ -9,4 +9,5 @@
     <string name="find">Поиск</string>
     <string name="auth">Аккаунт</string>
     <string name="title_feature_auth">feature_auth</string>
+    <string name="title_feature_conference_builder">Conference builder</string>
 </resources>
