@@ -19,6 +19,8 @@ class NavHostActivity : AppCompatActivity() {
         binding = ActivityNavHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        navController.setGraph(R.navigation.nav_graph)
+
         initUpperNavigation()
         initBottomNavigation()
     }

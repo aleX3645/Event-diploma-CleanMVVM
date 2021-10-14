@@ -2,6 +2,7 @@ plugins {
     id 'com.android.dynamic-feature'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 android {
     compileSdk 30
@@ -21,6 +22,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding true
     }
 }
 
@@ -76,11 +82,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.38.1"
 
     //room
-    def room_version = "2.3.0" // check latest version from docs
-
+    def room_version = "2.3.0"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
     //sql cypher
     implementation "net.zetetic:android-database-sqlcipher:4.4.3"
     implementation "androidx.sqlite:sqlite-ktx:2.1.0"

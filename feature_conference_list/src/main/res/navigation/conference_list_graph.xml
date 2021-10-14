@@ -17,6 +17,9 @@
         <action
             android:id="@+id/actionRecyclerToAuth"
             app:destination="@id/authFeatureGraph"/>
+        <action
+            android:id="@+id/actionRecyclerToConferenceBuilderFeature"
+            app:destination="@id/conferenceBuilderFeatureGraph"/>
     </fragment>
 
     <fragment
@@ -43,6 +46,11 @@
         android:id="@+id/authFeatureGraph"
         app:moduleName="feature_auth"
         app:graphResName="auth_graph"/>
+
+    <include-dynamic
+        android:id="@+id/conferenceBuilderFeatureGraph"
+        app:moduleName="feature_conference_builder"
+        app:graphResName="conference_builder_graph"/>
 
     <fragment
         android:id="@+id/eventListFragment"

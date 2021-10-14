@@ -88,6 +88,11 @@ class ConferenceRecyclerViewModel():
         navController.navigate(action)
     }
 
+    fun navigateToConferenceBuilder(navController: NavController){
+        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToConferenceBuilderFeature()
+        navController.navigate(action)
+    }
+
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,

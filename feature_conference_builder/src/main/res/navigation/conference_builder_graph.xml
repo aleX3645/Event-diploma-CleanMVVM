@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/conferenceBuilderFragment">
+
+    <fragment
+        android:id="@+id/conferenceBuilderFragment"
+        android:name="com.alex3645.feature_conference_builder.presentation.conferenceEditorView.ConferenceEditorFragment"
+        android:label="conferenceBuilderFragment"
+        app:moduleName="feature_conference_builder">
+        <action
+            android:id="@+id/actionConferenceBuilderToEventEditorFragment"
+            app:destination="@id/eventBuilderListFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventBuilderListFragment"
+        android:name="com.alex3645.feature_conference_builder.presentation.conferenceEditorListView.EventEditorListFragment"
+        android:label="eventBuilderListFragment"
+        app:moduleName="feature_conference_builder">
+        <action
+            android:id="@+id/actionEventBuilderListToEventBuilderFragment"
+            app:destination="@id/eventBuilderFragment"/>
+
+        <argument
+            android:name="conference"
+            app:nullable="true"
+            app:argType="com.alex3645.feature_conference_builder.domain.model.Conference" />
+        <argument
+            android:name="event"
+            app:nullable="true"
+            app:argType="com.alex3645.feature_conference_builder.domain.model.Event"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventBuilderFragment"
+        android:name="com.alex3645.feature_conference_builder.presentation.eventEditorView.EventEditorFragment"
+        android:label="eventBuilderFragment"
+        app:moduleName="feature_conference_builder">
+        <action
+            android:id="@+id/actionEventBuilderToEventBuilderListFragment"
+            app:destination="@id/eventBuilderListFragment"/>
+
+        <argument
+            android:name="event"
+            app:nullable="true"
+            app:argType="com.alex3645.feature_conference_builder.domain.model.Event"/>
+        <argument
+            android:name="conference"
+            app:nullable="true"
+            app:argType="com.alex3645.feature_conference_builder.domain.model.Conference"/>
+    </fragment>
+
+</navigation>

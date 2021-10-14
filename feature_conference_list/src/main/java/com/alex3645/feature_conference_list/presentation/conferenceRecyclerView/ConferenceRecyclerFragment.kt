@@ -85,6 +85,10 @@ class ConferenceRecyclerFragment: Fragment() {
             viewModel.loadDataFromStart()
         }
 
+        binding.floatingActionButton.setOnClickListener {
+            viewModel.navigateToConferenceBuilder(findNavController())
+        }
+
         conferenceAdapter.setOnDebouncedClickListener {
             viewModel.navigateToConferenceDetail(findNavController(),it)
         }
