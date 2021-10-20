@@ -10,7 +10,11 @@
         app:moduleName="feature_conference_list">
         <action
             android:id="@+id/actionConferenceListToConferenceDetail"
-            app:destination="@id/conferenceDetailGraph"/>
+            app:destination="@id/conferenceDetailGraph">
+            <argument
+                android:name="conference_id"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/actionRecyclerToSearch"
             app:destination="@id/searchFragment"/>
