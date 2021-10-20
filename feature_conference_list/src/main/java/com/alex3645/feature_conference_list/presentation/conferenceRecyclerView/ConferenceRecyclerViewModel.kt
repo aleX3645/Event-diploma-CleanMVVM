@@ -76,7 +76,8 @@ class ConferenceRecyclerViewModel():
     }
 
     fun navigateToConferenceDetail(navController: NavController, conference: Conference){
-        val action = ConferenceRecyclerFragmentDirections.actionConferenceListToConferenceDetail(conference)
+
+        val action = ConferenceRecyclerFragmentDirections.actionConferenceListToConferenceDetail(conference.id)
         navController.navigate(action)
     }
 

@@ -1,15 +1,17 @@
-package com.alex3645.feature_conference_detail.presentation.conferenceDetail
+package com.alex3645.feature_conference_detail.presentation.conferenceDetailView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.alex3645.feature_conference_list.domain.model.Conference
-import com.alex3645.feature_event_list.databinding.FragmentConferenceDetailBinding
+import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailBinding
+import com.alex3645.feature_conference_detail.domain.model.Conference
 
 class ConferenceDetailFragment: Fragment() {
 
@@ -37,7 +39,9 @@ class ConferenceDetailFragment: Fragment() {
 
     lateinit var conference: Conference
     private fun initView(){
-        conference = args.conference
+        //conference = null
+        Log.d("test", args.conferenceId.toString())
+        return
         binding.conferenceTitle.text = conference.name
         binding.conferenceStartDate.text = conference.dateStart
         binding.conferenceEndDate.text = conference.dateEnd

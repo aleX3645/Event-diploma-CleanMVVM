@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
-import com.alex3645.feature_conference_list.domain.model.Event
-import com.alex3645.feature_event_list.databinding.EventRecyclerItemBinding
+import com.alex3645.feature_conference_detail.databinding.EventRecyclerItemBinding
+import com.alex3645.feature_conference_detail.domain.model.Event
 
 class EventRecyclerAdapter : RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder>() {
 

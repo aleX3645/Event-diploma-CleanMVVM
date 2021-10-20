@@ -45,12 +45,17 @@
     <include-dynamic
         android:id="@+id/conferenceDetailGraph"
         app:moduleName="feature_conference_detail"
-        app:graphResName="conference_detail_graph"/>
+        app:graphResName="conference_detail_graph">
+        <argument
+            android:name="conference_id"
+            app:argType="integer" />
+    </include-dynamic>
 
     <include-dynamic
         android:id="@+id/authFeatureGraph"
         app:moduleName="feature_auth"
-        app:graphResName="auth_graph"/>
+        app:graphResName="auth_graph"
+        />
 
     <include-dynamic
         android:id="@+id/conferenceBuilderFeatureGraph"

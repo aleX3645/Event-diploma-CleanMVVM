@@ -6,15 +6,15 @@
 
     <fragment
         android:id="@+id/conferenceDetailFragment"
-        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetail.ConferenceDetailFragment"
+        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailView.ConferenceDetailFragment"
         android:label="ConferenceDetailFragment"
         app:moduleName="feature_conference_list">
         <action
             android:id="@+id/actionConferenceToEventList"
             app:destination="@id/eventListFragment"/>
         <argument
-            android:name="conference"
-            app:argType="com.alex3645.feature_conference_list.domain.model.Conference" />
+            android:name="conference_id"
+            app:argType="integer"/>
     </fragment>
 
     <fragment
@@ -26,8 +26,8 @@
             android:id="@+id/actionEventListToEvent"
             app:destination="@id/eventFragment"/>
         <argument
-            android:name="conference"
-            app:argType="com.alex3645.feature_conference_list.domain.model.Conference" />
+            android:name="conference_id"
+            app:argType="integer"/>
     </fragment>
 
     <fragment
@@ -36,8 +36,8 @@
         android:label="EventFragment"
         app:moduleName="feature_conference_list">
         <argument
-            android:name="event"
-            app:argType="com.alex3645.feature_conference_list.domain.model.Event" />
+            android:name="event_id"
+            app:argType="integer"/>
     </fragment>
 
 </navigation>

@@ -1,7 +1,7 @@
-package com.alex3645.feature_conference_list.data.model
+package com.alex3645.feature_conference_detail.data.model
 
 
-import com.alex3645.feature_conference_list.domain.model.Event
+import com.alex3645.feature_conference_detail.domain.model.Event
 import com.google.gson.annotations.SerializedName
 
 data class EventJson(

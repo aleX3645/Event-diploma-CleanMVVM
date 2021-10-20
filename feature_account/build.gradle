@@ -9,11 +9,8 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.example.feature_account"
         minSdk 21
         targetSdk 30
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

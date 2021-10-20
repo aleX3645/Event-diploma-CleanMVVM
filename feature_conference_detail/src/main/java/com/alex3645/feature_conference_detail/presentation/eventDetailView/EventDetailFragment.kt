@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.alex3645.feature_conference_list.domain.model.Event
-import com.alex3645.feature_event_list.databinding.EventDetailBinding
+import com.alex3645.feature_conference_detail.databinding.EventDetailBinding
 
 class EventDetailFragment : Fragment() {
     private val viewModel: EventDetailViewModel by viewModels()
@@ -33,15 +32,15 @@ class EventDetailFragment : Fragment() {
         initView()
     }
 
-    lateinit var event: Event
+    //lateinit var event: Event
     private fun initView(){
-        event = args.event
-
+        //event = args.event
+/*
         binding.eventTitle.text = event.name
         binding.eventStartDate.text = event.dateStart
         binding.eventEndDate.text = event.dateEnd
         binding.eventDescription.text = event.description
-
+*/
         initActions()
     }
 

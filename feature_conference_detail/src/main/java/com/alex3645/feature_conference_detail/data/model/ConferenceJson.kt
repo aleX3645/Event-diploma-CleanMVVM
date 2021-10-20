@@ -1,7 +1,7 @@
-package com.alex3645.feature_conference_list.data.model
+package com.alex3645.feature_conference_detail.data.model
 
 
-import com.alex3645.feature_conference_list.domain.model.Conference
+import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.google.gson.annotations.SerializedName
 
 data class ConferenceJson(
@@ -30,7 +30,7 @@ data class ConferenceJson(
     @SerializedName("tariffs")
     val tariffsJson: ArrayList<TariffJson>
 ){
-    internal fun toDomainModel() : Conference{
+    internal fun toDomainModel() : Conference {
         return  Conference(
             category = this.category,
             dateEnd = this.dateEnd,

@@ -1,7 +1,6 @@
-package com.alex3645.feature_conference_list.domain.model
+package com.alex3645.feature_conference_detail.domain.model
 
-import com.alex3645.feature_conference_list.data.model.UserJson
-import com.google.gson.annotations.SerializedName
+import com.alex3645.feature_conference_detail.data.model.UserJson
 
 data class User(val id: Int,
                 val login: String,

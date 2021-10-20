@@ -1,7 +1,7 @@
-package com.alex3645.feature_conference_list.data.model
+package com.alex3645.feature_conference_detail.data.model
 
 
-import com.alex3645.feature_conference_list.domain.model.Tariff
+import com.alex3645.feature_conference_detail.domain.model.Tariff
 import com.google.gson.annotations.SerializedName
 
 data class TariffJson(
@@ -18,7 +18,7 @@ data class TariffJson(
     @SerializedName("tickets_total")
     val ticketsTotal: Int
 ){
-    internal fun toDomainModel(): Tariff{
+    internal fun toDomainModel(): Tariff {
         return Tariff(
             conferenceId = this.conferenceId,
             cost = this.cost,

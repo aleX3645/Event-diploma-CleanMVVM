@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
+import com.alex3645.feature_conference_detail.databinding.EventRecyclerListBinding
+import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailFragmentComponent
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
-import com.alex3645.feature_event_list.databinding.EventRecyclerListBinding
 import javax.inject.Inject
 
 class EventRecyclerFragment : Fragment() {
@@ -31,7 +31,7 @@ class EventRecyclerFragment : Fragment() {
     }
 
     private fun injectDependency() {
-        DaggerConferenceListFragmentComponent.factory().create().inject(this)
+        DaggerConferenceDetailFragmentComponent.factory().create().inject(this)
     }
 
     override fun onCreateView(
@@ -51,7 +51,7 @@ class EventRecyclerFragment : Fragment() {
 
     private  fun initRecycler(){
 
-        eventAdapter.events = args.conference.events!!
+        //eventAdapter.events = args.conference.events!!
 
         eventAdapter.setOnDebouncedClickListener {
             viewModel.navigateToEvent(findNavController(),it)
