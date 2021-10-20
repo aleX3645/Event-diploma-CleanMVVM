@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/eventBuilderListFragment"
-        android:name="com.alex3645.feature_conference_builder.presentation.conferenceEditorListView.EventEditorListFragment"
+        android:name="com.alex3645.feature_conference_builder.presentation.eventEditorListView.EventEditorListFragment"
         android:label="eventBuilderListFragment"
         app:moduleName="feature_conference_builder">
         <action

@@ -29,16 +29,6 @@ class ConferenceEditorViewModel :
         TODO("Not yet implemented")
     }
 
-    private fun getCategoryCode(){
-
-    }
-
-    fun isNeededValuesSetted() : Boolean{
-        return (conference.dateEnd != null
-                && conference.dateStart!=null
-                && conference.name != null)
-    }
-
     fun navigateToEventListEditor(navController: NavController){
         val action = ConferenceEditorFragmentDirections.actionConferenceBuilderToEventEditorFragment(conference,null)
         navController.navigate(action)

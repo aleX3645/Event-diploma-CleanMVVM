@@ -37,7 +37,7 @@ android {
         dataBinding true
     }
 
-    dynamicFeatures = [":feature_account", ":feature_conference_list", ':feature_auth', ':feature_conference_builder', ':feature_conference_detail']
+    dynamicFeatures = [":feature_account", ":feature_conference_list", ':feature_auth', ':feature_conference_builder', ':feature_conference_detail', ':feature_search']
 }
 
 dependencies {

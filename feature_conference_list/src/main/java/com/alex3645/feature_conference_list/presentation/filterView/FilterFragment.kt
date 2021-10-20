@@ -81,7 +81,7 @@ class FilterFragment : Fragment() {
         return idList
     }
 
-    fun setSelectedId(id: Int){
+    private fun setSelectedId(id: Int){
         when(id){
             0-> binding.chipNoCategory.isChecked = true
             1-> binding.chipPolitics.isChecked = true

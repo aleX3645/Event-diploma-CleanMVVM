@@ -11,7 +11,7 @@ import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ConferenceRecyclerViewModel():
+class ConferenceRecyclerViewModel:
     BaseViewModel<ConferenceRecyclerViewModel.ViewState, ConferenceRecyclerViewModel.Action>(ViewState()){
 
     var filterList: MutableList<Int> = mutableListOf()

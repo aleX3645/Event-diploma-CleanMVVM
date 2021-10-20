@@ -2,8 +2,6 @@ package com.alex3645.feature_conference_builder.presentation.eventEditorView
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.format.DateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
-import com.alex3645.feature_conference_builder.R
-import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorBinding
-import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorListBinding
 import com.alex3645.feature_conference_builder.domain.model.Event
-import com.alex3645.feature_conference_builder.presentation.conferenceEditorListView.EventEditorListFragmentArgs
-import com.alex3645.feature_conference_builder.presentation.conferenceEditorView.ConferenceEditorViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -57,15 +49,16 @@ class EventEditorFragment : Fragment() {
     val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'",Locale.getDefault())
 
     private fun initView(){
-        args.conference?.let {
+        var conference = args.conference
+        conference.let {
             viewModel.conference = it
-            globalDateStart.time = simpleDateFormatServer.parse(it.dateStart)
-            globalDateEnd.time = simpleDateFormatServer.parse(it.dateEnd)
+            globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
+            globalDateEnd.time = simpleDateFormatServer.parse(it!!.dateEnd)
         }
 
 
 
-        args.event?.let{
+        args.event.let{
             viewModel.event = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
             globalDateEnd.time = simpleDateFormatServer.parse(it!!.dateEnd)
@@ -79,7 +72,6 @@ class EventEditorFragment : Fragment() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Event>("event")
             ?.observe(viewLifecycleOwner) {
                 viewModel.newEvent = it
-                Log.d("event", it.name ?: "error")
             }
     }
 

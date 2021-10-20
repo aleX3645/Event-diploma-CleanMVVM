@@ -6,7 +6,7 @@ import androidx.versionedparcelable.VersionedParcelize
 
 data class Event(
     val id: Int,
-    val conferenceId: Int?,
+    var conferenceId: Int?,
     var dateEnd: String?,
     var dateStart: String?,
     var description: String?,

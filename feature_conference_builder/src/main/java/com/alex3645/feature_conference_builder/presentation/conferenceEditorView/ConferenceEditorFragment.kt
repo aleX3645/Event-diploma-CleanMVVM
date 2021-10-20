@@ -2,18 +2,15 @@ package com.alex3645.feature_conference_builder.presentation.conferenceEditorVie
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Conference
@@ -23,9 +20,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
-import java.lang.String.format
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -43,7 +38,7 @@ import java.util.concurrent.TimeUnit
 * */
 
 class ConferenceEditorFragment : Fragment() {
-    val MENU_ITEMS = listOf("No category", "Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
+    val menuItems = listOf("No category", "Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
 
@@ -139,7 +134,7 @@ class ConferenceEditorFragment : Fragment() {
     }
 
     private fun setDropDownMenu(){
-        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, MENU_ITEMS)
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, menuItems)
         (binding.exposedMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 
@@ -164,9 +159,9 @@ class ConferenceEditorFragment : Fragment() {
     private var startDate: Calendar = Calendar.getInstance(Locale.getDefault())
     private var endDate: Calendar = Calendar.getInstance(Locale.getDefault())
     private val dayMilliseconds = TimeUnit.DAYS.toMillis(1)
-    val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'",Locale.getDefault())
-    val simpleDateFormatClientDate = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
-    val simpleDateFormatClientTime = SimpleDateFormat("HH:mm",Locale.getDefault())
+    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'",Locale.getDefault())
+    private val simpleDateFormatClientDate = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
+    private val simpleDateFormatClientTime = SimpleDateFormat("HH:mm",Locale.getDefault())
 
     private fun setStartDateTimeActions(){
         binding.startDateInputText.setOnClickListener {

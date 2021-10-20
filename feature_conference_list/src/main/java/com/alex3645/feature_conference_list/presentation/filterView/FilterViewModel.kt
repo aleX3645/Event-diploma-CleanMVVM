@@ -1,6 +1,5 @@
 package com.alex3645.feature_conference_list.presentation.filterView
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 

@@ -42,9 +42,8 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
         this.onDebouncedClickListener = listener
     }
 
-    inner class ViewHolder(private val binding: FragmentRecyclerListItemBinding) :
+    inner class ViewHolder(binding: FragmentRecyclerListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val card = binding.fragmentRecyclerListItem
         val name = binding.nameTextBox
         val info = binding.shortInfoTextBox
 
@@ -56,7 +55,7 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Log.d("2222", "kek")
 
-        var conference = conferences[position]
+        val conference = conferences[position]
 
         holder.name.text = conference.name
         holder.info.text = conference.description

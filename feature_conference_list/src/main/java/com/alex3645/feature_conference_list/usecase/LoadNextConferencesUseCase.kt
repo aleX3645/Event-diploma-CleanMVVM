@@ -1,6 +1,5 @@
 package com.alex3645.feature_conference_list.usecase
 
-import android.util.Log
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
 import java.lang.Exception
@@ -12,23 +11,23 @@ class LoadNextConferencesUseCase @Inject constructor(private val conferenceRepos
         data class Error(val e: Throwable) : Result
     }
 
-    private var pageNumber = 0;
-    private val pageSize = 5;
+    private var pageNumber = 0
+    private val pageSize = 5
     suspend operator fun invoke() : Result{
-        try{
-            var confList: List<Conference> = conferenceRepository.getConferences(pageSize = pageSize, pageNumber = pageNumber)
+        return try{
+            val confList: List<Conference> = conferenceRepository.getConferences(pageSize = pageSize, pageNumber = pageNumber)
 
             if(confList.isNotEmpty()){
                 pageNumber++
             }
-            return Result.Success(confList)
+            Result.Success(confList)
         }catch (e: Exception){
 
-            return Result.Error(e)
+            Result.Error(e)
         }
     }
 
     fun dropData(){
-        pageNumber = 0;
+        pageNumber = 0
     }
 }

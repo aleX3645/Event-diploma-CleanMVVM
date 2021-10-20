@@ -14,7 +14,6 @@ import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.
 import com.alex3645.feature_event_list.R
 import com.alex3645.feature_event_list.databinding.FragmentRecyclerListBinding
 import javax.inject.Inject
-import android.util.Log
 
 class ConferenceRecyclerFragment: Fragment() {
 
@@ -41,6 +40,7 @@ class ConferenceRecyclerFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
+
         _binding = FragmentRecyclerListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -67,18 +67,15 @@ class ConferenceRecyclerFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initActions()
-
         observe(viewModel.stateLiveData, stateObserver)
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<IntArray>("filter")
             ?.observe(viewLifecycleOwner) {
-                it.forEach {
-                    Log.d("!!!", it.toString())
-                }
                 viewModel.filterList = it.toMutableList()
             }
+
         initRecycler()
+        initActions()
 
         binding.swipeContainer.isRefreshing = true
         viewModel.loadData()
