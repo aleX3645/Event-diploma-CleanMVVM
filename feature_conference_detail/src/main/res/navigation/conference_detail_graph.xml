@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/conferenceDetailFragment">
+
+
+    <fragment
+        android:id="@+id/conferenceDetailFragment"
+        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetail.ConferenceDetailFragment"
+        android:label="ConferenceDetailFragment"
+        app:moduleName="feature_conference_list">
+        <action
+            android:id="@+id/actionConferenceToEventList"
+            app:destination="@id/eventListFragment"/>
+        <argument
+            android:name="conference"
+            app:argType="com.alex3645.feature_conference_list.domain.model.Conference" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragment"
+        android:label="EventListFragment"
+        app:moduleName="feature_conference_list">
+        <action
+            android:id="@+id/actionEventListToEvent"
+            app:destination="@id/eventFragment"/>
+        <argument
+            android:name="conference"
+            app:argType="com.alex3645.feature_conference_list.domain.model.Conference" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.alex3645.feature_conference_detail.presentation.eventDetailView.EventDetailFragment"
+        android:label="EventFragment"
+        app:moduleName="feature_conference_list">
+        <argument
+            android:name="event"
+            app:argType="com.alex3645.feature_conference_list.domain.model.Event" />
+    </fragment>
+
+</navigation>

@@ -1,4 +1,4 @@
-package com.alex3645.feature_conference_list.presentation.eventRecyclerView
+package com.alex3645.feature_conference_detail.presentation.eventRecyclerView
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
-import com.alex3645.feature_conference_list.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
+import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 import com.alex3645.feature_event_list.databinding.EventRecyclerListBinding
 import javax.inject.Inject
 

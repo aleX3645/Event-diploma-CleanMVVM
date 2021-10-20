@@ -4,3 +4,4 @@ include ':feature_account'
 rootProject.name = "EventDiploma_MVVM"
 include ':feature_auth'
 include ':feature_conference_builder'
+include ':feature_conference_detail'

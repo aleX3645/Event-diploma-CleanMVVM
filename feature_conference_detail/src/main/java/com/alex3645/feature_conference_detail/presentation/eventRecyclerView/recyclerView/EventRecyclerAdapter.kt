@@ -1,15 +1,11 @@
-package com.alex3645.feature_conference_list.presentation.eventRecyclerView.recyclerView
+package com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
-import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.domain.model.Event
-import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView.ConferenceAdapter
 import com.alex3645.feature_event_list.databinding.EventRecyclerItemBinding
-import com.alex3645.feature_event_list.databinding.EventRecyclerListBinding
-import com.alex3645.feature_event_list.databinding.FragmentRecyclerListItemBinding
 
 class EventRecyclerAdapter : RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder>() {
 
@@ -19,7 +15,7 @@ class EventRecyclerAdapter : RecyclerView.Adapter<EventRecyclerAdapter.ViewHolde
 
     private var onDebouncedClickListener: ((event: Event) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventRecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: EventRecyclerItemBinding = EventRecyclerItemBinding.inflate(inflater, parent, false)
 

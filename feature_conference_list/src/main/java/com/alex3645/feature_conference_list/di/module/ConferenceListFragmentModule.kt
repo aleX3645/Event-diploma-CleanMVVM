@@ -1,7 +1,7 @@
 package com.alex3645.feature_conference_list.di.module
 
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView.ConferenceAdapter
-import com.alex3645.feature_conference_list.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
+import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 import com.alex3645.feature_conference_list.presentation.searchView.recycler.SearchConferenceAdapter
 import com.alex3645.feature_conference_list.presentation.searchView.recycler.SearchEventAdapter
 import com.alex3645.feature_conference_list.presentation.searchView.recycler.SearchUserAdapter
@@ -17,8 +17,8 @@ class ConferenceListFragmentModule {
     }
 
     @Provides
-    fun provideEventAdapter(): EventRecyclerAdapter {
-        return EventRecyclerAdapter()
+    fun provideEventAdapter(): com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter {
+        return com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter()
     }
 
     @Provides
