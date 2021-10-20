@@ -17,11 +17,9 @@ import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.alex3645.feature_auth.data.database.AccountDatabase
-import com.alex3645.app.di.module.ApplicationModule
 import com.alex3645.feature_auth.data.database.AccountAuthDao
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
-import javax.inject.Singleton
 
 
 @Module
@@ -70,8 +68,8 @@ class AuthViewModelModule(val context: Context) {
     }
 
     @Provides
-    fun provideAuthUseCase(conferenceRepository: AuthRepository, context: Context): AuthUseCase {
-        return AuthUseCase(conferenceRepository, context)
+    fun provideAuthUseCase(conferenceRepository: AuthRepository): AuthUseCase {
+        return AuthUseCase(conferenceRepository)
     }
 
     @Provides
