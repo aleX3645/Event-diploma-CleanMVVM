@@ -107,6 +107,7 @@ class EventEditorListFragment : Fragment(){
 
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                this.isEnabled = false
                 viewModel.navigateBack(findNavController())
             }
         })

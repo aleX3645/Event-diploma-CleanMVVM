@@ -20,6 +20,19 @@
         <action
             android:id="@+id/actionRecyclerToConferenceBuilderFeature"
             app:destination="@id/conferenceBuilderFeatureGraph"/>
+        <action
+            android:id="@+id/actionRecyclerToFilter"
+            app:destination="@id/filterFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.alex3645.feature_conference_list.presentation.filterView.FilterFragment"
+        android:label="filterFragment"
+        app:moduleName="feature_conference_list">
+        <argument
+            android:name="filterList"
+            app:argType="integer[]" />
     </fragment>
 
     <fragment

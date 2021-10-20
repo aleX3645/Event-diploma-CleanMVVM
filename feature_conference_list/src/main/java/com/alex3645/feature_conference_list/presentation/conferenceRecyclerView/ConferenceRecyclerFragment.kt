@@ -14,6 +14,7 @@ import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.
 import com.alex3645.feature_event_list.R
 import com.alex3645.feature_event_list.databinding.FragmentRecyclerListBinding
 import javax.inject.Inject
+import android.util.Log
 
 class ConferenceRecyclerFragment: Fragment() {
 
@@ -66,15 +67,24 @@ class ConferenceRecyclerFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecycler()
+        initActions()
+
         observe(viewModel.stateLiveData, stateObserver)
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<IntArray>("filter")
+            ?.observe(viewLifecycleOwner) {
+                it.forEach {
+                    Log.d("!!!", it.toString())
+                }
+                viewModel.filterList = it.toMutableList()
+            }
+        initRecycler()
 
         binding.swipeContainer.isRefreshing = true
         viewModel.loadData()
     }
 
     private  fun initRecycler(){
-        initActions()
 
         binding.recyclerView.adapter = conferenceAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -85,17 +95,24 @@ class ConferenceRecyclerFragment: Fragment() {
             viewModel.loadDataFromStart()
         }
 
+        val navController = findNavController()
+
+        binding.filtersButton.setOnClickListener {
+            viewModel.navigateToFilter(navController)
+        }
+
         binding.floatingActionButton.setOnClickListener {
-            viewModel.navigateToConferenceBuilder(findNavController())
+            viewModel.navigateToConferenceBuilder(navController)
         }
 
         conferenceAdapter.setOnDebouncedClickListener {
-            viewModel.navigateToConferenceDetail(findNavController(),it)
+            viewModel.navigateToConferenceDetail(navController,it)
         }
     }
 
     private val stateObserver = Observer<ConferenceRecyclerViewModel.ViewState> {
         conferenceAdapter.conferences = it.conferences
+        conferenceAdapter.filter(viewModel.filterList)
 
         binding.swipeContainer.isRefreshing = it.isLoading
         if(it.isError){

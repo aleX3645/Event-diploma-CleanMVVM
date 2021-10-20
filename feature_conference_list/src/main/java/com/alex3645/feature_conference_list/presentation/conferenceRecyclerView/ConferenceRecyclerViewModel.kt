@@ -14,6 +14,8 @@ import javax.inject.Inject
 class ConferenceRecyclerViewModel():
     BaseViewModel<ConferenceRecyclerViewModel.ViewState, ConferenceRecyclerViewModel.Action>(ViewState()){
 
+    var filterList: MutableList<Int> = mutableListOf()
+
     @Inject
     lateinit var loadNextConferencesUseCase: LoadNextConferencesUseCase
 
@@ -85,6 +87,11 @@ class ConferenceRecyclerViewModel():
 
     fun navigateToSearch(navController: NavController){
         val action = ConferenceRecyclerFragmentDirections.actionRecyclerToSearch()
+        navController.navigate(action)
+    }
+
+    fun navigateToFilter(navController: NavController){
+        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToFilter(filterList.toIntArray())
         navController.navigate(action)
     }
 

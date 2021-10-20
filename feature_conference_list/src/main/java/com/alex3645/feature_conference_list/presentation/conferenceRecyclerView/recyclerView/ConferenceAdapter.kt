@@ -11,7 +11,20 @@ import com.alex3645.feature_event_list.databinding.FragmentRecyclerListItemBindi
 class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
 
     var conferences: List<Conference> by observer(listOf()) {
+        rawConferences = conferences
         notifyDataSetChanged()
+    }
+
+    private var rawConferences: List<Conference> = listOf()
+
+    fun filter(filter: MutableList<Int>){
+        if(filter.size == 0){
+            return
+        }
+
+        conferences = rawConferences.filter {
+            filter.contains(it.category)
+        }
     }
 
     private var onDebouncedClickListener: ((conference: Conference) -> Unit)? = null
