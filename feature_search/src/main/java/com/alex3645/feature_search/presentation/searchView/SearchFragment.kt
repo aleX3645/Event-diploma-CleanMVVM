@@ -120,6 +120,16 @@ class SearchFragment: Fragment() {
     }
 
     private fun initView(){
+        searchConferenceAdapter.setOnDebouncedClickListener {
+            viewModel.navigateToConferenceDetail(findNavController(),it.id)
+        }
+        searchEventAdapter.setOnDebouncedClickListener {
+            viewModel.navigateToConferenceDetail(findNavController(),it.conferenceId!!)
+        }
+        searchUserAdapter.setOnDebouncedClickListener {
+            viewModel.navigateToUserAccount(findNavController(), it.id)
+        }
+
         binding.searchRecyclerView.adapter = searchConferenceAdapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(activity)
 

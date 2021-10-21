@@ -1,6 +1,7 @@
 package com.alex3645.feature_search.presentation.searchView
 
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -14,8 +15,7 @@ import com.alex3645.feature_search.usecase.SearchUsersUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SearchViewModel :
-    BaseViewModel<SearchViewModel.ViewState, SearchViewModel.Action>(ViewState()){
+class SearchViewModel : BaseViewModel<SearchViewModel.ViewState, SearchViewModel.Action>(ViewState()){
 
     init{
         DaggerSearchViewModelComponent.factory().create().inject(this)
@@ -124,5 +124,15 @@ class SearchViewModel :
             isLoading = false,
             isError = true
         )
+    }
+
+    fun navigateToConferenceDetail(navController: NavController, conferenceId: Int){
+        val action = SearchFragmentDirections.actionSearchToConferenceDetail(conferenceId)
+        navController.navigate(action)
+    }
+
+    fun navigateToUserAccount(navController: NavController, userId: Int){
+        val action = SearchFragmentDirections.actionSearchToUserAccount(userId)
+        navController.navigate(action)
     }
 }

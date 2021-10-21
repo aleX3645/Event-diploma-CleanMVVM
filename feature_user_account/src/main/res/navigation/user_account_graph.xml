@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/userAccountFragment">
+
+    <fragment
+        android:id="@+id/userAccountFragment"
+        android:name="com.alex3645.feature_user_account.presentation.userAccountView.UserAccountFragment"
+        android:label="UserAccountFragment"
+        app:moduleName="feature_user_account">
+        <argument
+            android:name="user_id"
+            app:argType="integer"/>
+    </fragment>
+
+</navigation>

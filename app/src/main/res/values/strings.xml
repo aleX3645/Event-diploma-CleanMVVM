@@ -12,4 +12,5 @@
     <string name="title_feature_conference_builder">Conference builder</string>
     <string name="title_feature_conference_detail">Conference detail</string>
     <string name="title_feature_search">Search</string>
+    <string name="title_feature_user_account">Feature User Account</string>
 </resources>
