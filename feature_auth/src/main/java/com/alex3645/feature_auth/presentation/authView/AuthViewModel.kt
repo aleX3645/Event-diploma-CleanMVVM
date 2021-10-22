@@ -6,9 +6,9 @@ import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_auth.di.component.DaggerAuthViewModelComponent
 import com.alex3645.feature_auth.di.module.AuthViewModelModule
 import com.alex3645.feature_auth.usecase.AuthUseCase
-import com.alex3645.feature_conference_list.di.component.DaggerAuthViewModelComponent
 import kotlinx.coroutines.launch
 import java.net.PasswordAuthentication
 import javax.inject.Inject
@@ -105,6 +105,4 @@ class AuthViewModel(application: Application) : BaseAndroidViewModel<AuthViewMod
         val action = AuthFragmentDirections.actionAuthToAccount()
         navController.navigate(action)
     }
-
-
 }

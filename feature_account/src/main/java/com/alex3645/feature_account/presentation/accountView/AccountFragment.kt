@@ -1,17 +1,14 @@
 package com.alex3645.feature_account.presentation.accountView
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
+import com.alex3645.feature_account.domain.model.User
+import com.example.feature_account.R
 import com.example.feature_account.databinding.FragmentAccountBinding
 
 class AccountFragment: Fragment() {
@@ -26,25 +23,49 @@ class AccountFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
+
+        if(!viewModel.isUserAuthed()){
+            viewModel.navigateToAccountAuth(findNavController())
+        }
+
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observe(viewModel.stateLiveData, stateObserver)
-        viewModel.loadUserData()
-
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.account_upper_appbar_menu,menu)
     }
 
-    private val stateObserver = Observer<AccountViewModel.ViewState> {
-        if(it.isError){
-            viewModel.navigateToAccountAuth(findNavController())
-        }else{
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settingsItem -> {
+                viewModel.navigateToSettings(findNavController())
+                true
+            }
+            else -> false
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observe(viewModel.stateLiveData, stateObserver)
 
+        viewModel.loadUser()
+    }
 
+    private val stateObserver = Observer<AccountViewModel.ViewState> {
+        if(!it.isError){
+            initView(it.user!!)
+        }
+    }
+
+    private fun initView(user: User){
+        binding.accountDescription.text = user.description
+        binding.accountEmail.text = user.email
+        binding.accountLogin.text = user.login
+        binding.accountPhone.text = user.phone
+        binding.accountNameSurname.text = StringBuffer(user.name + " " + user.surname)
+    }
 }

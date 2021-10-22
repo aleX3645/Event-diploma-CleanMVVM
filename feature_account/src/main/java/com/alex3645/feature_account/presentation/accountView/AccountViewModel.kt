@@ -1,52 +1,57 @@
 package com.alex3645.feature_account.presentation.accountView
 
-import android.accounts.Account
-import android.accounts.AccountManager
 import android.app.Application
-import android.content.Context
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+
 import androidx.navigation.NavController
-import com.alex3645.app.data.api.ServerConstants
+import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_account.di.component.DaggerAccountViewModelComponent
 import com.alex3645.feature_account.di.module.AccountViewModelModule
-import com.alex3645.feature_account.usecase.LoadAuthAccountUseCase
-import com.alex3645.feature_auth.data.database.model.AccountEntity
+import com.alex3645.feature_account.domain.model.User
+import com.alex3645.feature_account.usecase.LoadAccountByLoginUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountViewModel.ViewState, AccountViewModel.Action>(ViewState(), application) {
 
-    init {
-        DaggerAccountViewModelComponent.factory().create(AccountViewModelModule(application.applicationContext)).inject(this)
+class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountViewModel.ViewState, AccountViewModel.Action>(ViewState(), application){
+
+    init{
+        DaggerAccountViewModelComponent.factory().create(AccountViewModelModule(application)).inject(this)
     }
+
+    @Inject
+    lateinit var loadAccountByLoginUseCase: LoadAccountByLoginUseCase
 
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
-        val accountEntity: AccountEntity = AccountEntity("","")
+        val user: User? = null
     ) : BaseViewState
 
     interface Action : BaseAction {
-        class LoadSuccess(val accountEntity: AccountEntity) : Action
-        object LoadFailure : Action
+        class UserLoadingSuccess(val user: User) : Action
+        object LoadingFailure : Action
     }
 
+    fun isUserAuthed() : Boolean{
+        val spManager = SharedPreferencesManager(this.getApplication())
+        return spManager.fetchLogin() != null
+    }
 
-    @Inject
-    lateinit var loadAuthAccountUseCase: LoadAuthAccountUseCase
-    fun loadUserData(){
+    fun loadUser(){
+        val application: Application = this.getApplication()
         viewModelScope.launch {
-            loadAuthAccountUseCase().also { result ->
+            val spManager = SharedPreferencesManager(application)
+            loadAccountByLoginUseCase(spManager.fetchLogin() ?: "").also { result ->
                 val action = when (result) {
-                    is LoadAuthAccountUseCase.Result.Success ->
-                        Action.LoadSuccess(result.accountEntity)
-                    is LoadAuthAccountUseCase.Result.Error ->
-                        Action.LoadFailure
-                    else -> Action.LoadFailure
+                    is LoadAccountByLoginUseCase.Result.Success ->
+                        Action.UserLoadingSuccess(result.user)
+                    is LoadAccountByLoginUseCase.Result.Error ->
+                        Action.LoadingFailure
+                    else -> Action.LoadingFailure
                 }
                 sendAction(action)
             }
@@ -58,25 +63,28 @@ class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountV
         navController.navigate(action)
     }
 
-    override fun onReduceState(viewAction: Action): ViewState = when (viewAction){
-        is Action.LoadSuccess -> {
+    fun navigateToSettings(navController: NavController){
+        val action = AccountFragmentDirections.actionAccountToSettings()
+        navController.navigate(action)
+    }
+
+    override fun onReduceState(viewAction: Action) = when (viewAction){
+        is Action.UserLoadingSuccess -> {
             state.copy(
                 isLoading = false,
                 isError = false,
-                accountEntity = viewAction.accountEntity
+                user = viewAction.user
             )
         }
-        is Action.LoadFailure -> {
+        is Action.LoadingFailure -> {
             state.copy(
                 isLoading = false,
                 isError = true
             )
         }
-        else -> {
-            state.copy(
-                isLoading = false,
-                isError = true
-            )
-        }
+        else -> state.copy(
+            isLoading = false,
+            isError = true
+        )
     }
 }

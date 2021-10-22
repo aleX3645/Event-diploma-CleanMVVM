@@ -8,10 +8,29 @@
         android:name="com.alex3645.feature_account.presentation.accountView.AccountFragment"
         android:label="AccountFragment"
         app:moduleName="feature_account">
-
         <action
             android:id="@+id/actionAccountToAuth"
             app:destination="@id/authFeatureGraph"/>
+        <action
+            android:id="@+id/actionAccountToSettings"
+            app:destination="@id/settingsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.alex3645.feature_account.presentation.settingsView.SettingsFragment"
+        android:label="SettingsFragment"
+        app:moduleName="feature_account">
+        <action
+            android:id="@+id/actionSettingsToEdit"
+            app:destination="@id/editFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.alex3645.feature_account.presentation.editAccountView.EditAccountFragment"
+        android:label="EditFragment"
+        app:moduleName="feature_account">
     </fragment>
 
     <include-dynamic

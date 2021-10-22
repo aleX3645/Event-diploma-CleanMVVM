@@ -33,6 +33,7 @@
                         android:layout_marginStart="15dp"
                         android:orientation="vertical">
                         <TextView
+                            android:id="@+id/accountNameSurname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/app_name"
@@ -40,6 +41,7 @@
                             android:layout_marginTop="20dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
                         <TextView
+                            android:id="@+id/accountDescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/app_name"
@@ -54,21 +56,6 @@
                     android:orientation="vertical"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="5dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="about"
-                        android:textSize="20sp"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        />
-                    <TextView
-                        android:id="@+id/accountDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_name"
-                        android:textSize="15sp"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -139,16 +126,6 @@
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/organizerButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Редактировать"
-                    android:background="@color/purple_700"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="10dp"
-                    />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

@@ -7,9 +7,9 @@ import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_auth.data.model.UserRegJson
+import com.alex3645.feature_auth.di.component.DaggerAuthViewModelComponent
 import com.alex3645.feature_auth.di.module.AuthViewModelModule
 import com.alex3645.feature_auth.usecase.RegistrationUseCase
-import com.alex3645.feature_conference_list.di.component.DaggerAuthViewModelComponent
 
 import kotlinx.coroutines.launch
 import javax.inject.Inject

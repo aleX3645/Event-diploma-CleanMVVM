@@ -23,7 +23,7 @@ import net.sqlcipher.database.SupportFactory
 
 
 @Module
-class AuthViewModelModule(val context: Context) {
+class AuthViewModelModule(private val context: Context) {
 
     @Provides
     fun provideContext(): Context {
@@ -64,7 +64,7 @@ class AuthViewModelModule(val context: Context) {
 
     @Provides
     fun provideRepository(retrofitService: ApiRetrofitAuthService, accountDao: AccountAuthDao): AuthRepository {
-        return AuthRepositoryImpl(retrofitService,accountDao)
+        return AuthRepositoryImpl(retrofitService,accountDao, context)
     }
 
     @Provides

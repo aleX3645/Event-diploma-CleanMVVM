@@ -1,5 +1,7 @@
 package com.alex3645.feature_auth.data.repositoryImpl
 
+import android.content.Context
+import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.feature_auth.data.database.AccountAuthDao
 import com.alex3645.feature_auth.data.database.model.AccountEntity
 import com.alex3645.feature_auth.data.model.AccResponse
@@ -11,13 +13,14 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val conferenceService: ApiRetrofitAuthService,
-    private val database: AccountAuthDao) : AuthRepository{
+    private val database: AccountAuthDao,
+    private val context: Context) : AuthRepository{
 
     override suspend fun authAsUser(authRequest: AuthRequest) : AccResponse {
         val accResponse = conferenceService.authAsUser(authRequest)
 
         if(accResponse.success){
-            saveAccount(AccountEntity(authRequest.login, authRequest.passwordHash))
+            saveAccount(AccountEntity(authRequest.login, authRequest.passwordHash), accResponse.message)
         }
         return accResponse
     }
@@ -26,7 +29,7 @@ class AuthRepositoryImpl @Inject constructor(
         val accResponse = conferenceService.regAsUser(userReg)
 
         if(accResponse.success){
-            saveAccount(AccountEntity(userReg.login, userReg.password))
+            saveAccount(AccountEntity(userReg.login, userReg.password), accResponse.message)
         }
         return accResponse
     }
@@ -35,7 +38,7 @@ class AuthRepositoryImpl @Inject constructor(
         val accResponse = conferenceService.authAsOrganizer(authRequest)
 
         if(accResponse.success){
-            saveAccount(AccountEntity(authRequest.login, authRequest.passwordHash))
+            saveAccount(AccountEntity(authRequest.login, authRequest.passwordHash), accResponse.message)
         }
         return accResponse
     }
@@ -44,12 +47,14 @@ class AuthRepositoryImpl @Inject constructor(
         val accResponse = conferenceService.regAsOrganizer(userReg)
 
         if(accResponse.success){
-            saveAccount(AccountEntity(userReg.login, userReg.password))
+            saveAccount(AccountEntity(userReg.login, userReg.password), accResponse.message)
         }
         return accResponse
     }
 
-    private suspend fun saveAccount(accountEntity: AccountEntity){
+    private suspend fun saveAccount(accountEntity: AccountEntity, token: String){
+        val sharedPreferences = SharedPreferencesManager(context)
+        sharedPreferences.saveUserData(accountEntity.login, token)
         database.insertAccount(accountEntity)
     }
 }
