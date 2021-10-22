@@ -73,7 +73,7 @@ class AuthViewModelModule(val context: Context) {
     }
 
     @Provides
-    fun provideRegUseCase(conferenceRepository: AuthRepository, context: Context): RegistrationUseCase {
-        return RegistrationUseCase(conferenceRepository,context)
+    fun provideRegUseCase(conferenceRepository: AuthRepository): RegistrationUseCase {
+        return RegistrationUseCase(conferenceRepository)
     }
 }

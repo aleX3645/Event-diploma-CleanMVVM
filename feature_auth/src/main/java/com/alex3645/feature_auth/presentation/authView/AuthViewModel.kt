@@ -1,18 +1,14 @@
 package com.alex3645.feature_auth.presentation.authView
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
-import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_auth.di.module.AuthViewModelModule
 import com.alex3645.feature_auth.usecase.AuthUseCase
 import com.alex3645.feature_conference_list.di.component.DaggerAuthViewModelComponent
-import com.alex3645.feature_conference_list.presentation.authView.AuthFragment
-import com.alex3645.feature_conference_list.presentation.authView.AuthFragmentDirections
 import kotlinx.coroutines.launch
 import java.net.PasswordAuthentication
 import javax.inject.Inject
@@ -27,9 +23,28 @@ class AuthViewModel(application: Application) : BaseAndroidViewModel<AuthViewMod
     lateinit var authUseCase: AuthUseCase
 
 
-    fun tryAuth(passwordAuthentication: PasswordAuthentication){
+    fun tryAuthAsUser(passwordAuthentication: PasswordAuthentication){
         viewModelScope.launch {
-            authUseCase(passwordAuthentication).also { result ->
+            authUseCase(passwordAuthentication,false).also { result ->
+                val action = when (result) {
+                    is AuthUseCase.Result.Success ->
+                        if (result.authResponse.success) {
+                            Action.AuthSuccess
+                        } else {
+                            Action.AuthFailure(result.authResponse.message)
+                        }
+                    is AuthUseCase.Result.Error ->
+                        Action.AuthFailure("Ошибка подключения")
+                    else -> Action.AuthFailure("Ошибка подключения")
+                }
+                sendAction(action)
+            }
+        }
+    }
+
+    fun tryAuthAsOrganizer(passwordAuthentication: PasswordAuthentication){
+        viewModelScope.launch {
+            authUseCase(passwordAuthentication,true).also { result ->
                 val action = when (result) {
                     is AuthUseCase.Result.Success ->
                         if (result.authResponse.success) {

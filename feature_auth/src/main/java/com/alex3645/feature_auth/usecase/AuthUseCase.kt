@@ -14,12 +14,21 @@ class AuthUseCase @Inject constructor(private val conferenceRepository: AuthRepo
         data class Error(val e: Throwable) : Result
     }
 
-    suspend operator fun invoke(authentication: PasswordAuthentication) : Result{
-        return try{
-            val authResponse = conferenceRepository.auth(AuthRequest(Settings.Secure.ANDROID_ID,authentication.userName,String(authentication.password)))
-            Result.Success(authResponse)
-        }catch (e: Exception){
-            Result.Error(e)
+    suspend operator fun invoke(authentication: PasswordAuthentication, orgFlag: Boolean) : Result{
+        return if (orgFlag){
+            try{
+                val authResponse = conferenceRepository.authAsOrganiser(AuthRequest(Settings.Secure.ANDROID_ID,authentication.userName,String(authentication.password)))
+                Result.Success(authResponse)
+            }catch (e: Exception){
+                Result.Error(e)
+            }
+        }else{
+            try{
+                val authResponse = conferenceRepository.authAsUser(AuthRequest(Settings.Secure.ANDROID_ID,authentication.userName,String(authentication.password)))
+                Result.Success(authResponse)
+            }catch (e: Exception){
+                Result.Error(e)
+            }
         }
     }
 }

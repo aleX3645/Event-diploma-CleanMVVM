@@ -5,7 +5,11 @@ import com.alex3645.feature_auth.data.model.AuthRequest
 import com.alex3645.feature_auth.data.model.UserRegJson
 
 interface AuthRepository {
-    suspend fun auth(authRequest: AuthRequest) : AccResponse
+    suspend fun authAsUser(authRequest: AuthRequest) : AccResponse
 
-    suspend fun register(userReg: UserRegJson) : AccResponse
+    suspend fun registerAsUser(userReg: UserRegJson) : AccResponse
+
+    suspend fun authAsOrganiser(authRequest: AuthRequest) : AccResponse
+
+    suspend fun registerAsOrganiser(userReg: UserRegJson) : AccResponse
 }

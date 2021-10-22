@@ -1,4 +1,4 @@
-package com.alex3645.feature_conference_list.presentation.authView
+package com.alex3645.feature_auth.presentation.authView
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_auth.databinding.FragmentAuthBinding
-import com.alex3645.feature_auth.presentation.authView.AuthViewModel
 import java.net.PasswordAuthentication
 
 class AuthFragment : Fragment() {
@@ -48,9 +46,16 @@ class AuthFragment : Fragment() {
             binding.loginTextField.isActivated = false
             binding.passwordTextField.isActivated = false
             binding.registrationProgressBar.isVisible = true
-            viewModel.tryAuth(PasswordAuthentication(
-                binding.loginTextField.editText?.text.toString(),
-                binding.passwordTextField.editText?.text.toString().toCharArray()))
+
+            if(binding.orgSwitch.isChecked){
+                viewModel.tryAuthAsOrganizer(PasswordAuthentication(
+                    binding.loginTextField.editText?.text.toString(),
+                    binding.passwordTextField.editText?.text.toString().toCharArray()))
+            }else{
+                viewModel.tryAuthAsUser(PasswordAuthentication(
+                    binding.loginTextField.editText?.text.toString(),
+                    binding.passwordTextField.editText?.text.toString().toCharArray()))
+            }
         }
 
         binding.registerButton.setOnClickListener {

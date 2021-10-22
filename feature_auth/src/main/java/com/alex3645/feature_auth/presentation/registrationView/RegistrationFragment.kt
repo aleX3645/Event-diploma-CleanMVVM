@@ -1,4 +1,4 @@
-package com.alex3645.feature_conference_list.presentation.registrationView
+package com.alex3645.feature_auth.presentation.registrationView
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_auth.data.model.UserRegJson
 import com.alex3645.feature_auth.databinding.FragmentRegistrationBinding
-import java.net.PasswordAuthentication
 
 class RegistrationFragment : Fragment() {
     private val viewModel: RegistrationViewModel by viewModels()
@@ -54,7 +53,11 @@ class RegistrationFragment : Fragment() {
                 binding.phoneNumberRegistrationTextView.editText?.text.toString(),
                 binding.emailRegistraionTextField.editText?.text.toString())
 
-            viewModel.tryReg(userJson)
+            if(binding.regOrgSwitch.isChecked){
+                viewModel.tryRegAsOrganizer(userJson)
+            }else{
+                viewModel.tryRegAsUser(userJson)
+            }
         }
     }
 

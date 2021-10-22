@@ -11,32 +11,45 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val conferenceService: ApiRetrofitAuthService,
-    private val database: AccountAuthDao
-)
-    : AuthRepository{
+    private val database: AccountAuthDao) : AuthRepository{
 
-    override suspend fun auth(authRequest: AuthRequest) : AccResponse {
-        val accResponse = conferenceService.auth(authRequest)
+    override suspend fun authAsUser(authRequest: AuthRequest) : AccResponse {
+        val accResponse = conferenceService.authAsUser(authRequest)
 
         if(accResponse.success){
             saveAccount(AccountEntity(authRequest.login, authRequest.passwordHash))
         }
-
         return accResponse
     }
 
-    override suspend fun register(userReg: UserRegJson) : AccResponse {
-
+    override suspend fun registerAsUser(userReg: UserRegJson) : AccResponse {
         val accResponse = conferenceService.regAsUser(userReg)
 
         if(accResponse.success){
-            database.insertAccount(AccountEntity(userReg.login, userReg.password))
+            saveAccount(AccountEntity(userReg.login, userReg.password))
         }
-
         return accResponse
     }
 
-    suspend fun saveAccount(accountEntity: AccountEntity){
+    override suspend fun authAsOrganiser(authRequest: AuthRequest): AccResponse {
+        val accResponse = conferenceService.authAsOrganizer(authRequest)
+
+        if(accResponse.success){
+            saveAccount(AccountEntity(authRequest.login, authRequest.passwordHash))
+        }
+        return accResponse
+    }
+
+    override suspend fun registerAsOrganiser(userReg: UserRegJson): AccResponse {
+        val accResponse = conferenceService.regAsOrganizer(userReg)
+
+        if(accResponse.success){
+            saveAccount(AccountEntity(userReg.login, userReg.password))
+        }
+        return accResponse
+    }
+
+    private suspend fun saveAccount(accountEntity: AccountEntity){
         database.insertAccount(accountEntity)
     }
 }

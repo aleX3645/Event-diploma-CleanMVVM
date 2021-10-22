@@ -1,11 +1,8 @@
-package com.alex3645.feature_conference_list.di.component
+package com.alex3645.feature_auth.di.component
 
-import android.app.Activity
-import android.content.Context
 import com.alex3645.feature_auth.di.module.AuthViewModelModule
 import com.alex3645.feature_auth.presentation.authView.AuthViewModel
-import com.alex3645.feature_conference_list.presentation.registrationView.RegistrationViewModel
-import dagger.BindsInstance
+import com.alex3645.feature_auth.presentation.registrationView.RegistrationViewModel
 import dagger.Component
 
 @Component(modules = [AuthViewModelModule::class])
