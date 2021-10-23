@@ -3,6 +3,7 @@ package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -73,6 +74,10 @@ class ConferenceRecyclerFragment: Fragment() {
             ?.observe(viewLifecycleOwner) {
                 viewModel.filterList = it.toMutableList()
             }
+
+        context?.let {
+            binding.floatingActionButton.isVisible = viewModel.isUserOrganizer(it)
+        }
 
         initRecycler()
         initActions()

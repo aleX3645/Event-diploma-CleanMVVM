@@ -1,10 +1,9 @@
 package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
-import androidx.navigation.navOptions
+import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -17,13 +16,24 @@ import javax.inject.Inject
 class ConferenceRecyclerViewModel:
     BaseViewModel<ConferenceRecyclerViewModel.ViewState, ConferenceRecyclerViewModel.Action>(ViewState()){
 
+    init{
+        DaggerConferenceViewModelComponent.factory().create().inject(this)
+    }
+
     var filterList: MutableList<Int> = mutableListOf()
 
     @Inject
     lateinit var loadNextConferencesUseCase: LoadNextConferencesUseCase
 
-    init{
-        DaggerConferenceViewModelComponent.factory().create().inject(this)
+    data class ViewState(
+        val isLoading: Boolean = true,
+        val isError: Boolean = false,
+        val conferences: List<Conference> = listOf()
+    ) : BaseViewState
+
+    interface Action : BaseAction {
+        class ConferenceListLoadingSuccess(val conferences: List<Conference>) : Action
+        object ConferenceListLoadingFailure : Action
     }
 
     override fun onLoadData() {
@@ -35,6 +45,30 @@ class ConferenceRecyclerViewModel:
         loadNextConferencesUseCase.dropData()
 
         onLoadData()
+    }
+
+    private fun loadNextConferences(){
+        viewModelScope.launch {
+            loadNextConferencesUseCase().also { result ->
+                val action = when (result) {
+                    is LoadNextConferencesUseCase.Result.Success ->
+                        if (result.data.isEmpty()) {
+                            Action.ConferenceListLoadingFailure
+                        } else {
+                            Action.ConferenceListLoadingSuccess(result.data)
+                        }
+                    is LoadNextConferencesUseCase.Result.Error ->
+                        Action.ConferenceListLoadingFailure
+                    else -> Action.ConferenceListLoadingFailure
+                }
+                sendAction(action)
+            }
+        }
+    }
+
+    fun isUserOrganizer(context: Context) : Boolean{
+        val spManager = SharedPreferencesManager(context)
+        return spManager.fetchOrgFlag()
     }
 
     private val conferences: MutableList<Conference> = mutableListOf()
@@ -57,25 +91,6 @@ class ConferenceRecyclerViewModel:
             isError = true,
             conferences = this.conferences
         )
-    }
-
-    private fun loadNextConferences(){
-        viewModelScope.launch {
-            loadNextConferencesUseCase().also { result ->
-                val action = when (result) {
-                    is LoadNextConferencesUseCase.Result.Success ->
-                        if (result.data.isEmpty()) {
-                            Action.ConferenceListLoadingFailure
-                        } else {
-                            Action.ConferenceListLoadingSuccess(result.data)
-                        }
-                    is LoadNextConferencesUseCase.Result.Error ->
-                        Action.ConferenceListLoadingFailure
-                    else -> Action.ConferenceListLoadingFailure
-                }
-                sendAction(action)
-            }
-        }
     }
 
     fun navigateToConferenceDetail(navController: NavController, conference: Conference){
@@ -102,16 +117,5 @@ class ConferenceRecyclerViewModel:
     fun navigateToConferenceBuilder(navController: NavController){
         val action = ConferenceRecyclerFragmentDirections.actionRecyclerToConferenceBuilderFeature()
         navController.navigate(action)
-    }
-
-    data class ViewState(
-        val isLoading: Boolean = true,
-        val isError: Boolean = false,
-        val conferences: List<Conference> = listOf()
-    ) : BaseViewState
-
-    interface Action : BaseAction {
-        class ConferenceListLoadingSuccess(val conferences: List<Conference>) : Action
-        object ConferenceListLoadingFailure : Action
     }
 }

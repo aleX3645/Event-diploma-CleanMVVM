@@ -11,12 +11,12 @@ class SharedPreferencesManager (context: Context) {
     companion object {
         const val USER_TOKEN = "user_token"
         const val LOGIN = "login"
-        const val AUTH_FLAG = "auth_flag"
+        const val ORG_FLAG = "org_flag"
     }
 
-    fun saveAuthToken(token: String) {
+    fun setOrgFlag(orgFlag: Boolean) {
         val editor = prefs.edit()
-        editor.putString(USER_TOKEN, token)
+        editor.putBoolean(ORG_FLAG, orgFlag)
         editor.apply()
     }
 
@@ -33,6 +33,10 @@ class SharedPreferencesManager (context: Context) {
 
     fun fetchLogin(): String? {
         return prefs.getString(LOGIN, null)
+    }
+
+    fun fetchOrgFlag(): Boolean {
+        return prefs.getBoolean(ORG_FLAG, false)
     }
 
     fun removeUserData(){
