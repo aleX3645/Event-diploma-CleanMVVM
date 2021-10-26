@@ -2,6 +2,7 @@ package com.alex3645.feature_conference_builder.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.alex3645.feature_conference_builder.data.model.TariffJson
 
 data class Tariff(
     val id: Int,
@@ -19,6 +20,17 @@ data class Tariff(
         parcel.readInt(),
         parcel.readInt()
     ) {
+    }
+
+    fun toJson() : TariffJson {
+        return TariffJson(
+            id = this.id,
+            conferenceId = this.conferenceId,
+            cost = this.cost,
+            name = this.name?:"",
+            ticketsLeft = this.ticketsLeft,
+            ticketsTotal = this.ticketsTotal
+        )
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

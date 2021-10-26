@@ -1,10 +1,14 @@
 package com.alex3645.feature_conference_builder.presentation.conferenceEditorView
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
+import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_conference_builder.di.components.DaggerBuilderViewModelComponent
+import com.alex3645.feature_conference_builder.di.module.BuilderViewModelModule
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.Tariff
@@ -12,11 +16,15 @@ import com.alex3645.feature_conference_builder.usecase.SaveConferenceUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ConferenceEditorViewModel :
-    BaseViewModel<ConferenceEditorViewModel.ViewState, ConferenceEditorViewModel.Action>(ViewState()) {
+class ConferenceEditorViewModel (application: Application):
+    BaseAndroidViewModel<ConferenceEditorViewModel.ViewState, ConferenceEditorViewModel.Action>(ViewState(),application) {
+
+    init{
+        DaggerBuilderViewModelComponent.factory().create(BuilderViewModelModule(application)).inject(this)
+    }
 
     var conference: Conference = Conference(0,0,null,null,"",
-        mutableListOf<Event>(),false,"",null,0,0,listOf<Tariff>())
+        mutableListOf<Event>(),false,"",null,0,0,mutableListOf<Tariff>())
 
     data class ViewState(
         val isLoading: Boolean = true,

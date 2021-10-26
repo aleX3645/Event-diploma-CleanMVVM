@@ -14,7 +14,7 @@ class EventEditorViewModel : ViewModel(){
 
     var newEvent: Event? = null
 
-    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'",Locale.getDefault())
+    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
 
     fun buildNewEvent(name: String, dateStart: Calendar, dateEnd: Calendar, description: String){
         newEvent = Event(

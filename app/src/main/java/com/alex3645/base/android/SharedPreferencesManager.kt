@@ -43,6 +43,7 @@ class SharedPreferencesManager (context: Context) {
         val editor = prefs.edit()
         editor.putString(USER_TOKEN, null)
         editor.putString(LOGIN, null)
+        editor.putBoolean(ORG_FLAG, false)
         editor.apply()
     }
 }

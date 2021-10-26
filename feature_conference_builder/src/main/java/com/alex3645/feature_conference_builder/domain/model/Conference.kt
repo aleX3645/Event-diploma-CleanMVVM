@@ -2,7 +2,9 @@ package com.alex3645.feature_conference_builder.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.util.ArrayList
+import com.alex3645.feature_conference_builder.data.model.ConferenceJson
+import com.alex3645.feature_conference_builder.data.model.EventJson
+import com.alex3645.feature_conference_builder.data.model.TariffJson
 
 data class Conference(
     val id: Int,
@@ -16,7 +18,7 @@ data class Conference(
     var name: String?,
     var organizerId: Int,
     val status: Int,
-    val tariffs: List<Tariff>?
+    val tariffs: MutableList<Tariff>?
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -32,6 +34,23 @@ data class Conference(
         parcel.readInt(),
         parcel.createTypedArrayList(Tariff)
     ) {
+    }
+
+    fun toJson(): ConferenceJson{
+        return ConferenceJson(
+            id = this.id,
+            category = this.category,
+            dateEnd = this.dateEnd?:"",
+            dateStart = this.dateStart?:"",
+            description = this.description?:"",
+            eventsJson = this.events?.map { it.toJson() }?.toMutableList()?: mutableListOf(),
+            isCancelled = this.isCancelled,
+            location = this.location?:"",
+            name = this.name?:"",
+            organizerId = this.organizerId,
+            status = this.status,
+            tariffsJson = this.tariffs?.map { it.toJson() }?.toMutableList()?: mutableListOf()
+        )
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

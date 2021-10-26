@@ -16,6 +16,6 @@ class ConferenceBuilderRepositoryImpl @Inject constructor(
     private val sharedPreferences = SharedPreferencesManager(context)
 
     override suspend fun addConference(conference: Conference) : Response{
-        return service.addConference(sharedPreferences.fetchAuthToken()?: "",conference)
+        return service.addConference(sharedPreferences.fetchAuthToken()?: "",conference.toJson())
     }
 }

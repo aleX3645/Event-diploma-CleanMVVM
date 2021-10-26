@@ -46,11 +46,11 @@ class EventEditorFragment : Fragment() {
     private var globalDateStart: Calendar = Calendar.getInstance()
     private var globalDateEnd: Calendar = Calendar.getInstance()
 
-    val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'",Locale.getDefault())
+    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
 
     private fun initView(){
         var conference = args.conference
-        conference.let {
+        conference?.let {
             viewModel.conference = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
             globalDateEnd.time = simpleDateFormatServer.parse(it!!.dateEnd)
@@ -58,7 +58,7 @@ class EventEditorFragment : Fragment() {
 
 
 
-        args.event.let{
+        args.event?.let{
             viewModel.event = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
             globalDateEnd.time = simpleDateFormatServer.parse(it!!.dateEnd)

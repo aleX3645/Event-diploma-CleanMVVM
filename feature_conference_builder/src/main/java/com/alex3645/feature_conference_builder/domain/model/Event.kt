@@ -3,6 +3,7 @@ package com.alex3645.feature_conference_builder.domain.model
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.versionedparcelable.VersionedParcelize
+import com.alex3645.feature_conference_builder.data.model.EventJson
 
 data class Event(
     val id: Int,
@@ -24,6 +25,19 @@ data class Event(
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
+    }
+
+    fun toJson() : EventJson {
+        return EventJson(
+            id = this.id,
+            conferenceId = this.conferenceId?: 0,
+            dateEnd = this.dateEnd?:"",
+            dateStart = this.dateStart?:"",
+            description = this.description?:"",
+            events = this.events?.map{it.toJson()}?.toMutableList()?: mutableListOf(),
+            name = this.name?:"",
+            speakerId = this.speakerId?:0
+        )
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

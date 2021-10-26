@@ -178,7 +178,7 @@ class ConferenceEditorFragment : Fragment() {
     private var startDate: Calendar = Calendar.getInstance(Locale.getDefault())
     private var endDate: Calendar = Calendar.getInstance(Locale.getDefault())
     private val dayMilliseconds = TimeUnit.DAYS.toMillis(1)
-    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'",Locale.getDefault())
+    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
     private val simpleDateFormatClientDate = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
     private val simpleDateFormatClientTime = SimpleDateFormat("HH:mm",Locale.getDefault())
 

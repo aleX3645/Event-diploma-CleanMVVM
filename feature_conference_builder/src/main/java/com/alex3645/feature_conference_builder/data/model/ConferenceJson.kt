@@ -28,7 +28,7 @@ data class ConferenceJson(
     @SerializedName("status")
     val status: Int,
     @SerializedName("tariffs")
-    val tariffsJson: ArrayList<TariffJson>
+    val tariffsJson: MutableList<TariffJson>
 ){
     internal fun toDomainModel() : Conference {
         return  Conference(
@@ -43,7 +43,7 @@ data class ConferenceJson(
             name = this.name,
             organizerId = this.organizerId,
             status = this.status,
-            tariffs = this.tariffsJson.map { it.toDomainModel() }
+            tariffs = this.tariffsJson?.map { it.toDomainModel() }?.toMutableList()
         )
     }
 }
