@@ -14,7 +14,7 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val conferenceService: ApiRetrofitAuthService,
     private val database: AccountAuthDao,
-    private val context: Context) : AuthRepository{
+    context: Context) : AuthRepository{
 
     private val sharedPreferences = SharedPreferencesManager(context)
 

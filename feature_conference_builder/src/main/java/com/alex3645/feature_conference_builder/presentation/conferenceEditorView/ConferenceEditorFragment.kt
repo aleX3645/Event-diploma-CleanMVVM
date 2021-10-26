@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Conference
@@ -21,9 +25,9 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
-
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 /*
 * NO_CATEGORY(0, "No category"),
     POLITICS(1, "Politics"),
@@ -38,7 +42,7 @@ import java.util.concurrent.TimeUnit
 * */
 
 class ConferenceEditorFragment : Fragment() {
-    val menuItems = listOf("No category", "Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
+    private val menuItems = listOf("No category", "Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
 
@@ -57,7 +61,7 @@ class ConferenceEditorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //observe(viewModel.stateLiveData, stateObserver)
+        observe(viewModel.stateLiveData, stateObserver)
 
         initView()
     }
@@ -87,50 +91,65 @@ class ConferenceEditorFragment : Fragment() {
 
     private fun setButtons(){
         binding.addEvents.setOnClickListener {
-            if(binding.endDateInputText.text.contentEquals("")){
-                binding.endDateTextField.helperText = "Для продолжения задайте значение данного поля"
-                return@setOnClickListener
-            }
-            binding.endDateTextField.helperText = ""
-
-            if(binding.startDateInputText.text.contentEquals("")){
-                binding.startDateTextField.helperText = "Для продолжения задайте значение данного поля"
-                return@setOnClickListener
-            }
-            binding.startDateTextField.helperText = ""
-
-            if(binding.startTimeInputText.text.contentEquals("")){
-                binding.startTimeTextField.helperText = "Для продолжения задайте значение данного поля"
-                return@setOnClickListener
-            }
-            binding.startTimeTextField.helperText = ""
-
-            if(binding.endTimeInputText.text.contentEquals("")){
-                binding.endTimeTextField.helperText = "Для продолжения задайте значение данного поля"
-                return@setOnClickListener
-            }
-            binding.endTimeTextField.helperText = ""
-
-            if(binding.nameInputText.text.contentEquals("")){
-                binding.conferenceNameTextField.helperText = "Для продолжения задайте значение данного поля"
-                return@setOnClickListener
-            }
-            binding.conferenceNameTextField.helperText = ""
-
-
-            if(correctDateTimeCheck(startDate, endDate)){
-                viewModel.conference.name = binding.nameInputText.text.toString()
-                viewModel.conference.description = binding.descriptionInputText.text.toString()
-                viewModel.conference.location = binding.locationInputText.text.toString()
-                viewModel.conference.category = if (binding.menuInputText.listSelection == -1) 0 else binding.menuInputText.listSelection
-                viewModel.conference.organizerId = 0
-
-                viewModel.conference.dateStart = simpleDateFormatServer.format(startDate.time).toString()
-                viewModel.conference.dateEnd = simpleDateFormatServer.format(endDate.time).toString()
-
+            if(beforeNextStepCheck()){
+                setConference()
                 viewModel.navigateToEventListEditor(findNavController())
             }
         }
+
+        binding.saveButton.setOnClickListener {
+            if(beforeNextStepCheck()){
+                setConference()
+                viewModel.saveConference()
+            }
+        }
+    }
+
+    private fun setConference(){
+        viewModel.conference.name = binding.nameInputText.text.toString()
+        viewModel.conference.description = binding.descriptionInputText.text.toString()
+        viewModel.conference.location = binding.locationInputText.text.toString()
+        viewModel.conference.category = if (binding.menuInputText.listSelection == -1) 0 else binding.menuInputText.listSelection
+        viewModel.conference.organizerId = 0
+
+        viewModel.conference.dateStart = simpleDateFormatServer.format(startDate.time).toString()
+        viewModel.conference.dateEnd = simpleDateFormatServer.format(endDate.time).toString()
+    }
+
+    private fun beforeNextStepCheck() : Boolean{
+        if(binding.endDateInputText.text.contentEquals("")){
+            binding.endDateTextField.helperText = "Для продолжения задайте значение данного поля"
+            return false
+        }
+        binding.endDateTextField.helperText = ""
+
+        if(binding.startDateInputText.text.contentEquals("")){
+            binding.startDateTextField.helperText = "Для продолжения задайте значение данного поля"
+            return false
+        }
+        binding.startDateTextField.helperText = ""
+
+        if(binding.startTimeInputText.text.contentEquals("")){
+            binding.startTimeTextField.helperText = "Для продолжения задайте значение данного поля"
+            return false
+        }
+        binding.startTimeTextField.helperText = ""
+
+        if(binding.endTimeInputText.text.contentEquals("")){
+            binding.endTimeTextField.helperText = "Для продолжения задайте значение данного поля"
+            return false
+        }
+        binding.endTimeTextField.helperText = ""
+
+        if(binding.nameInputText.text.contentEquals("")){
+            binding.conferenceNameTextField.helperText = "Для продолжения задайте значение данного поля"
+            return false
+        }
+
+        binding.conferenceNameTextField.helperText = ""
+
+
+        return correctDateTimeCheck(startDate, endDate)
     }
 
     private fun setDropDownMenu(){
@@ -276,5 +295,15 @@ class ConferenceEditorFragment : Fragment() {
     private fun timeSettledFlag() : Boolean{
         return (!binding.endTimeTextField.editText?.text.contentEquals("")
                 && !binding.endTimeTextField.editText?.text.contentEquals(""))
+    }
+
+    private val stateObserver = Observer<ConferenceEditorViewModel.ViewState> {
+
+        binding.registrationProgressBar.isVisible = it.isLoading
+        if(it.isError){
+            Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
+        }else{
+            findNavController().popBackStack()
+        }
     }
 }
