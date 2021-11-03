@@ -15,11 +15,14 @@ import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Conference
 
-class ConferenceDetailFragment: Fragment() {
+class ConferenceDetailFragment(): Fragment() {
 
     private val viewModel: ConferenceDetailViewModel by viewModels()
 
-    private val args by navArgs<ConferenceDetailFragmentArgs>()
+    private var conferenceId: Int? = null
+    constructor(id: Int) : this() {
+        conferenceId = id
+    }
 
     private var _binding: FragmentConferenceDetailBinding? = null
     private val binding get() = _binding!!
@@ -35,14 +38,16 @@ class ConferenceDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observe(viewModel.stateLiveData, stateObserver)
 
+        conferenceId?.let{viewModel.conferenceId = it}
+
+        observe(viewModel.stateLiveData, stateObserver)
         initView()
     }
 
     lateinit var conference: Conference
     private fun initView(){
-        viewModel.loadConference(args.conferenceId)
+        viewModel.loadConference()
 
         initActions()
     }
@@ -69,9 +74,7 @@ class ConferenceDetailFragment: Fragment() {
     }
 
     private fun initActions(){
-        binding.scheduleButton.setOnClickListener{
-            viewModel.navigateToEventList(findNavController(),conference)
-        }
+
     }
 
     override fun onDestroyView() {

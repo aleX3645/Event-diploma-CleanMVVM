@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/conferenceDetailFragment">
+    app:startDestination="@id/detailHolder">
 
+    <fragment
+        android:id="@+id/detailHolder"
+        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragment"
+        android:label="FragmentDetailHolder"
+        app:moduleName="feature_conference_detail">
+        <argument
+            android:name="conference_id"
+            app:argType="integer"/>
+    </fragment>
 
     <fragment
         android:id="@+id/conferenceDetailFragment"
         android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailView.ConferenceDetailFragment"
         android:label="ConferenceDetailFragment"
-        app:moduleName="feature_conference_list">
-        <action
-            android:id="@+id/actionConferenceToEventList"
-            app:destination="@id/eventListFragment"/>
-        <argument
-            android:name="conference_id"
-            app:argType="integer"/>
+        app:moduleName="feature_conference_detail">
     </fragment>
 
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragment"
         android:label="EventListFragment"
-        app:moduleName="feature_conference_list">
+        app:moduleName="feature_conference_detail">
         <action
             android:id="@+id/actionEventListToEvent"
             app:destination="@id/eventFragment"/>
-        <argument
-            android:name="conference_id"
-            app:argType="integer"/>
     </fragment>
 
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.alex3645.feature_conference_detail.presentation.eventDetailView.EventDetailFragment"
         android:label="EventFragment"
-        app:moduleName="feature_conference_list">
+        app:moduleName="feature_conference_detail">
         <argument
             android:name="event_id"
             app:argType="integer"/>

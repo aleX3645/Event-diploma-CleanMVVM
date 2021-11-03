@@ -87,8 +87,6 @@ class EventEditorListFragment : Fragment(){
                 viewModel.conference = it
                 eventAdapter.events = viewModel.conference!!.events ?: mutableListOf()
             }
-
-
     }
 
     private fun initActions(){

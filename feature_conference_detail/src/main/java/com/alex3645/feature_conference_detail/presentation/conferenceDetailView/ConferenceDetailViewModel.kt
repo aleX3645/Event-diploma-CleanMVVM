@@ -17,6 +17,8 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
         DaggerConferenceDetailViewModelComponent.factory().create().inject(this)
     }
 
+    var conferenceId: Int = 0
+
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
@@ -32,9 +34,9 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
     @Inject
     lateinit var loadConferenceByIdUseCase: LoadConferenceByIdUseCase
 
-    fun loadConference(id: Int){
+    fun loadConference(){
         viewModelScope.launch {
-            loadConferenceByIdUseCase(id).also { result ->
+            loadConferenceByIdUseCase(conferenceId).also { result ->
                 val action = when (result) {
                     is LoadConferenceByIdUseCase.Result.Success ->
                         Action.LoadSuccess(result.data)
@@ -70,10 +72,5 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
                 errorMessage = "Произошла непредвиденная ошибка"
             )
         }
-    }
-
-    fun navigateToEventList(navController: NavController, conference: Conference){
-        val action = ConferenceDetailFragmentDirections.actionConferenceToEventList(conference.id)
-        navController.navigate(action)
     }
 }

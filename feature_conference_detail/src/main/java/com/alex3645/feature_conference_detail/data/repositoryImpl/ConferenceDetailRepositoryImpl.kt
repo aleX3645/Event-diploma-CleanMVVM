@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_detail.data.repositoryImpl
 
-import com.alex3645.feature_conference_detail.data.network.ApiRetrofitConferenceDetailService
+import com.alex3645.feature_conference_detail.data.model.ChatMessage
+import com.alex3645.feature_conference_detail.data.network.service.ApiRetrofitConferenceDetailService
 import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.domain.model.Event
 import com.alex3645.feature_conference_detail.domain.repository.ConferenceDetailRepository
@@ -17,5 +18,13 @@ class ConferenceDetailRepositoryImpl @Inject constructor(private val conferenceD
 
     override suspend fun loadEventsForConferenceWithId(id: Int): List<Event> {
         return conferenceDetailService.getEventsForConferenceWithId(id).map { it.toDomainModel() }
+    }
+
+    override suspend fun loadChatByConferenceId(id: Long) : List<ChatMessage>{
+        return conferenceDetailService.getChatByConferenceId(id)
+    }
+
+    override suspend fun sendChatMessage(chatMessage: ChatMessage) {
+        conferenceDetailService.sendChatMessage(chatMessage)
     }
 }

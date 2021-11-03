@@ -1,12 +1,10 @@
 package com.alex3645.feature_conference_detail.di.module
 
 import com.alex3645.app.data.api.ServerConstants
-import com.alex3645.feature_conference_detail.data.network.ApiRetrofitConferenceDetailService
+import com.alex3645.feature_conference_detail.data.network.service.ApiRetrofitConferenceDetailService
 import com.alex3645.feature_conference_detail.data.repositoryImpl.ConferenceDetailRepositoryImpl
 import com.alex3645.feature_conference_detail.domain.repository.ConferenceDetailRepository
-import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
-import com.alex3645.feature_conference_detail.usecase.LoadEventByIdUseCase
-import com.alex3645.feature_conference_detail.usecase.LoadEventsForConferenceWithIdUseCase
+import com.alex3645.feature_conference_detail.usecase.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -43,6 +41,21 @@ class ConferenceDetailViewModelModule {
     @Provides
     fun provideEventsByConferenceUseCase(conferenceRepository: ConferenceDetailRepository): LoadEventsForConferenceWithIdUseCase {
         return LoadEventsForConferenceWithIdUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideSendMessageUseCase(conferenceRepository: ConferenceDetailRepository): SendMessageUseCase {
+        return SendMessageUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideLoadChatUseCase(conferenceRepository: ConferenceDetailRepository): LoadChatUseCase {
+        return LoadChatUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideConnectToChatUseCase(conferenceRepository: ConferenceDetailRepository, gson: Gson) : ConnectToChatUseCase {
+        return ConnectToChatUseCase(conferenceRepository, gson)
     }
 
     @Provides

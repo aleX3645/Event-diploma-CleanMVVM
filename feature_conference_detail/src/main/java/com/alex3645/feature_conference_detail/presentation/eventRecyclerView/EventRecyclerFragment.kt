@@ -17,13 +17,17 @@ import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetai
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 import javax.inject.Inject
 
-class EventRecyclerFragment : Fragment() {
+class EventRecyclerFragment(): Fragment() {
+
+    private var conferenceId: Int? = null
+    constructor(id: Int) : this() {
+        conferenceId = id
+    }
 
     @Inject
     lateinit var eventAdapter: EventRecyclerAdapter
 
     private val viewModel: EventRecyclerViewModel by viewModels()
-    private val args by navArgs<EventRecyclerFragmentArgs>()
 
     private var _binding: EventRecyclerListBinding? = null
     private val binding get() = _binding!!
@@ -58,10 +62,13 @@ class EventRecyclerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        conferenceId?.let{viewModel.conferenceId = it}
+
         observe(viewModel.stateLiveData, stateObserver)
 
         initRecycler()
-        viewModel.loadEventsForConference(args.conferenceId)
+        viewModel.loadEventsForConference()
     }
 
     private val stateObserver = Observer<EventRecyclerViewModel.ViewState> {

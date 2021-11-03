@@ -16,6 +16,8 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
         DaggerConferenceDetailViewModelComponent.factory().create().inject(this)
     }
 
+    var conferenceId = 0
+
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
@@ -31,9 +33,9 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
     @Inject
     lateinit var loadEventsForConferenceWithIdUseCase: LoadEventsForConferenceWithIdUseCase
 
-    fun loadEventsForConference(id: Int){
+    fun loadEventsForConference(){
         viewModelScope.launch {
-            loadEventsForConferenceWithIdUseCase(id).also { result ->
+            loadEventsForConferenceWithIdUseCase(conferenceId).also { result ->
                 val action = when (result) {
                     is LoadEventsForConferenceWithIdUseCase.Result.Success ->
                         Action.LoadSuccess(result.data)

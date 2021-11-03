@@ -1,5 +1,6 @@
 package com.alex3645.feature_conference_detail.di.module
 
+import com.alex3645.feature_conference_detail.presentation.conferenceChatView.recyclerView.ChatRecyclerAdapter
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 import dagger.Module
 import dagger.Provides
@@ -10,5 +11,10 @@ class ConferenceDetailFragmentModule {
     @Provides
     fun provideEventAdapter(): EventRecyclerAdapter {
         return EventRecyclerAdapter()
+    }
+
+    @Provides
+    fun provideChatAdapter(): ChatRecyclerAdapter {
+        return ChatRecyclerAdapter()
     }
 }

@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_detail.di.component
 
 import com.alex3645.feature_conference_detail.di.module.ConferenceDetailFragmentModule
+import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatFragment
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragment
 import dagger.Component
 
@@ -12,4 +13,5 @@ interface ConferenceDetailFragmentComponent {
     }
 
     fun inject(eventRecyclerFragment: EventRecyclerFragment)
+    fun inject(conferenceChatFragment: ConferenceChatFragment)
 }
