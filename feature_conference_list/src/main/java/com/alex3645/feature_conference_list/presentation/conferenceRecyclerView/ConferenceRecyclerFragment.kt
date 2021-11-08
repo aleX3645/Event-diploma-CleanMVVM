@@ -75,6 +75,11 @@ class ConferenceRecyclerFragment: Fragment() {
                 viewModel.filterList = it.toMutableList()
             }
 
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("city")
+            ?.observe(viewLifecycleOwner) {
+                viewModel.city = it
+            }
+
         context?.let {
             binding.floatingActionButton.isVisible = viewModel.isUserOrganizer(it)
         }
@@ -114,7 +119,7 @@ class ConferenceRecyclerFragment: Fragment() {
 
     private val stateObserver = Observer<ConferenceRecyclerViewModel.ViewState> {
         conferenceAdapter.conferences = it.conferences
-        conferenceAdapter.filter(viewModel.filterList)
+        conferenceAdapter.filter(viewModel.filterList, viewModel.city)
 
         binding.swipeContainer.isRefreshing = it.isLoading
         if(it.isError){

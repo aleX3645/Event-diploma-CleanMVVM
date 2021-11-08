@@ -21,6 +21,7 @@ class ConferenceRecyclerViewModel:
     }
 
     var filterList: MutableList<Int> = mutableListOf()
+    var city: String = ""
 
     @Inject
     lateinit var loadNextConferencesUseCase: LoadNextConferencesUseCase

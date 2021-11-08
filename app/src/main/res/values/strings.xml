@@ -13,4 +13,6 @@
     <string name="title_feature_conference_detail">Conference detail</string>
     <string name="title_feature_search">Search</string>
     <string name="title_feature_user_account">Feature User Account</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y</string>
 </resources>

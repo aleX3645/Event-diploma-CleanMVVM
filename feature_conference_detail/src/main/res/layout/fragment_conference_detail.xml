@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/conferenceProgressBar"
@@ -14,10 +15,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <ScrollView
+    <com.alex3645.feature_conference_detail.customUI.LockableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:id="@+id/detailScrollView">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,6 +165,12 @@
                     android:textSize="20sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/conferenceDetailMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    tools:context=".MapsActivity" />
             </LinearLayout>
 
             <LinearLayout
@@ -232,7 +239,7 @@
                     />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.alex3645.feature_conference_detail.customUI.LockableScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

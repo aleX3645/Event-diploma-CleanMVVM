@@ -12,6 +12,9 @@
         <action
             android:id="@+id/actionConferenceBuilderToEventEditorFragment"
             app:destination="@id/eventBuilderListFragment"/>
+        <action
+            android:id="@+id/actionConferenceBuilderToTariffListFragment"
+            app:destination="@id/tariff_list"/>
     </fragment>
 
     <fragment
@@ -46,6 +49,31 @@
             android:name="event"
             app:nullable="true"
             app:argType="com.alex3645.feature_conference_builder.domain.model.Event"/>
+        <argument
+            android:name="conference"
+            app:nullable="true"
+            app:argType="com.alex3645.feature_conference_builder.domain.model.Conference"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/tariff_list"
+        android:name="com.alex3645.feature_conference_builder.presentation.tariffListView.TariffListFragment"
+        android:label="tariffListFragment"
+        app:moduleName="feature_conference_builder">
+        <action
+            android:id="@+id/actionTariffListToTariffEditorFragment"
+            app:destination="@id/tariff_editor"/>
+        <argument
+            android:name="conference"
+            app:nullable="true"
+            app:argType="com.alex3645.feature_conference_builder.domain.model.Conference"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/tariff_editor"
+        android:name="com.alex3645.feature_conference_builder.presentation.tariffEditorView.TariffEditorFragment"
+        android:label="tariffEditorFragment"
+        app:moduleName="feature_conference_builder">
         <argument
             android:name="conference"
             app:nullable="true"

@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,14 +18,20 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
 
     private var rawConferences: List<Conference> = listOf()
 
-    fun filter(filter: MutableList<Int>){
-        if(filter.size == 0){
-            return
+    fun filter(filter: MutableList<Int>, city: String){
+        if(filter.size != 0){
+            conferences = rawConferences.filter {
+                filter.contains(it.category)
+            }
         }
 
-        conferences = rawConferences.filter {
-            filter.contains(it.category)
+        if(city != ""){
+            conferences = conferences.filter{
+                Log.d("!!!", "herec")
+                it.location?.contains(city)?: false
+            }
         }
+
     }
 
     private var onDebouncedClickListener: ((conference: Conference) -> Unit)? = null

@@ -6,6 +6,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.alex3645.eventdiploma_mvvm.R
 import com.alex3645.eventdiploma_mvvm.databinding.ActivityNavHostBinding
+import com.google.android.libraries.places.api.Places
+import java.util.*
 
 class NavHostActivity : AppCompatActivity() {
 

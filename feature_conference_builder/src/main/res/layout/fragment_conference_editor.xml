@@ -2,56 +2,63 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <com.alex3645.feature_conference_builder.customUI.LockableScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="49dp">
+
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/conferenceProgressBar"
-            android:orientation="vertical"
-            android:id="@+id/linear"
             android:layout_margin="8dp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/conferenceProgressBar"
+            android:paddingBottom="20dp">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/registrationProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminate="true"
                 android:layout_gravity="center"
-                app:layout_constraintTop_toTopOf="@id/scrollView"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView"
                 app:layout_constraintLeft_toLeftOf="@id/scrollView"
                 app:layout_constraintRight_toRightOf="@id/scrollView"
-                app:layout_constraintBottom_toBottomOf="@+id/scrollView"
-                android:visibility="gone"/>
+                app:layout_constraintTop_toTopOf="@id/scrollView" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Название конференции"/>
+                    android:text="Название конференции"
+                    android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/conferenceNameTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:endIconMode="clear_text"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/nameInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -59,25 +66,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Описание"/>
+                    android:text="Описание"
+                    android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/conferenceDescriptionTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:endIconMode="clear_text"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/descriptionInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -85,51 +94,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Локация"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/conferenceLocationTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:endIconMode="clear_text"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/locationInputText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
-                    android:gravity="start"
-                    android:text="Дата начала конференции"/>
+                    android:text="Дата начала конференции"
+                    android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/startDateTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/startDateInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="time"
-                        android:focusable="false"/>
+                        android:focusable="false"
+                        android:inputType="time" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -138,25 +123,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Время начала конференции"/>
+                    android:text="Время начала конференции"
+                    android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/startTimeTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/startTimeInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:focusable="false"/>
+                        android:focusable="false"
+                        android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -165,26 +152,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Дата окончания конференции"/>
+                    android:text="Дата окончания конференции"
+                    android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/endDateTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:helperTextTextColor="@color/red"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/endDateInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="time"
-                        android:focusable="false"/>
+                        android:focusable="false"
+                        android:inputType="time" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -193,25 +182,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Время окончания конференции"/>
+                    android:text="Время окончания конференции"
+                    android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/endTimeTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/endTimeInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:focusable="false"/>
+                        android:focusable="false"
+                        android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -221,12 +212,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="10dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/purple_700"
                     android:gravity="start"
-                    android:text="Категория"/>
+                    android:text="Категория"
+                    android:textColor="@color/purple_700" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/exposedMenu"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -238,10 +231,46 @@
                         android:id="@+id/menuInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:focusable="false"/>
+                        android:focusable="false"
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="Адрес"
+                    android:textColor="@color/purple_700" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/address_text_input"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=""
+                    android:textSize="30sp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/addressEditTextAuto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPostalAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/conferenceEditorMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    tools:context=".MapsActivity" />
             </LinearLayout>
 
             <Button
@@ -256,6 +285,17 @@
                 app:layout_constraintTop_toBottomOf="@id/linear" />
 
             <Button
+                android:id="@+id/addTariffs"
+                style="@style/AppTheme.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Добавить тарифы"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear" />
+
+            <Button
                 android:id="@+id/saveButton"
                 style="@style/AppTheme.Button"
                 android:layout_width="match_parent"
@@ -265,8 +305,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear" />
-
         </LinearLayout>
-    </ScrollView>
+    </com.alex3645.feature_conference_builder.customUI.LockableScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

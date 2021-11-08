@@ -1,23 +1,42 @@
 package com.alex3645.feature_conference_builder.presentation.conferenceEditorView
 
+import android.Manifest
+import android.content.ContentValues
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_builder.R
+import com.alex3645.feature_conference_builder.customUI.LockableScrollView
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Conference
+import com.alex3645.feature_conference_builder.presentation.validators.DateTimeValidator
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -41,7 +60,7 @@ import java.util.concurrent.TimeUnit
     OTHERS(9, "Others");
 * */
 
-class ConferenceEditorFragment : Fragment() {
+class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
     private val menuItems = listOf("No category", "Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
@@ -49,6 +68,9 @@ class ConferenceEditorFragment : Fragment() {
     private var _binding: FragmentConferenceEditorBinding? = null
     private val binding get() = _binding!!
 
+    private val dateTimeValidator = DateTimeValidator()
+
+    private lateinit var googleMap: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +88,10 @@ class ConferenceEditorFragment : Fragment() {
         initView()
     }
 
+
     private fun initView(){
+        val mapFragment = childFragmentManager.findFragmentById(R.id.conferenceEditorMap) as? SupportMapFragment
+        mapFragment?.getMapAsync(this)
 
         initBackStackObserver()
         initActions()
@@ -84,17 +109,71 @@ class ConferenceEditorFragment : Fragment() {
         setStartDateTimeActions()
         setEndDateTimeActions()
 
-        setButtons()
+        setActions()
 
         setDropDownMenu()
     }
 
-    private fun setButtons(){
+    override fun onMapReady(gMap: GoogleMap) {
+        googleMap = gMap
+
+        val geocoder = Geocoder(context, Locale.getDefault())
+
+        this.context?.let{
+            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }else{
+                googleMap.isMyLocationEnabled = true
+            }
+        }
+
+        googleMap.setOnMapClickListener {
+
+            val address = geocoder.getFromLocation(it.latitude, it.longitude,1)[0]
+
+            binding.addressTextInput.editText?.text = Editable.Factory().newEditable(address.getAddressLine(address.maxAddressLineIndex))
+            googleMap.clear()
+            googleMap.addMarker(MarkerOptions().position(it))
+        }
+
+        googleMap.setOnCameraMoveListener {
+            binding.scrollView.setScrollingEnabled(false)
+        }
+
+        googleMap.setOnCameraIdleListener {
+            binding.scrollView.setScrollingEnabled(true)
+        }
+
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult( ActivityResultContracts.RequestPermission() ) { isGranted: Boolean ->
+            if (isGranted) {
+                activateLocation()
+            }
+        }
+
+    private fun activateLocation(){
+        this.context?.let {
+            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            }else{
+                googleMap.isMyLocationEnabled = true
+            }
+        }
+    }
+
+
+    var settedFlag = false
+    private fun setActions(){
         binding.addEvents.setOnClickListener {
             if(beforeNextStepCheck()){
                 setConference()
                 viewModel.navigateToEventListEditor(findNavController())
             }
+        }
+
+        binding.addTariffs.setOnClickListener {
+            viewModel.navigateToTariffList(findNavController())
         }
 
         binding.saveButton.setOnClickListener {
@@ -103,12 +182,48 @@ class ConferenceEditorFragment : Fragment() {
                 viewModel.saveConference()
             }
         }
+
+        (binding.addressTextInput.editText as? AutoCompleteTextView)?.onItemClickListener =
+            object: AdapterView.OnItemClickListener{
+                override fun onItemClick(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    settedFlag = true
+                }
+            }
+
+        binding.addressEditTextAuto.addTextChangedListener{ editable ->
+
+            viewModel.getPredictionAdapter(editable.toString(), callback = {
+                (binding.addressTextInput.editText as? AutoCompleteTextView)?.setAdapter(it)
+                if(!settedFlag){
+                    (binding.addressTextInput.editText as? AutoCompleteTextView)?.showDropDown()
+                }else{
+                    settedFlag = false
+                }
+
+                if(editable.toString() != ""){
+                    val geocoder = Geocoder(context, Locale.getDefault())
+                    val addresses = geocoder.getFromLocationName(editable.toString(), 1)
+
+                    if(addresses.size !=0){
+                        val point = LatLng(addresses[0].latitude, addresses[0].longitude)
+
+                        googleMap.clear()
+                        googleMap.addMarker(MarkerOptions().position(point))
+                    }
+                }
+            })
+        }
     }
 
     private fun setConference(){
         viewModel.conference.name = binding.nameInputText.text.toString()
         viewModel.conference.description = binding.descriptionInputText.text.toString()
-        viewModel.conference.location = binding.locationInputText.text.toString()
+        viewModel.conference.location = binding.addressEditTextAuto.text.toString()
         viewModel.conference.category = if (binding.menuInputText.listSelection == -1) 0 else binding.menuInputText.listSelection
         viewModel.conference.organizerId = 0
 
@@ -178,6 +293,7 @@ class ConferenceEditorFragment : Fragment() {
     private var startDate: Calendar = Calendar.getInstance(Locale.getDefault())
     private var endDate: Calendar = Calendar.getInstance(Locale.getDefault())
     private val dayMilliseconds = TimeUnit.DAYS.toMillis(1)
+
     private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
     private val simpleDateFormatClientDate = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
     private val simpleDateFormatClientTime = SimpleDateFormat("HH:mm",Locale.getDefault())
@@ -269,7 +385,7 @@ class ConferenceEditorFragment : Fragment() {
         binding.endDateTextField.helperText = ""
         binding.endTimeTextField.helperText = ""
 
-        if(firstDateOlder(startDate, endDate) && dateSettledFlag()){
+        if(dateTimeValidator.firstDateOlder(startDate, endDate) && dateSettledFlag()){
             binding.endDateTextField.helperText = "Дата начала конференции не может быть раньше даты окончания"
             return false
         }
@@ -279,12 +395,6 @@ class ConferenceEditorFragment : Fragment() {
         }
 
         return true
-    }
-
-    private fun firstDateOlder(firstDate: Calendar, secondDate: Calendar) : Boolean{
-        return (firstDate.get(Calendar.YEAR) >= secondDate.get(Calendar.YEAR)
-                && firstDate.get(Calendar.MONTH) >= secondDate.get(Calendar.MONTH)
-                && firstDate.get(Calendar.DATE) > secondDate.get(Calendar.DATE))
     }
 
     private fun dateSettledFlag() : Boolean{
