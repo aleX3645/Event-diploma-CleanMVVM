@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/personalSchedule">
+    <fragment
+        android:id="@+id/personalSchedule"
+        android:name="com.alex3645.feature_personal_schedule.presentation.personalScheduleView.PersonalScheduleFragment"
+        android:label="FragmentDetailHolder"
+        app:moduleName="feature_conference_detail">
+    </fragment>
+</navigation>

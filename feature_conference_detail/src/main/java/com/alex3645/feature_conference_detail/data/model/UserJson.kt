@@ -1,7 +1,6 @@
 package com.alex3645.feature_conference_detail.data.model
 
-
-import com.alex3645.app.domain.model.User
+import com.alex3645.feature_conference_detail.domain.model.User
 import com.google.gson.annotations.SerializedName
 
 data class UserJson(

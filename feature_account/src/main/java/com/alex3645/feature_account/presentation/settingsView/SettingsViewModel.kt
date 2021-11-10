@@ -10,6 +10,7 @@ import com.alex3645.feature_account.di.component.DaggerAccountViewModelComponent
 import com.alex3645.feature_account.di.module.AccountViewModelModule
 import com.alex3645.feature_account.presentation.accountView.AccountFragmentDirections
 import com.alex3645.feature_account.usecase.RemoveAccountUseCase
+import com.alex3645.feature_conference_detail.presentation.settingsView.SettingsFragmentDirections
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

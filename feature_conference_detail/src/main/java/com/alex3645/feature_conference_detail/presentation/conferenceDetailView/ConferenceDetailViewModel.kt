@@ -7,6 +7,9 @@ import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Conference
+import com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragmentArgs
+import com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragmentDirections
+import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragmentDirections
 import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,6 +50,11 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
                 sendAction(action)
             }
         }
+    }
+
+    fun navigateToTariffs(navController: NavController){
+        val action = ConferenceDetailHolderFragmentDirections.actionDetailHolderToTariffList(conferenceId)
+        navController.navigate(action)
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){

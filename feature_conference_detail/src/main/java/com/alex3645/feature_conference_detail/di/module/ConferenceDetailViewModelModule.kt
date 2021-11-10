@@ -62,4 +62,14 @@ class ConferenceDetailViewModelModule {
     fun provideEventById(conferenceRepository: ConferenceDetailRepository): LoadEventByIdUseCase {
         return LoadEventByIdUseCase(conferenceRepository)
     }
+
+    @Provides
+    fun provideLoadUserUseCase(conferenceRepository: ConferenceDetailRepository): LoadAccountByLoginUseCase {
+        return LoadAccountByLoginUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideRegisterTicketUseCase(conferenceRepository: ConferenceDetailRepository): RegisterTicketUseCase {
+        return RegisterTicketUseCase(conferenceRepository)
+    }
 }

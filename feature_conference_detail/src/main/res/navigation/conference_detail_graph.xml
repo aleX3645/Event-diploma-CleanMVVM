@@ -8,6 +8,45 @@
         android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragment"
         android:label="FragmentDetailHolder"
         app:moduleName="feature_conference_detail">
+        <action
+            android:id="@+id/actionDetailHolderToTariffList"
+            app:destination="@id/tariffList"/>
+        <action
+            android:id="@+id/actionDetailHolderToSettings"
+            app:destination="@id/SettingsFragment"/>
+        <argument
+            android:name="conference_id"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/tariffList"
+        android:name="com.alex3645.feature_conference_detail.presentation.tariffListView.TariffListFragment"
+        android:label="FragmentTariffList"
+        app:moduleName="feature_conference_detail">
+        <argument
+            android:name="conference_id"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.alex3645.feature_conference_detail.presentation.settingsView.SettingsConferenceFragment"
+        android:label="Settings"
+        app:moduleName="feature_conference_detail">
+        <action
+            android:id="@+id/actionSettingsToStats"
+            app:destination="@id/ConferenceStats"/>
+        <argument
+            android:name="conference_id"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ConferenceStats"
+        android:name="com.alex3645.feature_conference_detail.presentation.conferenceStatsView.ConferenceStatsFragment"
+        android:label="Stats"
+        app:moduleName="feature_conference_detail">
         <argument
             android:name="conference_id"
             app:argType="integer"/>

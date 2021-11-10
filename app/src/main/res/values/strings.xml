@@ -15,4 +15,6 @@
     <string name="title_feature_user_account">Feature User Account</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y</string>
+    <string name="title_feature_personal_scedule">Personal schedule</string>
+    <string name="title_feature_personal_schedule">Personal Schedule</string>
 </resources>

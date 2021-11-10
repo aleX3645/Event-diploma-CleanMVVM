@@ -1,13 +1,13 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alex3645.feature_conference_detail.R
@@ -22,6 +22,7 @@ class ConferenceDetailHolderFragment: Fragment()  {
     private val numPages = 3
 
     private val args by navArgs<ConferenceDetailHolderFragmentArgs>()
+    private val viewModel: ConferenceDetailHolderViewModel by viewModels()
 
     private var _binding: FragmentConferenceDetailHolderBinding? = null
     private val binding get() = _binding!!
@@ -31,12 +32,15 @@ class ConferenceDetailHolderFragment: Fragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
+
         _binding = FragmentConferenceDetailHolderBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.conferenceId = args.conferenceId.toLong()
         initActions()
 
         binding.pager.adapter = this.activity?.let { ScreenSlidePagerAdapter(it) }
@@ -58,6 +62,21 @@ class ConferenceDetailHolderFragment: Fragment()  {
         }.attach()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.conference_detail_upper_appbar_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                viewModel.navigateToSettings(findNavController())
+                true
+            }
+            else -> false
+        }
+    }
+
     private fun initActions(){
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -75,7 +94,7 @@ class ConferenceDetailHolderFragment: Fragment()  {
         override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment = when(position){
-            (0)-> ConferenceDetailFragment(args.conferenceId)
+            (0)-> ConferenceDetailFragment(args.conferenceId, findNavController())
             (1)-> EventRecyclerFragment(args.conferenceId)
             (2)-> ConferenceChatFragment(args.conferenceId.toLong())
             else -> ConferenceDetailFragment()

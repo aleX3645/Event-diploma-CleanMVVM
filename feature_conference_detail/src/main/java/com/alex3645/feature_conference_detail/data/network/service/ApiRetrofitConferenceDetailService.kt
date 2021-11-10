@@ -1,14 +1,13 @@
 package com.alex3645.feature_conference_detail.data.network.service
 
-import com.alex3645.feature_conference_detail.data.model.ChatMessage
-import com.alex3645.feature_conference_detail.data.model.ConferenceJson
-import com.alex3645.feature_conference_detail.data.model.EventJson
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import com.alex3645.feature_conference_detail.data.model.*
+import retrofit2.http.*
 
 interface ApiRetrofitConferenceDetailService {
+
+    @GET("api/usr/info/{login}")
+    suspend fun loadUserByLogin(@Path("login") login: String) : UserJson
+
     @GET("/api/usr/conference/{id}")
     suspend fun getConferenceById(@Path("id") id: Int): ConferenceJson
 
@@ -23,4 +22,7 @@ interface ApiRetrofitConferenceDetailService {
 
     @POST("/api/chat/sendMessage")
     suspend fun sendChatMessage(@Body chatMessage: ChatMessage)
+
+    @POST("/api/usr/registerTicket/{buyerId}")
+    suspend fun registerTicket(@Header("token") token: String, @Path("buyerId") id: Long, @Body ticket: TicketJson)
 }

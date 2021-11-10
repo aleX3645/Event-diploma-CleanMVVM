@@ -5,9 +5,8 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.text.Editable
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -15,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
@@ -33,11 +33,14 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
 
     private val viewModel: ConferenceDetailViewModel by viewModels()
 
+    private var parentNavController: NavController? = null
+
     private lateinit var googleMap: GoogleMap
 
     private var conferenceId: Int? = null
-    constructor(id: Int) : this() {
+    constructor(id: Int, parentNavController: NavController) : this() {
         conferenceId = id
+        this.parentNavController = parentNavController
     }
 
     private var _binding: FragmentConferenceDetailBinding? = null
@@ -48,6 +51,8 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
+
         _binding = FragmentConferenceDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -143,7 +148,9 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
     }
 
     private fun initActions(){
-
+        binding.regButton.setOnClickListener {
+            parentNavController?.let { it -> viewModel.navigateToTariffs(it) }
+        }
     }
 
     override fun onDestroyView() {
