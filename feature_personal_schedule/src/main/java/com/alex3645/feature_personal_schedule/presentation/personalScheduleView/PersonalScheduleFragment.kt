@@ -1,6 +1,7 @@
 package com.alex3645.feature_personal_schedule.presentation.personalScheduleView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,6 +69,7 @@ class PersonalScheduleFragment : Fragment() {
         if(it.isError){
             Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
         }else{
+            Log.d("!!!", "onStateObs")
             eventRecyclerAdapter.events = it?.events ?: listOf()
         }
     }

@@ -6,6 +6,11 @@
         android:icon="@drawable/ic_home"
         android:title="@string/feed"/>
     <item
+        android:id="@+id/ScheduleFeatureGraph"
+        android:enabled="true"
+        android:icon="@drawable/ic_schedule"
+        android:title="@string/Schedule"/>
+    <item
         android:id="@+id/AccountFeatureGraph"
         android:enabled="true"
         android:icon="@drawable/ic_user"

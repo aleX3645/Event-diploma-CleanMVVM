@@ -5,5 +5,5 @@ import com.alex3645.feature_personal_schedule.domain.model.User
 
 interface PersonalScheduleRepository {
     suspend fun loadAccountByLogin(login: String) : User
-    suspend fun loadPersonalSchedule(id: Long) : List<Event>
+    suspend fun loadPersonalSchedule(token: String, id: Long) : List<Event>
 }

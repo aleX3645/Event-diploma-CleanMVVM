@@ -1,6 +1,7 @@
 package com.alex3645.feature_personal_schedule.presentation.personalScheduleView
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
@@ -45,7 +46,7 @@ class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel
             loadUserByIdUseCase(spManager.fetchLogin()?: "").also { result ->
                 val action = when (result) {
                     is LoadAccountByLoginUseCase.Result.Success ->{
-                        loadEvents(result.user.id.toLong())
+                        loadEvents(result.user.id.toLong(), spManager.fetchAuthToken()?:"")
                         return@also
                     }
                     is LoadAccountByLoginUseCase.Result.Error ->
@@ -57,12 +58,14 @@ class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel
         }
     }
 
-    private fun loadEvents(userId: Long){
+    private fun loadEvents(userId: Long, token: String){
         viewModelScope.launch {
-            loadPersonalEventsUseCase(userId).also { result ->
+            loadPersonalEventsUseCase(token,userId).also { result ->
                 val action = when (result) {
-                    is LoadPersonalEventsUseCase.Result.Success ->
+                    is LoadPersonalEventsUseCase.Result.Success ->{
+                        Log.d("!!!", "onLoadEventsSuccess")
                         Action.LoadSuccess(result.events)
+                    }
                     is LoadPersonalEventsUseCase.Result.Error ->
                         Action.Failure("Ошибка подключения")
                     else -> Action.Failure("Ошибка подключения")

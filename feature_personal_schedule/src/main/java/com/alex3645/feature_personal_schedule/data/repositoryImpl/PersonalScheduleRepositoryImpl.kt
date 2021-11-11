@@ -11,7 +11,8 @@ class PersonalScheduleRepositoryImpl @Inject constructor(private val service: Ap
         return service.loadUserByLogin(login).toDomainModel()
     }
 
-    override suspend fun loadPersonalSchedule(id: Long): List<Event> {
-        return service.getPersonalSchedule(id).map{ it.toDomainModel() }
+    override suspend fun loadPersonalSchedule(token: String, id: Long): List<Event> {
+        return service.getPersonalSchedule(id, token).map{ it.toDomainModel() }
     }
+
 }

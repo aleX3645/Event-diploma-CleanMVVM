@@ -7,6 +7,10 @@
         app:moduleName="feature_conference_list"
         app:graphResName="conference_list_graph"/>
     <include-dynamic
+        android:id="@+id/ScheduleFeatureGraph"
+        app:moduleName="feature_personal_schedule"
+        app:graphResName="personal_schedule_graph"/>
+    <include-dynamic
         android:id="@+id/AccountFeatureGraph"
         app:moduleName="feature_account"
         app:graphResName="account_graph"/>
