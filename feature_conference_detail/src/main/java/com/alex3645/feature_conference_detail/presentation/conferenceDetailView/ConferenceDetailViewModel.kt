@@ -57,6 +57,11 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
         navController.navigate(action)
     }
 
+    fun navigateToEventList(navController: NavController){
+        val action = ConferenceDetailHolderFragmentDirections.actionDetailHolderToTariffList(conferenceId)
+        navController.navigate(action)
+    }
+
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){
         is Action.LoadSuccess -> {
             state.copy(

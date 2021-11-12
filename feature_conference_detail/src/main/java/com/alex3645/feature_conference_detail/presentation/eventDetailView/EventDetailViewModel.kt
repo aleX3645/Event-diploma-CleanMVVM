@@ -1,11 +1,13 @@
 package com.alex3645.feature_conference_detail.presentation.eventDetailView
 
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Event
+import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragmentDirections
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerViewModel
 import com.alex3645.feature_conference_detail.usecase.LoadEventByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadEventsForConferenceWithIdUseCase
@@ -46,6 +48,11 @@ class EventDetailViewModel: BaseViewModel<EventDetailViewModel.ViewState, EventD
                 sendAction(action)
             }
         }
+    }
+
+    fun navigateToEvent(navController: NavController, id: Int){
+        val action = EventDetailFragmentDirections.actionEventToEventList(id)
+        navController.navigate(action)
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){

@@ -17,6 +17,9 @@ interface ApiRetrofitConferenceDetailService {
     @GET("/api/usr/conferenceEvents/{id}")
     suspend fun getEventsForConferenceWithId(@Path("id") id: Int): List<EventJson>
 
+    @GET("/api/usr/childrenEvents/{id}")
+    suspend fun getEventsForEventWithId(@Path("id") id: Int): List<EventJson>
+
     @GET("/api/usr/chatMessagesForConference/{id}")
     suspend fun getChatByConferenceId(@Path("id") id: Long): List<ChatMessage>
 

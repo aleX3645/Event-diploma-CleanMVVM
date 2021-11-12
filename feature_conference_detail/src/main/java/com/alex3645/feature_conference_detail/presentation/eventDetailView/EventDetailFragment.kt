@@ -47,7 +47,7 @@ class EventDetailFragment : Fragment() {
 
     private fun initActions(){
         binding.eventScheduleButton.setOnClickListener{
-            //TODO
+            viewModel.navigateToEvent(findNavController(),args.eventId)
         }
     }
 

@@ -27,6 +27,10 @@ class ConferenceDetailRepositoryImpl @Inject constructor(private val conferenceD
         return conferenceDetailService.getEventsForConferenceWithId(id).map { it.toDomainModel() }
     }
 
+    override suspend fun loadEventsForEventWithId(id: Int): List<Event> {
+        return conferenceDetailService.getEventsForEventWithId(id).map { it.toDomainModel() }
+    }
+
     override suspend fun loadChatByConferenceId(id: Long) : List<ChatMessage>{
         return conferenceDetailService.getChatByConferenceId(id)
     }

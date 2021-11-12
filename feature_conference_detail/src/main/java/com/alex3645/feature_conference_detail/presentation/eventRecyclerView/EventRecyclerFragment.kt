@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_detail.presentation.eventRecyclerView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,14 +22,19 @@ import javax.inject.Inject
 class EventRecyclerFragment(): Fragment() {
 
     private var conferenceId: Int? = null
-    constructor(id: Int) : this() {
+    private var eventId: Int? = null
+    private var parentNavController: NavController? = null
+
+    constructor(id: Int, parentNavController: NavController) : this() {
         conferenceId = id
+        this.parentNavController = parentNavController
     }
 
     @Inject
     lateinit var eventAdapter: EventRecyclerAdapter
 
     private val viewModel: EventRecyclerViewModel by viewModels()
+    private var args: EventRecyclerFragmentArgs? = null
 
     private var _binding: EventRecyclerListBinding? = null
     private val binding get() = _binding!!
@@ -51,9 +58,12 @@ class EventRecyclerFragment(): Fragment() {
     }
 
     private  fun initRecycler(){
-
         eventAdapter.setOnDebouncedClickListener {
-            viewModel.navigateToEvent(findNavController(),it.id!!)
+            parentNavController?.let {
+                    it1 -> viewModel.navigateToEventByParent(it1,it.id?:0)
+                    return@setOnDebouncedClickListener
+            }
+            viewModel.navigateToEventByNavigation(findNavController(),it.id?:0)
         }
 
         binding.eventRecyclerView.adapter = eventAdapter
@@ -68,7 +78,20 @@ class EventRecyclerFragment(): Fragment() {
         observe(viewModel.stateLiveData, stateObserver)
 
         initRecycler()
+        initView()
         viewModel.loadEventsForConference()
+    }
+
+    private fun initView(){
+        if(parentNavController == null){
+            val ar by navArgs<EventRecyclerFragmentArgs>()
+            args = ar
+        }
+
+        args?.eventId?.let {
+            eventId = it
+            viewModel.eventId = it
+        }
     }
 
     private val stateObserver = Observer<EventRecyclerViewModel.ViewState> {

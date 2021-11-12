@@ -44,6 +44,11 @@ class ConferenceDetailViewModelModule {
     }
 
     @Provides
+    fun provideEventsByEventUseCase(conferenceRepository: ConferenceDetailRepository): LoadEventsForEventWithIdUseCase {
+        return LoadEventsForEventWithIdUseCase(conferenceRepository)
+    }
+
+    @Provides
     fun provideSendMessageUseCase(conferenceRepository: ConferenceDetailRepository): SendMessageUseCase {
         return SendMessageUseCase(conferenceRepository)
     }

@@ -9,8 +9,14 @@
         android:label="FragmentDetailHolder"
         app:moduleName="feature_conference_detail">
         <action
+            android:id="@+id/actionHolderToEvent"
+            app:destination="@id/eventFragment"/>
+        <action
             android:id="@+id/actionDetailHolderToTariffList"
             app:destination="@id/tariffList"/>
+        <action
+            android:id="@+id/actionDetailHolderToEventList"
+            app:destination="@id/eventListFragment"/>
         <action
             android:id="@+id/actionDetailHolderToSettings"
             app:destination="@id/SettingsFragment"/>
@@ -64,6 +70,9 @@
         android:name="com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragment"
         android:label="EventListFragment"
         app:moduleName="feature_conference_detail">
+        <argument
+            android:name="event_id"
+            app:argType="integer"/>
         <action
             android:id="@+id/actionEventListToEvent"
             app:destination="@id/eventFragment"/>
@@ -74,6 +83,9 @@
         android:name="com.alex3645.feature_conference_detail.presentation.eventDetailView.EventDetailFragment"
         android:label="EventFragment"
         app:moduleName="feature_conference_detail">
+        <action
+            android:id="@+id/actionEventToEventList"
+            app:destination="@id/eventListFragment"/>
         <argument
             android:name="event_id"
             app:argType="integer"/>

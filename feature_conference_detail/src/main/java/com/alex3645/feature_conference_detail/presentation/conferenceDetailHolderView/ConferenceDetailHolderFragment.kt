@@ -95,7 +95,7 @@ class ConferenceDetailHolderFragment: Fragment()  {
 
         override fun createFragment(position: Int): Fragment = when(position){
             (0)-> ConferenceDetailFragment(args.conferenceId, findNavController())
-            (1)-> EventRecyclerFragment(args.conferenceId)
+            (1)-> EventRecyclerFragment(args.conferenceId, findNavController())
             (2)-> ConferenceChatFragment(args.conferenceId.toLong())
             else -> ConferenceDetailFragment()
         }
