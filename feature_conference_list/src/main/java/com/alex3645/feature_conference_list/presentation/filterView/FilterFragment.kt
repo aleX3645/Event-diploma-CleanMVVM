@@ -133,4 +133,9 @@ class FilterFragment : Fragment(){
             9-> binding.chipOther.isChecked = true
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
