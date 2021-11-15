@@ -20,9 +20,9 @@ class LoadNextConferencesUseCase @Inject constructor(private val conferenceRepos
             if(confList.isNotEmpty()){
                 pageNumber++
             }
+
             Result.Success(confList)
         }catch (e: Exception){
-
             Result.Error(e)
         }
     }

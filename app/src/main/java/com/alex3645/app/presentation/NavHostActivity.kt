@@ -6,8 +6,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.alex3645.eventdiploma_mvvm.R
 import com.alex3645.eventdiploma_mvvm.databinding.ActivityNavHostBinding
-import com.google.android.libraries.places.api.Places
-import java.util.*
 
 class NavHostActivity : AppCompatActivity() {
 
@@ -27,7 +25,7 @@ class NavHostActivity : AppCompatActivity() {
     }
 
     private fun initUpperNavigation() {
-        setSupportActionBar(binding.topNavigationAppBar)
+        //setSupportActionBar(binding.topNavigationAppBar)
     }
 
     private fun initBottomNavigation() {

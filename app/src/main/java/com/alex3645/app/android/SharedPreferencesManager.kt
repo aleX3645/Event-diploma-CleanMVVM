@@ -1,4 +1,4 @@
-package com.alex3645.base.android
+package com.alex3645.app.android
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -1,8 +1,5 @@
 package com.alex3645.feature_conference_detail.usecase
 
-import android.content.Context
-import android.util.Log
-import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.feature_conference_detail.domain.model.User
 import com.alex3645.feature_conference_detail.domain.repository.ConferenceDetailRepository
 import java.lang.Exception

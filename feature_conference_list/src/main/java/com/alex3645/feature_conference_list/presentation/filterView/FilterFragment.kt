@@ -53,7 +53,6 @@ class FilterFragment : Fragment(){
         return binding.root
     }
 
-    val token = AutocompleteSessionToken.newInstance()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

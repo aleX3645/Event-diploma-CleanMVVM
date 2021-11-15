@@ -1,24 +1,13 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceStatsView
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
-import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Conference
-import com.alex3645.feature_conference_detail.domain.model.Tariff
-import com.alex3645.feature_conference_detail.domain.model.Ticket
-import com.alex3645.feature_conference_detail.presentation.conferenceDetailView.ConferenceDetailViewModel
-import com.alex3645.feature_conference_detail.usecase.LoadAccountByLoginUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
-import com.alex3645.feature_conference_detail.usecase.RegisterTicketUseCase
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class ConferenceStatsViewModel: BaseViewModel<ConferenceStatsViewModel.ViewState, ConferenceStatsViewModel.Action>(ViewState()) {

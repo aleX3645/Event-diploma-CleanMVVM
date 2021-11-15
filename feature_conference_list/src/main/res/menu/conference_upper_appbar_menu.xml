@@ -6,10 +6,4 @@
         android:icon="@drawable/ic_search"
         android:title="@string/find"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/auth"
-        android:icon="@drawable/ic_user"
-        android:title="@string/auth"
-        app:showAsAction="ifRoom" />
 </menu>

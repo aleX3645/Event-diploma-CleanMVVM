@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/infoManager">
+    <fragment
+        android:id="@+id/infoManager"
+        android:name="com.alex3645.feature_info_holder.presentation.infoManagerView.InfoManagerFragment"
+        android:label="manager"
+        app:moduleName="feature_info_holder">
+        <action
+            android:id="@+id/actionManagerToNoInternet"
+            app:destination="@id/noInternetFragment"/>
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/noInternetFragment"
+        android:name="com.alex3645.feature_info_holder.presentation.noInternetView.NoInternetFragment"
+        android:label="fnoInternetFragment"
+        app:moduleName="feature_info_holder">
+    </fragment>
+</navigation>

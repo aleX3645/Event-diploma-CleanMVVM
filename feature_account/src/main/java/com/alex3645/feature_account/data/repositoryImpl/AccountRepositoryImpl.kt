@@ -1,7 +1,5 @@
 package com.alex3645.feature_account.data.repositoryImpl
 
-import android.content.Context
-import com.alex3645.base.android.SharedPreferencesManager
 import com.alex3645.feature_account.data.database.AccountDao
 import com.alex3645.feature_account.data.model.AccResponse
 import com.alex3645.feature_account.data.network.service.ApiRetrofitAccountService

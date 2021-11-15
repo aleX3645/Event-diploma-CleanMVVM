@@ -3,7 +3,7 @@ package com.alex3645.feature_personal_schedule.presentation.personalScheduleView
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.alex3645.base.android.SharedPreferencesManager
+import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState

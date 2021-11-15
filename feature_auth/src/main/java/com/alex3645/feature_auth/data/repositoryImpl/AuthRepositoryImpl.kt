@@ -1,7 +1,7 @@
 package com.alex3645.feature_auth.data.repositoryImpl
 
 import android.content.Context
-import com.alex3645.base.android.SharedPreferencesManager
+import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.feature_auth.data.database.AccountAuthDao
 import com.alex3645.feature_auth.data.database.model.AccountEntity
 import com.alex3645.feature_auth.data.model.AccResponse
