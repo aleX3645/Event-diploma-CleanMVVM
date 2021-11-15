@@ -1,6 +1,5 @@
 package com.alex3645.feature_account.data.model
 
-
 import com.alex3645.feature_account.domain.model.User
 import com.google.gson.annotations.SerializedName
 
@@ -10,15 +9,15 @@ data class UserJson(
     @SerializedName("login")
     val login: String,
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @SerializedName("surname")
-    val surname: String?,
+    val surname: String,
     @SerializedName("description")
-    val description: String? = "no info",
+    val description: String,
     @SerializedName("phone")
-    val phone: String? = "no info",
+    val phone: String,
     @SerializedName("email")
-    val email: String? = "no info"
+    val email: String
 ){
     internal fun toDomainModel() : User {
         return User(

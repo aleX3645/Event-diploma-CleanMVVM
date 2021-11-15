@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="conferences">Конференции</string>
     <string name="reset">Сбросить</string>
     <string name="city">Город</string>
     <string name="filters">Фильтры</string>

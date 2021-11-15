@@ -4,10 +4,49 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topNavigationAppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:theme="@style/MyThemeOverlay_Toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:background="@null"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white"
+                android:contentDescription="@string/back" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/backButton"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="start"
+                android:text="@string/registration"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topNavigationAppBar">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,10 +62,6 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:layout_gravity="center"
-                app:layout_constraintTop_toTopOf="@id/scrollView"
-                app:layout_constraintLeft_toLeftOf="@id/scrollView"
-                app:layout_constraintRight_toRightOf="@id/scrollView"
-                app:layout_constraintBottom_toBottomOf="@+id/scrollView"
                 android:visibility="gone"/>
 
             <LinearLayout
@@ -37,8 +72,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="Имя пользователя"/>
+                    android:gravity="start"
+                    android:text="@string/nickname"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/loginRegistrationTextField"
@@ -58,8 +93,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="Пароль"/>
+                    android:gravity="start"
+                    android:text="@string/password"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/passwordTextField"
                     android:layout_width="match_parent"
@@ -86,8 +121,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="Имя"/>
+                    android:gravity="start"
+                    android:text="@string/name"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nameRegistrationTextField"
@@ -112,8 +147,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="Фамилия"/>
+                    android:gravity="start"
+                    android:text="@string/surname"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/surNameRegistrationTextField"
@@ -138,11 +173,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="Адрес электронной почты"/>
+                    android:gravity="start"
+                    android:text="@string/email"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emailRegistraionTextField"
+                    android:id="@+id/emailRegistrationTextField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
@@ -164,8 +199,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="Номер телефона"/>
+                    android:gravity="start"
+                    android:text="@string/phone"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/phoneNumberRegistrationTextView"
@@ -190,8 +225,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_700"
-                    android:gravity="left"
-                    android:text="О себе"/>
+                    android:gravity="start"
+                    android:text="@string/about"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/aboutRegistrationTextField"
@@ -212,7 +247,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Зарегистрироваться, как оргнанизатор"/>
+                    android:text="@string/register_as_organiser"/>
 
                 <Button
                     android:id="@+id/regButton"
@@ -220,7 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Зарегистрироваться"
+                    android:text="@string/registration"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/linear" />

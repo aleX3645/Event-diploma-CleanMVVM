@@ -58,16 +58,6 @@ class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountV
         }
     }
 
-    fun navigateToAccountAuth(navController: NavController){
-        val action = AccountFragmentDirections.actionAccountToAuth()
-        navController.navigate(action)
-    }
-
-    fun navigateToSettings(navController: NavController){
-        val action = AccountFragmentDirections.actionAccountToSettings()
-        navController.navigate(action)
-    }
-
     override fun onReduceState(viewAction: Action) = when (viewAction){
         is Action.UserLoadingSuccess -> {
             state.copy(
@@ -86,5 +76,19 @@ class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountV
             isLoading = false,
             isError = true
         )
+    }
+
+    fun navigateToAccountAuth(navController: NavController){
+        val action = AccountFragmentDirections.actionAccountToAuth()
+        navController.navigate(action)
+    }
+
+    fun navigateToSettings(navController: NavController){
+        val action = AccountFragmentDirections.actionAccountToSettings()
+        navController.navigate(action)
+    }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
     }
 }

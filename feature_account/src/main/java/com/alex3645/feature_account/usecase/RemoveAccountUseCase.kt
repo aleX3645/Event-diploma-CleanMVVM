@@ -9,6 +9,7 @@ import javax.inject.Inject
 class RemoveAccountUseCase @Inject constructor(
     private val repository: AccountRepository,
     private val context: Context){
+
     interface Result {
         object Success : Result
         data class Error(val e: Throwable) : Result

@@ -8,7 +8,6 @@ import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_account.di.component.DaggerAccountViewModelComponent
 import com.alex3645.feature_account.di.module.AccountViewModelModule
-import com.alex3645.feature_account.presentation.accountView.AccountFragmentDirections
 import com.alex3645.feature_account.usecase.RemoveAccountUseCase
 import com.alex3645.feature_conference_detail.presentation.settingsView.SettingsFragmentDirections
 import kotlinx.coroutines.launch
@@ -77,5 +76,4 @@ class SettingsViewModel(application: Application): BaseAndroidViewModel<Settings
         val action = SettingsFragmentDirections.actionSettingsToEdit()
         navController.navigate(action)
     }
-
 }

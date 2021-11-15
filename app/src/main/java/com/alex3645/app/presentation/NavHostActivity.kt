@@ -20,12 +20,7 @@ class NavHostActivity : AppCompatActivity() {
 
         navController.setGraph(R.navigation.nav_graph)
 
-        initUpperNavigation()
         initBottomNavigation()
-    }
-
-    private fun initUpperNavigation() {
-        //setSupportActionBar(binding.topNavigationAppBar)
     }
 
     private fun initBottomNavigation() {

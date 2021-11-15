@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.alex3645.feature_event_list.R
 import com.alex3645.feature_event_list.databinding.FragmentFilterBinding
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -59,7 +60,7 @@ class FilterFragment : Fragment(){
         })
 
         if (!Places.isInitialized()) {
-            Places.initialize(this.requireContext(), "AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y", Locale.getDefault())
+            Places.initialize(this.requireContext(), resources.getString(R.string.google_maps_key), Locale.getDefault())
         }
 
         places = Places.createClient(this.requireContext())
@@ -77,6 +78,17 @@ class FilterFragment : Fragment(){
                     settledFlag = false
                 }
             })
+        }
+
+        binding.backButton.setOnClickListener {
+            viewModel.filterList = getSelectedIds()
+            viewModel.city = binding.cityTextInput.editText?.text.toString()
+            viewModel.navigateBack(findNavController())
+        }
+
+        binding.resetButton.setOnClickListener {
+            viewModel.resetValues()
+            viewModel.navigateBack(findNavController())
         }
 
         (binding.cityTextInput.editText as? AutoCompleteTextView)?.onItemClickListener =

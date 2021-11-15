@@ -1,6 +1,6 @@
 package com.alex3645.base.presentation
 
-import kotlin.reflect.full.memberProperties
+//import kotlin.reflect.full.memberProperties
 
 class StateTimeTravelDebugger(private val viewClassName: String) {
 
@@ -18,8 +18,8 @@ class StateTimeTravelDebugger(private val viewClassName: String) {
         this.lastViewAction = null
     }
 
-    private fun getMessage() = getMessage(stateTimeline)
-
+    //private fun getMessage() = getMessage(stateTimeline)
+/*
     private fun getMessage(stateTimeline: List<StateTransition>): String {
         if (stateTimeline.isEmpty()) {
             return "$viewClassName has no state transitions \n"
@@ -37,17 +37,17 @@ class StateTimeTravelDebugger(private val viewClassName: String) {
         }
 
         return message
-    }
-
+    }*/
+/*
     fun logAll() {
         //Timber.d(getMessage())
-    }
+    }*/
 
     fun logLast() {
-        val states = listOf(stateTimeline.last())
+        //val states = listOf(stateTimeline.last())
         //Timber.d(getMessage(states))
     }
-
+/*
     private fun getLogLine(oldState: BaseViewState, newState: BaseViewState, propertyName: String): String {
         val oldValue = getPropertyValue(oldState, propertyName)
         val newValue = getPropertyValue(newState, propertyName)
@@ -58,13 +58,13 @@ class StateTimeTravelDebugger(private val viewClassName: String) {
         } else {
             "$indent$propertyName: $newValue\n"
         }
-    }
-
+    }*/
+/*
     // Retrieve list of the properties from one of the ViewState instances (all have the same type)
     private val propertyNames by lazy {
         stateTimeline.first().oldState.javaClass.kotlin.memberProperties.map { it.name }
-    }
-
+    }*/
+/*
     private fun getPropertyValue(baseViewState: BaseViewState, propertyName: String): String {
         baseViewState::class.memberProperties.forEach {
             if (propertyName == it.name) {
@@ -78,7 +78,7 @@ class StateTimeTravelDebugger(private val viewClassName: String) {
             }
         }
         return ""
-    }
+    }*/
 
     private data class StateTransition(
         val oldState: BaseViewState,

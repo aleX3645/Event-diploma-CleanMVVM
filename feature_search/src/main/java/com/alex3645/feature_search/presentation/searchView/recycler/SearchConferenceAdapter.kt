@@ -1,6 +1,7 @@
 package com.alex3645.feature_search.presentation.searchView.recycler
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.alex3645.base.delegate.observer
 import com.alex3645.feature_search.databinding.SearchSimpleItemBinding
 import com.alex3645.feature_search.domain.data.Conference
 
+@SuppressLint("NotifyDataSetChanged")
 class SearchConferenceAdapter : RecyclerView.Adapter<SearchConferenceAdapter.ViewHolder>() {
 
     var conferences: List<Conference> by observer(listOf()) {

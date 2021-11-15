@@ -9,6 +9,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class EditAccountUseCase @Inject constructor(private val repository: AccountRepository, private val context: Context){
+
     interface Result {
         object Success : Result
         data class Error(val e: Throwable) : Result

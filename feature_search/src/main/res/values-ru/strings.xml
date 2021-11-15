@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Назад</string>
+    <string name="conferences">Конференции</string>
+    <string name="events">События</string>
+    <string name="users">Пользователи</string>
+</resources>

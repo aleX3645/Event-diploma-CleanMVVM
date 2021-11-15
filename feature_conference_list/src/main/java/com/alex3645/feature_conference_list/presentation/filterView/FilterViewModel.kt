@@ -49,6 +49,11 @@ class FilterViewModel(application: Application) : AndroidViewModel(application) 
             }
     }
 
+    fun resetValues(){
+        filterList = mutableListOf()
+        city = ""
+    }
+
     fun navigateBack(navController: NavController){
         navController.previousBackStackEntry?.savedStateHandle?.set("filter", filterList.toIntArray())
         navController.previousBackStackEntry?.savedStateHandle?.set("city", city)

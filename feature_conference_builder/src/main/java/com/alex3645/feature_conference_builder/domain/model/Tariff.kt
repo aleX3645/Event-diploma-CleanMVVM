@@ -19,8 +19,7 @@ data class Tariff(
         parcel.readString(),
         parcel.readInt(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     fun toJson() : TariffJson {
         return TariffJson(

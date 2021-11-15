@@ -1,6 +1,5 @@
 package com.alex3645.feature_auth.usecase
 
-import android.content.Context
 import android.provider.Settings
 import com.alex3645.feature_auth.data.model.AccResponse
 import com.alex3645.feature_auth.data.model.AuthRequest

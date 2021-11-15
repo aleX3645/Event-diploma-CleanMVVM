@@ -9,14 +9,10 @@ class LockableScrollView @JvmOverloads constructor(context: Context, attrs: Attr
 
     // true if we can scroll (not locked)
     // false if we cannot scroll (locked)
-    private var scrollable = true;
+    private var scrollable = true
 
     fun setScrollingEnabled(enabled: Boolean) {
-        scrollable = enabled;
-    }
-
-    fun isScrollable() : Boolean{
-        return scrollable;
+        scrollable = enabled
     }
 
    override fun onTouchEvent(ev: MotionEvent) : Boolean{
@@ -26,15 +22,20 @@ class LockableScrollView @JvmOverloads constructor(context: Context, attrs: Attr
             }
             else -> {
                 super.onTouchEvent(ev)
+                performClick()
             }
         }
     }
 
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
+    }
 
     override fun onInterceptTouchEvent(ev: MotionEvent) : Boolean{
         // Don't do anything with intercepted touch events if
         // we are not scrollable
-        return scrollable && super.onInterceptTouchEvent(ev);
+        return scrollable && super.onInterceptTouchEvent(ev)
     }
 
 }

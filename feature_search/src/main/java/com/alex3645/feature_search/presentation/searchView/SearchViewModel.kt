@@ -127,4 +127,8 @@ class SearchViewModel : BaseViewModel<SearchViewModel.ViewState, SearchViewModel
         val action = SearchFragmentDirections.actionSearchToUserAccount(userId)
         navController.navigate(action)
     }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
+    }
 }

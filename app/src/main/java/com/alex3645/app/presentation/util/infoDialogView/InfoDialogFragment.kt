@@ -1,7 +1,6 @@
 package com.alex3645.app.presentation.util.infoDialogView
 
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ class InfoDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDialogInfoBinding.inflate(inflater, container, false)
         return binding.root
     }

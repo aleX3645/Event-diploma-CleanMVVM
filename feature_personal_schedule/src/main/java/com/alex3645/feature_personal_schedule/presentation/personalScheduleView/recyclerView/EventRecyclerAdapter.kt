@@ -1,5 +1,6 @@
 package com.alex3645.feature_personal_schedule.presentation.personalScheduleView.recyclerView
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,7 @@ import com.alex3645.base.delegate.observer
 import com.alex3645.feature_personal_schedule.databinding.EventRecyclerItemBinding
 import com.alex3645.feature_personal_schedule.domain.model.Event
 
+@SuppressLint("NotifyDataSetChanged")
 class EventRecyclerAdapter : RecyclerView.Adapter<EventRecyclerAdapter.ViewHolder>() {
 
     var events: List<Event> by observer(listOf()) {
@@ -28,7 +30,7 @@ class EventRecyclerAdapter : RecyclerView.Adapter<EventRecyclerAdapter.ViewHolde
         this.onDebouncedClickListener = listener
     }
 
-    inner class ViewHolder(private val binding: EventRecyclerItemBinding) :
+    inner class ViewHolder(binding: EventRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val name = binding.simpleNameTextBox
         val info = binding.simpleShortInfoTextBox

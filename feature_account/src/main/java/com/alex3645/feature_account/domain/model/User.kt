@@ -4,11 +4,11 @@ import com.alex3645.feature_account.data.model.UserJson
 
 data class User(val id: Int,
                 var login: String,
-                var name: String?,
-                var surname: String?,
-                var description: String?,
-                var phone: String?,
-                var email: String?){
+                var name: String,
+                var surname: String,
+                var description: String,
+                var phone: String,
+                var email: String){
     internal fun toJson() : UserJson {
         return UserJson(
             id = this.id,

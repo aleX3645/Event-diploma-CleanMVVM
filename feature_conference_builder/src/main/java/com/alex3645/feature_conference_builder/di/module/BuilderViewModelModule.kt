@@ -1,9 +1,6 @@
 package com.alex3645.feature_conference_builder.di.module
 
 import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.alex3645.app.data.api.AppConstants
 import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_conference_builder.data.internet.service.ApiRetrofitBuilderService
 import com.alex3645.feature_conference_builder.data.repositoryImpl.ConferenceBuilderRepositoryImpl
@@ -13,8 +10,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SupportFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

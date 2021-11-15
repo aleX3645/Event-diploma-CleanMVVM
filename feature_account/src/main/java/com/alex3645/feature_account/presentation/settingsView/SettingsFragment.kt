@@ -1,7 +1,6 @@
 package com.alex3645.feature_account.presentation.settingsView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_account.di.component.DaggerAccountFragmentComponent
 import com.alex3645.feature_account.presentation.settingsView.recyclerView.SettingsAdapter
+import com.example.feature_account.R
 import com.example.feature_account.databinding.FragmentSettingsBinding
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class SettingsFragment: Fragment() {
     @Inject
     lateinit var settingsAdapter: SettingsAdapter
 
-    private val settingsList = listOf("Редактировать", "Выйти")
+    private val settingsList = listOf(resources.getString(R.string.settings), resources.getString(R.string.exit))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,6 @@ class SettingsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,10 +49,6 @@ class SettingsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observe(viewModel.stateLiveData, stateObserver)
 
-        initView()
-    }
-
-    private fun initView(){
         initRecycler()
         initActions()
     }
@@ -66,12 +61,16 @@ class SettingsFragment: Fragment() {
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         settingsAdapter.setOnDebouncedClickListener {
             when(it){
-                "Редактировать" -> {
+                settingsList[0] -> {
                     viewModel.navigateToEdit(findNavController())
                 }
-                "Выйти" -> {
+                settingsList[1] -> {
                     viewModel.removeUserData()
                 }
             }
@@ -82,5 +81,10 @@ class SettingsFragment: Fragment() {
         if(!it.isError){
             viewModel.navigateBack(findNavController())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

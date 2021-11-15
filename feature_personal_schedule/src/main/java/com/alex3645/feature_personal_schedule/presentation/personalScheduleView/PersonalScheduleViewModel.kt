@@ -20,7 +20,10 @@ class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel
         DaggerPersonalScheduleViewModelComponent.factory().create().inject(this)
     }
 
-    var conferenceId = 0
+    @Inject
+    lateinit var loadUserByIdUseCase: LoadAccountByLoginUseCase
+    @Inject
+    lateinit var loadPersonalEventsUseCase: LoadPersonalEventsUseCase
 
     data class ViewState(
         val isLoading: Boolean = true,
@@ -33,12 +36,6 @@ class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel
         class LoadSuccess(val events: List<Event>) : Action
         class Failure(val message: String) : Action
     }
-
-    @Inject
-    lateinit var loadUserByIdUseCase: LoadAccountByLoginUseCase
-    @Inject
-    lateinit var loadPersonalEventsUseCase: LoadPersonalEventsUseCase
-
 
     fun loadPersonalEventsForUser(){
         viewModelScope.launch {

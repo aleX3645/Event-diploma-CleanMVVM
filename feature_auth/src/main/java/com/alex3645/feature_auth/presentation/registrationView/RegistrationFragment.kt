@@ -33,15 +33,14 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observe(viewModel.stateLiveData, stateObserver)
 
-        initView()
-    }
-
-    private fun initView(){
-
         initActions()
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.regButton.setOnClickListener {
             binding.registrationProgressBar.isVisible = true
             val userJson = UserRegJson(
@@ -51,7 +50,7 @@ class RegistrationFragment : Fragment() {
                 binding.surNameRegistrationTextField.editText?.text.toString(),
                 binding.aboutRegistrationTextField.editText?.text.toString(),
                 binding.phoneNumberRegistrationTextView.editText?.text.toString(),
-                binding.emailRegistraionTextField.editText?.text.toString())
+                binding.emailRegistrationTextField.editText?.text.toString())
 
             if(binding.regOrgSwitch.isChecked){
                 viewModel.tryRegAsOrganizer(userJson)

@@ -2,7 +2,6 @@ package com.alex3645.feature_conference_builder.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.versionedparcelable.VersionedParcelize
 import com.alex3645.feature_conference_builder.data.model.EventJson
 
 data class Event(
@@ -24,8 +23,7 @@ data class Event(
         parcel.createTypedArrayList(CREATOR),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int
-    ) {
-    }
+    )
 
     fun toJson() : EventJson {
         return EventJson(

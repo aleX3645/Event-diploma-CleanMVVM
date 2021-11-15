@@ -14,7 +14,7 @@ data class ConferenceJson(
     @SerializedName("description")
     val description: String,
     @SerializedName("events")
-    val eventsJson: MutableList<EventJson>?,
+    val eventsJson: MutableList<EventJson>,
     @SerializedName("id")
     val id: Int,
     @SerializedName("is_cancelled")
@@ -37,13 +37,13 @@ data class ConferenceJson(
             dateEnd = this.dateEnd,
             dateStart = this.dateStart,
             description = this.description,
-            events = this.eventsJson?.map{it.toDomainModel()}?.toMutableList(),
+            events = this.eventsJson.map{it.toDomainModel()}.toMutableList(),
             isCancelled = this.isCancelled,
             location = this.location,
             name = this.name,
             organizerId = this.organizerId,
             status = this.status,
-            tariffs = this.tariffsJson?.map { it.toDomainModel() }?.toMutableList()
+            tariffs = this.tariffsJson.map { it.toDomainModel() }.toMutableList()
         )
     }
 }

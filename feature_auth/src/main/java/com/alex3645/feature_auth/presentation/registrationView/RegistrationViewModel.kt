@@ -101,4 +101,8 @@ class RegistrationViewModel(application: Application): BaseAndroidViewModel<Regi
         val action = RegistrationFragmentDirections.actionRegToAccount()
         navController.navigate(action)
     }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
+    }
 }

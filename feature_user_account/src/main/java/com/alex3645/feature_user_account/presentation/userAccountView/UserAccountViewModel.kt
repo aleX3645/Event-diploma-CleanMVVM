@@ -1,7 +1,5 @@
 package com.alex3645.feature_user_account.presentation.userAccountView
 
-import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
@@ -19,6 +17,9 @@ class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAc
         DaggerUserAccountViewModelComponent.factory().create().inject(this)
     }
 
+    @Inject
+    lateinit var loadUserByIdUseCase: LoadUserByIdUseCase
+
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
@@ -30,9 +31,6 @@ class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAc
         class UserLoadingSuccess(val user: User) : Action
         class LoadingFailure(val message: String) : Action
     }
-
-    @Inject
-    lateinit var loadUserByIdUseCase: LoadUserByIdUseCase
 
     fun loadUserById(id: Int){
         viewModelScope.launch {
@@ -68,5 +66,9 @@ class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAc
             isLoading = false,
             isError = true
         )
+    }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
     }
 }

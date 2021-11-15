@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user">Пользователь</string>
+    <string name="settings">Настройки</string>
+    <string name="nickname">Имя аккаунта</string>
+    <string name="email">Электронная почта</string>
+    <string name="phone">Номер телефона</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="about">Обо мне</string>
+    <string name="save">Сохранить аккаунт</string>
+    <string name="edit">Редактировать</string>
+    <string name="exit">Выйти</string>
+    <string name="back">Назад</string>
+
+</resources>

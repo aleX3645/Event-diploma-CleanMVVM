@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="authorization">Authorization</string>
+    <string name="authorize">Log in</string>
+    <string name="registration">Registration</string>
+    <string name="nickname">Nickname</string>
+    <string name="password">Password</string>
+    <string name="remember">Remember me</string>
+    <string name="auth_as_organiser">Auth as organiser</string>
+    <string name="register_as_organiser">Register as organiser</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="about">About</string>
+    <string name="back">Back</string>
+</resources>

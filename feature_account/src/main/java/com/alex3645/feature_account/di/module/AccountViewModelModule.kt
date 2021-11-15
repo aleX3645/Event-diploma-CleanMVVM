@@ -73,7 +73,7 @@ class AccountViewModelModule (private val context: Context) {
 
     @Provides
     fun provideLoadAccountUseCase(accountRepository: AccountRepository) : LoadAccountByLoginUseCase{
-        return LoadAccountByLoginUseCase(accountRepository, context)
+        return LoadAccountByLoginUseCase(accountRepository)
     }
 
     @Provides

@@ -27,11 +27,11 @@ class EditAccountFragment : Fragment() {
         val observer = Observer<User> {
             user = it
 
-            binding.aboutEditText.text = Editable.Factory().newEditable(it.description ?: "")
-            binding.emailEditText.text = Editable.Factory().newEditable(it.email ?: "")
-            binding.nameEditText.text = Editable.Factory().newEditable(it.name ?: "")
-            binding.surNameEditText.text = Editable.Factory().newEditable(it.surname ?: "")
-            binding.phoneNumberEditText.text = Editable.Factory().newEditable(it.phone ?: "")
+            binding.aboutEditText.text = Editable.Factory().newEditable(it.description)
+            binding.emailEditText.text = Editable.Factory().newEditable(it.email)
+            binding.nameEditText.text = Editable.Factory().newEditable(it.name)
+            binding.surNameEditText.text = Editable.Factory().newEditable(it.surname)
+            binding.phoneNumberEditText.text = Editable.Factory().newEditable(it.phone)
         }
 
         viewModel.user.observe(this, observer)
@@ -55,6 +55,10 @@ class EditAccountFragment : Fragment() {
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.saveButton.setOnClickListener {
             user?.let {
                 it.name = binding.nameEditText.text.toString()
@@ -72,5 +76,10 @@ class EditAccountFragment : Fragment() {
         if(!it.isError){
             viewModel.navigateBack(findNavController())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

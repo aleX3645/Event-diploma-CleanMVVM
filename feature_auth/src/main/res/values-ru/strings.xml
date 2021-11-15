@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="authorization">Авторизация</string>
+    <string name="authorize">Войти</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="nickname">Имя аккаунта</string>
+    <string name="password">Пароль</string>
+    <string name="remember">Запомнить</string>
+    <string name="auth_as_organiser">Войти как организатор</string>
+    <string name="register_as_organiser">Зарегистрироваться как организатор</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="email">Электронная почта</string>
+    <string name="phone">Номер телефона</string>
+    <string name="about">Обо мне</string>
+    <string name="back">Назад</string>
+</resources>

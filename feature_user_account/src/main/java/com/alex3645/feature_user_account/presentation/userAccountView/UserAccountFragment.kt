@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_user_account.databinding.FragmentUserAccountBinding
@@ -34,7 +35,15 @@ class UserAccountFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observe(viewModel.stateLiveData, stateObserver)
 
+        initActions()
+
         viewModel.loadUserById(args.userId)
+    }
+
+    private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
     }
 
     private fun initAccount(user: User){
@@ -50,5 +59,10 @@ class UserAccountFragment: Fragment() {
         }else{
             initAccount(it.user!!)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

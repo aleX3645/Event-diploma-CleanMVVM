@@ -13,7 +13,7 @@ data class EventJson(
     @SerializedName("description")
     val description: String,
     @SerializedName("events")
-    val events: ArrayList<EventJson>?,
+    val events: ArrayList<EventJson>,
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
@@ -27,7 +27,7 @@ data class EventJson(
             dateEnd = this.dateEnd,
             dateStart = this.dateStart,
             description = this.description,
-            events = this.events?.map{it.toDomainModel()},
+            events = this.events.map{it.toDomainModel()},
             id = this.id,
             name = this.name,
             speakerId = this.speakerId

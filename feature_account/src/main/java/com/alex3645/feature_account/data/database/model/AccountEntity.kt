@@ -1,4 +1,4 @@
-package com.alex3645.feature_auth.data.database.model
+package com.alex3645.feature_account.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

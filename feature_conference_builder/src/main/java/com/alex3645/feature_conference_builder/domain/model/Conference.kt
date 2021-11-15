@@ -33,8 +33,7 @@ data class Conference(
         parcel.readInt(),
         parcel.readInt(),
         parcel.createTypedArrayList(Tariff)
-    ) {
-    }
+    )
 
     fun toJson(): ConferenceJson{
         return ConferenceJson(

@@ -22,6 +22,16 @@ class AuthViewModel(application: Application) : BaseAndroidViewModel<AuthViewMod
     @Inject
     lateinit var authUseCase: AuthUseCase
 
+    data class ViewState(
+        val isLoading: Boolean = true,
+        val isError: Boolean = false,
+        val errorMessage: String = "Авторизация успешна"
+    ) : BaseViewState
+
+    interface Action : BaseAction {
+        object AuthSuccess : Action
+        class AuthFailure(val message: String) : Action
+    }
 
     fun tryAuthAsUser(passwordAuthentication: PasswordAuthentication){
         viewModelScope.launch {
@@ -59,17 +69,6 @@ class AuthViewModel(application: Application) : BaseAndroidViewModel<AuthViewMod
                 sendAction(action)
             }
         }
-    }
-
-    data class ViewState(
-        val isLoading: Boolean = true,
-        val isError: Boolean = false,
-        val errorMessage: String = "Авторизация успешна"
-    ) : BaseViewState
-
-    interface Action : BaseAction {
-        object AuthSuccess : Action
-        class AuthFailure(val message: String) : Action
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){

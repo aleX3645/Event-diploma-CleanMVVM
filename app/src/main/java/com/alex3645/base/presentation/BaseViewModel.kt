@@ -1,7 +1,5 @@
 package com.alex3645.base.presentation
 
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alex3645.base.extension.asLiveData
