@@ -6,42 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topNavigationAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        android:theme="@style/MyThemeOverlay_Toolbar"
-        app:menu="@menu/conference_upper_appbar_menu"
-        android:id="@+id/topNavigationAppBar">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:theme="@style/MyThemeOverlay_Toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/fragmentName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:gravity="start"
-                android:paddingTop="10dp"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:paddingStart="10dp"/>
+                android:textSize="15sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"/>
 
             <Button
                 android:id="@+id/filtersButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                android:layout_marginStart="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/ic_filter"
                 android:gravity="start"
-                android:text="Фильтры"
+                android:text="@string/filters"
                 android:textColor="@color/white"
-                android:textSize="10sp"
-                android:drawableLeft="@drawable/ic_filter"/>
-        </LinearLayout>
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragmentName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -59,13 +63,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:srcCompat="@drawable/ic_plus"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/addConference"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

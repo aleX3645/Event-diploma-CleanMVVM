@@ -1,7 +1,7 @@
 package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView
 
 
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +9,7 @@ import com.alex3645.base.delegate.observer
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_event_list.databinding.FragmentRecyclerListItemBinding
 
+@SuppressLint("NotifyDataSetChanged")
 class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
 
     var conferences: List<Conference> by observer(listOf()) {
@@ -27,7 +28,6 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
 
         if(city != ""){
             conferences = conferences.filter{
-                Log.d("!!!", "herec")
                 it.location?.contains(city)?: false
             }
         }

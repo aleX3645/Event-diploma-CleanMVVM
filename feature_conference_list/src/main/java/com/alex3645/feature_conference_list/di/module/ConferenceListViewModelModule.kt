@@ -14,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class ConferenceListViewModelModule {
-
     @Provides
     fun provideRetrofit(gson: Gson) : Retrofit = Retrofit.Builder()
         .baseUrl(ServerConstants.LOCAL_SERVER)

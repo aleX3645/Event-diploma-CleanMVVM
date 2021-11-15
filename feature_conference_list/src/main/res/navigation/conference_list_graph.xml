@@ -27,16 +27,6 @@
         <action
             android:id="@+id/actionRecyclerToFilter"
             app:destination="@id/filterFragment"/>
-        <action
-            android:id="@+id/actionRecyclerToInfo"
-            app:destination="@id/infoHolderGraph">
-            <argument
-                android:name="type"
-                app:argType="string" />
-            <argument
-                android:name="message"
-                app:argType="string" />
-        </action>
     </fragment>
 
     <fragment
@@ -74,16 +64,4 @@
         android:id="@+id/conferenceBuilderFeatureGraph"
         app:moduleName="feature_conference_builder"
         app:graphResName="conference_builder_graph"/>
-
-    <include-dynamic
-        android:id="@+id/infoHolderGraph"
-        app:moduleName="feature_info_holder"
-        app:graphResName="info_holders_graph">
-        <argument
-            android:name="type"
-            app:argType="string" />
-        <argument
-            android:name="message"
-            app:argType="string" />
-    </include-dynamic>
 </navigation>

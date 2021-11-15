@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reset">Сбросить</string>
+    <string name="city">Город</string>
+    <string name="filters">Фильтры</string>
+    <string name="addConference">Добавить конференцию</string>
+
+    <string name="no_category">Без категории</string>
+    <string name="society">Общество</string>
+    <string name="politics">Политика</string>
+    <string name="economics">Экономика</string>
+    <string name="sport">Спорт</string>
+    <string name="culture">Культура</string>
+    <string name="tech">Технологии</string>
+    <string name="science">Наука</string>
+    <string name="auto">Aвтомобили</string>
+    <string name="others">Другое</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EventDiploma_MVVM</string>
+
+    <string name="feed">Афиша</string>
+    <string name="tickets">Билеты</string>
+    <string name="favorite">Избранное</string>
+    <string name="find">Поиск</string>
+    <string name="auth">Аккаунт</string>
+    <string name="Schedule">Расписание</string>
+    <string name="NoInternet">Нет подключения к интернету</string>
+</resources>

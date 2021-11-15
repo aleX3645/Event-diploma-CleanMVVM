@@ -61,7 +61,7 @@ import java.util.concurrent.TimeUnit
 * */
 
 class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
-    private val menuItems = listOf("No category", "Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
+    private val menuItems = listOf("No category", "Politics","Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
 

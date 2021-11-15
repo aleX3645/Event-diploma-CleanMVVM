@@ -111,9 +111,4 @@ class ConferenceRecyclerViewModel: BaseViewModel<ConferenceRecyclerViewModel.Vie
         val action = ConferenceRecyclerFragmentDirections.actionRecyclerToConferenceBuilderFeature()
         navController.navigate(action)
     }
-
-    fun navigateToInfo(navController: NavController, type: String, message: String){
-        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToInfo(type, message)
-        navController.navigate(action)
-    }
 }

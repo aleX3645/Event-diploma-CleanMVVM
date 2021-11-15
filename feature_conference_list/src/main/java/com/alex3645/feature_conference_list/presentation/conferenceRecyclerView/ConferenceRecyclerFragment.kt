@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alex3645.app.presentation.util.infoDialogView.InfoDialogFragment
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView.ConferenceAdapter
@@ -112,7 +113,8 @@ class ConferenceRecyclerFragment: Fragment() {
 
         binding.swipeContainer.isRefreshing = it.isLoading
         if(it.isError){
-            viewModel.navigateToInfo(findNavController(), "noInternet", "No Internet")
+            val infoDialog = InfoDialogFragment()
+            infoDialog.show(parentFragmentManager,"infoFragment","", "")
         }else{
             conferenceAdapter.conferences = it.conferences
             conferenceAdapter.filter(viewModel.filterList, viewModel.city)

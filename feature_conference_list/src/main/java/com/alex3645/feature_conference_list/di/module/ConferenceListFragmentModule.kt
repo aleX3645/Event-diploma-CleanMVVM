@@ -6,7 +6,6 @@ import dagger.Provides
 
 @Module
 class ConferenceListFragmentModule {
-
     @Provides
     fun provideConferenceAdapter(): ConferenceAdapter {
         return ConferenceAdapter()

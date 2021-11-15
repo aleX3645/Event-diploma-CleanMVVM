@@ -12,7 +12,6 @@
         android:orientation="vertical"
         app:cardElevation="2dp">
 
-        <!-- Media -->
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="194dp"

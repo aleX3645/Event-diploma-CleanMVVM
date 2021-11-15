@@ -1,22 +1,21 @@
 <resources>
     <string name="app_name">EventDiploma_MVVM</string>
-    <string name="title_feature_event_list">Event module</string>
 
-    <string name="feed">Афиша</string>
-    <string name="tickets">Билеты</string>
-    <string name="favorite">Избранное</string>
+    <string name="feed">Feed</string>
+    <string name="tickets">Tickets</string>
+    <string name="favorite">Favorite</string>
+    <string name="find">Find</string>
+    <string name="auth">Account</string>
+    <string name="Schedule">Schedule</string>
+    <string name="NoInternet">No internet connection</string>
 
-    <string name="find">Поиск</string>
-    <string name="auth">Аккаунт</string>
-    <string name="Schedule">Расписание</string>
-    <string name="title_feature_auth">feature_auth</string>
-    <string name="title_feature_conference_builder">Conference builder</string>
-    <string name="title_feature_conference_detail">Conference detail</string>
-    <string name="title_feature_search">Search</string>
-    <string name="title_feature_user_account">Feature User Account</string>
+    <string name="title_feature_event_list" translatable="false">Event module</string>
+    <string name="title_feature_auth" translatable="false">feature_auth</string>
+    <string name="title_feature_conference_builder" translatable="false">Conference builder</string>
+    <string name="title_feature_conference_detail" translatable="false">Conference detail</string>
+    <string name="title_feature_search" translatable="false">Search</string>
+    <string name="title_feature_user_account" translatable="false">Feature User Account</string>
+    <string name="title_feature_personal_schedule" translatable="false">Personal Schedule</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y</string>
-    <string name="title_feature_personal_scedule">Personal schedule</string>
-    <string name="title_feature_personal_schedule">Personal Schedule</string>
-    <string name="title_feature_info_holder">Info holder</string>
 </resources>

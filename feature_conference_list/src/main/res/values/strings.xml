@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reset">Reset</string>
+    <string name="city">City</string>
+    <string name="filters">Filters</string>
+    <string name="addConference">Add Conference</string>
+
+    <string name="no_category">No category</string>
+    <string name="society">Society</string>
+    <string name="politics">Politics</string>
+    <string name="economics">Economics</string>
+    <string name="sport">Sport</string>
+    <string name="culture">Culture</string>
+    <string name="tech">Tech</string>
+    <string name="science">Science</string>
+    <string name="auto">Auto</string>
+    <string name="others">Others</string>
+</resources>

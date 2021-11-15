@@ -14,7 +14,7 @@ data class ConferenceJson(
     @SerializedName("description")
     val description: String,
     @SerializedName("events")
-    val eventsJson: ArrayList<EventJson>?,
+    val eventsJson: ArrayList<EventJson>,
     @SerializedName("id")
     val id: Int,
     @SerializedName("is_cancelled")
@@ -36,7 +36,7 @@ data class ConferenceJson(
             dateEnd = this.dateEnd,
             dateStart = this.dateStart,
             description = this.description,
-            events = this.eventsJson?.map{it.toDomainModel()},
+            events = this.eventsJson.map{it.toDomainModel()},
             id = this.id,
             isCancelled = this.isCancelled,
             location = this.location,

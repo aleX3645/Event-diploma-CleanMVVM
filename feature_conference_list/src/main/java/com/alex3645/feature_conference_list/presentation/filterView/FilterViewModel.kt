@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.alex3645.feature_event_list.R
 import com.google.android.gms.common.api.ApiException
@@ -22,12 +21,12 @@ class FilterViewModel(application: Application) : AndroidViewModel(application) 
     var filterList: MutableList<Int> = mutableListOf()
     var city: String = ""
 
-    val token = AutocompleteSessionToken.newInstance()
+    private val token = AutocompleteSessionToken.newInstance()
     private val places: PlacesClient
 
     init{
         if (!Places.isInitialized()) {
-            Places.initialize(application, "AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y", Locale.getDefault())
+            Places.initialize(application, application.resources.getString(R.string.google_maps_key), Locale.getDefault())
         }
         places = Places.createClient(application)
     }
