@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conference_name">Название конференции</string>
+    <string name="event_name">Название события</string>
+    <string name="start_date">Дата начала</string>
+    <string name="end_date">Дата окончания</string>
+    <string name="start_time">Время начала</string>
+    <string name="end_time">Время окончания</string>
+    <string name="category">Категория</string>
+    <string name="place">Местоположение</string>
+    <string name="description">Описание</string>
+    <string name="organiser">Организатор</string>
+    <string name="speaker">Спикер</string>
+    <string name="add_events">Добавить события</string>
+    <string name="add_tariffs">Добавить тарифы</string>
+    <string name="create_conference">Создать конференции</string>
+    <string name="create_event">Создать событие</string>
+    <string name="no_specified">Не задано</string>
+    <string name="event_list">Список событий</string>
+    <string name="tariff_name">Название тарифа</string>
+    <string name="ticket_max">Максимальное количество билетов</string>
+    <string name="price">Цена</string>
+    <string name="create_tariff">Создать тарифф</string>
+    <string name="tickets_left">Выпущено билетов: </string>
+    <string name="ticket_price">Цена билета: </string>
+
+    <string name="no_category">Без категории</string>
+    <string name="society">Общество</string>
+    <string name="politics">Политика</string>
+    <string name="economics">Экономика</string>
+    <string name="sport">Спорт</string>
+    <string name="culture">Культура</string>
+    <string name="tech">Технологии</string>
+    <string name="science">Наука</string>
+    <string name="auto">Aвтомобили</string>
+    <string name="others">Другое</string>
+
+    <string name="back">Назад</string>
+    <string name="settings">Настройки</string>
+    <string name="conference_detail">Конференция</string>
+    <string name="event">Событие</string>
+    <string name="statistics">Статистика</string>
+    <string name="tariff">Тарифы</string>
+</resources>

@@ -1,13 +1,12 @@
 package com.alex3645.feature_conference_detail.usecase
 
 import android.util.Log
+import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_conference_detail.data.model.ChatMessage
-import com.alex3645.feature_conference_detail.domain.repository.ConferenceDetailRepository
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
 import java.lang.Exception
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 
 
-class ConnectToChatUseCase @Inject constructor(private val repository: ConferenceDetailRepository, private val gson: Gson){
+class ConnectToChatUseCase @Inject constructor(private val gson: Gson){
     interface ResultConnection {
         object Success : ResultConnection
         data class Error(val e: Throwable) : ResultConnection
@@ -27,7 +26,6 @@ class ConnectToChatUseCase @Inject constructor(private val repository: Conferenc
         data class Error(val e: Throwable) : ResultMessage
     }
 
-    //private val okClient = OkHttpClient()
     private lateinit var callBack: (result: ResultMessage)->Unit
 
     private val compositeDisposable = CompositeDisposable()
@@ -36,7 +34,7 @@ class ConnectToChatUseCase @Inject constructor(private val repository: Conferenc
         return try{
             this.callBack = callBack
 
-            val stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.152.43.33:7777/ws/websocket")
+            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "${ServerConstants.WEB_SOCKET_LOCAL_SERVER}/ws/websocket")
 
             val topic = stompClient.topic("/chat/$id/queue/messages")
                 .subscribeOn(Schedulers.io())
@@ -80,8 +78,6 @@ class ConnectToChatUseCase @Inject constructor(private val repository: Conferenc
 
     fun closeConnection() {
         stompClient.disconnect()
-
-        //if (mRestPingDisposable != null) mRestPingDisposable.dispose();
         compositeDisposable.dispose()
     }
 }

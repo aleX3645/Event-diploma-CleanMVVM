@@ -103,4 +103,8 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
         val action = ConferenceDetailHolderFragmentDirections.actionHolderToEvent(id)
         navController.navigate(action)
     }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
+    }
 }

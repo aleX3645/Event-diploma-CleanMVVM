@@ -59,8 +59,8 @@ class ConferenceDetailViewModelModule {
     }
 
     @Provides
-    fun provideConnectToChatUseCase(conferenceRepository: ConferenceDetailRepository, gson: Gson) : ConnectToChatUseCase {
-        return ConnectToChatUseCase(conferenceRepository, gson)
+    fun provideConnectToChatUseCase(gson: Gson) : ConnectToChatUseCase {
+        return ConnectToChatUseCase(gson)
     }
 
     @Provides

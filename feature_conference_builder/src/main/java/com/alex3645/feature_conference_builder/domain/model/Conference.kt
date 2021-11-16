@@ -3,8 +3,6 @@ package com.alex3645.feature_conference_builder.domain.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.alex3645.feature_conference_builder.data.model.ConferenceJson
-import com.alex3645.feature_conference_builder.data.model.EventJson
-import com.alex3645.feature_conference_builder.data.model.TariffJson
 
 data class Conference(
     val id: Int,

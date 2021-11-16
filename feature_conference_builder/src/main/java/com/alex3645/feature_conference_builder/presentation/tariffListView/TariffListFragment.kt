@@ -1,7 +1,6 @@
 package com.alex3645.feature_conference_builder.presentation.tariffListView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alex3645.feature_conference_builder.R
-import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.databinding.FragmentTariffListBinding
 import com.alex3645.feature_conference_builder.di.components.DaggerFragmentBuilderComponent
 import com.alex3645.feature_conference_builder.domain.model.Conference
-import com.alex3645.feature_conference_builder.presentation.eventEditorListView.EventEditorListFragmentArgs
 import com.alex3645.feature_conference_builder.presentation.tariffListView.recyclerView.TariffAdapter
-import com.google.android.gms.maps.SupportMapFragment
 import javax.inject.Inject
 
 class TariffListFragment : Fragment(){
@@ -82,6 +77,10 @@ class TariffListFragment : Fragment(){
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 this.isEnabled = false
@@ -92,5 +91,10 @@ class TariffListFragment : Fragment(){
         binding.tariffFloatingActionButton.setOnClickListener {
             viewModel.navigateToTariffEditor(findNavController())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

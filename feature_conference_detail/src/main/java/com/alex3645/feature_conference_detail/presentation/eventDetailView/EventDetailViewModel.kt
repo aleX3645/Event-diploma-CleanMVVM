@@ -7,10 +7,7 @@ import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Event
-import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragmentDirections
-import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerViewModel
 import com.alex3645.feature_conference_detail.usecase.LoadEventByIdUseCase
-import com.alex3645.feature_conference_detail.usecase.LoadEventsForConferenceWithIdUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -80,4 +77,7 @@ class EventDetailViewModel: BaseViewModel<EventDetailViewModel.ViewState, EventD
         }
     }
 
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
+    }
 }

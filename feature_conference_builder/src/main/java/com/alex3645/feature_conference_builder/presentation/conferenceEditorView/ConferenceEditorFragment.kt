@@ -1,14 +1,11 @@
 package com.alex3645.feature_conference_builder.presentation.conferenceEditorView
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -22,21 +19,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_builder.R
-import com.alex3645.feature_conference_builder.customUI.LockableScrollView
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.presentation.validators.DateTimeValidator
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-import com.google.android.libraries.places.api.model.TypeFilter
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
-import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -47,21 +37,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-/*
-* NO_CATEGORY(0, "No category"),
-    POLITICS(1, "Politics"),
-    SOCIETY(2, "Society"),
-    ECONOMICS(3, "Economics"),
-    SPORTS(4, "Sport"),
-    CULTURE(5, "Culture"),
-    TECHNOLOGIES(6, "Tech"),
-    SCIENCE(7, "Science"),
-    AUTO(8, "Auto"),
-    OTHERS(9, "Others");
-* */
-
 class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
-    private val menuItems = listOf("No category", "Politics","Society", "Economics", "Sport", "Culture", "Tech", "Science", "Auto", "Others")
+    private val menuItems = listOf(
+        resources.getString(R.string.no_category),
+        resources.getString(R.string.politics),
+        resources.getString(R.string.society),
+        resources.getString(R.string.economics),
+        resources.getString(R.string.sport),
+        resources.getString(R.string.culture),
+        resources.getString(R.string.tech),
+        resources.getString(R.string.science),
+        resources.getString(R.string.auto),
+        resources.getString(R.string.others))
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
 
@@ -100,7 +87,6 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
     private fun initBackStackObserver(){
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Conference>("conference")
             ?.observe(viewLifecycleOwner) {
-            Log.d("conf", it.name ?: "error")
         }
     }
 
@@ -155,16 +141,19 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
 
     private fun activateLocation(){
         this.context?.let {
-            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            }else{
+            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 googleMap.isMyLocationEnabled = true
             }
         }
     }
 
 
-    var settedFlag = false
+    var settledFlag = false
     private fun setActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.addEvents.setOnClickListener {
             if(beforeNextStepCheck()){
                 setConference()
@@ -191,7 +180,7 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
                     position: Int,
                     id: Long
                 ) {
-                    settedFlag = true
+                    settledFlag = true
                 }
             }
 
@@ -199,10 +188,10 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
 
             viewModel.getPredictionAdapter(editable.toString(), callback = {
                 (binding.addressTextInput.editText as? AutoCompleteTextView)?.setAdapter(it)
-                if(!settedFlag){
+                if(!settledFlag){
                     (binding.addressTextInput.editText as? AutoCompleteTextView)?.showDropDown()
                 }else{
-                    settedFlag = false
+                    settledFlag = false
                 }
 
                 if(editable.toString() != ""){
@@ -415,5 +404,10 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
         }else{
             findNavController().popBackStack()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

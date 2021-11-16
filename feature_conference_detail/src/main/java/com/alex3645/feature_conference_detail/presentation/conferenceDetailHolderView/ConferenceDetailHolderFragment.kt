@@ -32,8 +32,6 @@ class ConferenceDetailHolderFragment: Fragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
-
         _binding = FragmentConferenceDetailHolderBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,36 +46,29 @@ class ConferenceDetailHolderFragment: Fragment()  {
             when (position) {
                 0 -> {
                     tab.icon = context?.let { AppCompatResources.getDrawable(it,R.drawable.ic_info) }
-                    tab.text = "Инфо"
+                    tab.text = resources.getString(R.string.information)
                 }
                 1 -> {
                     tab.icon = context?.let { AppCompatResources.getDrawable(it,R.drawable.ic_schedule) }
-                    tab.text = "Расписание"
+                    tab.text = resources.getString(R.string.schedule)
                 }
                 2 -> {
                     tab.icon = context?.let { AppCompatResources.getDrawable(it,R.drawable.ic_chat) }
-                    tab.text = "Чат"
+                    tab.text = resources.getString(R.string.chat)
                 }
             }
         }.attach()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.clear()
-        inflater.inflate(R.menu.conference_detail_upper_appbar_menu,menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settings -> {
-                viewModel.navigateToSettings(findNavController())
-                true
-            }
-            else -> false
-        }
-    }
-
     private fun initActions(){
+        binding.settingsButton.setOnClickListener {
+            viewModel.navigateToSettings(findNavController())
+        }
+
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.pager.currentItem == 0) {
@@ -99,5 +90,10 @@ class ConferenceDetailHolderFragment: Fragment()  {
             (2)-> ConferenceChatFragment(args.conferenceId.toLong())
             else -> ConferenceDetailFragment()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

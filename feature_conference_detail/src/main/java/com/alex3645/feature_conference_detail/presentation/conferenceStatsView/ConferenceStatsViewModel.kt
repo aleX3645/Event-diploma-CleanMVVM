@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceStatsView
 
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -72,5 +73,9 @@ class ConferenceStatsViewModel: BaseViewModel<ConferenceStatsViewModel.ViewState
                 errorMessage = "Произошла непредвиденная ошибка"
             )
         }
+    }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
     }
 }

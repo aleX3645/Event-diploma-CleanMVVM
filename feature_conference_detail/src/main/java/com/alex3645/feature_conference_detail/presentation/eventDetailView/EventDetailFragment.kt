@@ -11,16 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
-import com.alex3645.feature_conference_detail.databinding.EventDetailBinding
+import com.alex3645.feature_conference_detail.databinding.FragmentEventDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Event
-import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerViewModel
 
 class EventDetailFragment : Fragment() {
     private val viewModel: EventDetailViewModel by viewModels()
 
     private val args by navArgs<EventDetailFragmentArgs>()
 
-    private var _binding: EventDetailBinding? = null
+    private var _binding: FragmentEventDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -28,7 +27,7 @@ class EventDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = EventDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentEventDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,15 +36,16 @@ class EventDetailFragment : Fragment() {
         observe(viewModel.stateLiveData, stateObserver)
 
         viewModel.loadEventsForConference(args.eventId)
-        initView()
-    }
-
-    lateinit var event: Event
-    private fun initView(){
         initActions()
     }
 
+    lateinit var event: Event
+
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.eventScheduleButton.setOnClickListener{
             viewModel.navigateToEvent(findNavController(),args.eventId)
         }

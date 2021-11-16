@@ -10,4 +10,7 @@ class ConferenceDetailHolderViewModel: ViewModel() {
         val action = ConferenceDetailHolderFragmentDirections.actionDetailHolderToSettings(conferenceId.toInt())
         navController.navigate(action)
     }
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
+    }
 }

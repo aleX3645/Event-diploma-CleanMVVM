@@ -1,15 +1,14 @@
 package com.alex3645.feature_conference_detail.presentation.tariffListView.recyclerView
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
-import com.alex3645.feature_conference_detail.databinding.EventRecyclerItemBinding
 import com.alex3645.feature_conference_detail.databinding.TariffItemBinding
-import com.alex3645.feature_conference_detail.domain.model.Event
 import com.alex3645.feature_conference_detail.domain.model.Tariff
-import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 
+@SuppressLint("NotifyDataSetChanged")
 class TariffAdapter : RecyclerView.Adapter<TariffAdapter.ViewHolder>() {
 
     var tariffs: MutableList<Tariff> by observer(mutableListOf()) {

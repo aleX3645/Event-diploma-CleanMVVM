@@ -1,17 +1,14 @@
 package com.alex3645.feature_conference_builder.presentation.tariffListView.recyclerView
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
-import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorItemBinding
 import com.alex3645.feature_conference_builder.databinding.TariffItemBinding
-import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.Tariff
-import com.alex3645.feature_conference_builder.presentation.eventEditorListView.recyclerView.EventAdapter
-import java.text.SimpleDateFormat
-import java.util.*
 
+@SuppressLint("NotifyDataSetChanged")
 class TariffAdapter : RecyclerView.Adapter<TariffAdapter.ViewHolder>() {
 
     var tariffs: MutableList<Tariff> by observer(mutableListOf()) {
@@ -28,10 +25,6 @@ class TariffAdapter : RecyclerView.Adapter<TariffAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int = tariffs.size
-
-    fun setOnDebouncedClickListener(listener: (tariff: Tariff) -> Unit) {
-        this.onDebouncedClickListener = listener
-    }
 
     inner class ViewHolder(binding: TariffItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

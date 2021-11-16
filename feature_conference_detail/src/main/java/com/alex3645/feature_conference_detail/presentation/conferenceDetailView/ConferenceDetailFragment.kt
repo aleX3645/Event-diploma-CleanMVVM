@@ -4,8 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,8 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailBinding
@@ -51,8 +47,6 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
-
         _binding = FragmentConferenceDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -73,6 +67,12 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
         viewModel.loadConference()
 
         initActions()
+    }
+
+    private fun initActions(){
+        binding.registrationButton.setOnClickListener {
+            parentNavController?.let { it1 -> viewModel.navigateToTariffs(it1) }
+        }
     }
 
     override fun onMapReady(gMap: GoogleMap) {
@@ -119,20 +119,9 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
 
     private fun activateLocation(){
         this.context?.let {
-            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            }else{
+            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 googleMap.isMyLocationEnabled = true
             }
-        }
-    }
-
-    private val stateObserver = Observer<ConferenceDetailViewModel.ViewState> {
-
-        binding.conferenceProgressBar.isVisible = it.isLoading
-        if(it.isError){
-            Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
-        }else{
-            initConference(it.conference!!)
         }
     }
 
@@ -147,9 +136,13 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
         binding.conferenceDescription.text = this.conference.description
     }
 
-    private fun initActions(){
-        binding.regButton.setOnClickListener {
-            parentNavController?.let { it -> viewModel.navigateToTariffs(it) }
+    private val stateObserver = Observer<ConferenceDetailViewModel.ViewState> {
+
+        binding.conferenceProgressBar.isVisible = it.isLoading
+        if(it.isError){
+            Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
+        }else{
+            initConference(it.conference!!)
         }
     }
 

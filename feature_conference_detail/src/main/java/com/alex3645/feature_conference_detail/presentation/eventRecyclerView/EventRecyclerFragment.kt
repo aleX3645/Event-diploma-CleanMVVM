@@ -1,7 +1,6 @@
 package com.alex3645.feature_conference_detail.presentation.eventRecyclerView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
-import com.alex3645.feature_conference_detail.databinding.EventRecyclerListBinding
+import com.alex3645.feature_conference_detail.databinding.FragmentEventRecyclerListBinding
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailFragmentComponent
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.recyclerView.EventRecyclerAdapter
 import javax.inject.Inject
@@ -36,7 +35,7 @@ class EventRecyclerFragment(): Fragment() {
     private val viewModel: EventRecyclerViewModel by viewModels()
     private var args: EventRecyclerFragmentArgs? = null
 
-    private var _binding: EventRecyclerListBinding? = null
+    private var _binding: FragmentEventRecyclerListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,17 +52,17 @@ class EventRecyclerFragment(): Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = EventRecyclerListBinding.inflate(inflater, container, false)
+        _binding = FragmentEventRecyclerListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     private  fun initRecycler(){
         eventAdapter.setOnDebouncedClickListener {
             parentNavController?.let {
-                    it1 -> viewModel.navigateToEventByParent(it1,it.id?:0)
+                    it1 -> viewModel.navigateToEventByParent(it1,it.id)
                     return@setOnDebouncedClickListener
             }
-            viewModel.navigateToEventByNavigation(findNavController(),it.id?:0)
+            viewModel.navigateToEventByNavigation(findNavController(),it.id)
         }
 
         binding.eventRecyclerView.adapter = eventAdapter
@@ -79,6 +78,8 @@ class EventRecyclerFragment(): Fragment() {
 
         initRecycler()
         initView()
+        initActions()
+
         viewModel.loadEventsForConference()
     }
 
@@ -91,6 +92,12 @@ class EventRecyclerFragment(): Fragment() {
         args?.eventId?.let {
             eventId = it
             viewModel.eventId = it
+        }
+    }
+
+    private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
         }
     }
 

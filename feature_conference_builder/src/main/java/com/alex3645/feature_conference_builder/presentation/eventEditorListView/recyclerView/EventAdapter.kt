@@ -1,15 +1,17 @@
 package com.alex3645.feature_conference_builder.presentation.eventEditorListView.recyclerView
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
-import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorItemBinding
+import com.alex3645.feature_conference_builder.databinding.EventEditorItemBinding
 import com.alex3645.feature_conference_builder.domain.model.Event
 import java.text.SimpleDateFormat
 import java.util.*
 
+@SuppressLint("NotifyDataSetChanged")
 class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     var events: MutableList<Event> by observer(mutableListOf()) {
@@ -42,18 +44,14 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: FragmentEventEditorItemBinding = FragmentEventEditorItemBinding.inflate(inflater, parent, false)
+        val binding: EventEditorItemBinding = EventEditorItemBinding.inflate(inflater, parent, false)
 
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = events.size
 
-    fun setOnDebouncedClickListener(listener: (event: Event) -> Unit) {
-        this.onDebouncedClickListener = listener
-    }
-
-    inner class ViewHolder(binding: FragmentEventEditorItemBinding) :
+    inner class ViewHolder(binding: EventEditorItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val name = binding.nameTextBox
         val info = binding.shortInfoTextBox

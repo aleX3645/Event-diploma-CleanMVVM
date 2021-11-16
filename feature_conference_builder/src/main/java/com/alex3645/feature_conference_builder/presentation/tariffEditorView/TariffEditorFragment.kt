@@ -1,7 +1,6 @@
 package com.alex3645.feature_conference_builder.presentation.tariffEditorView
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.feature_conference_builder.databinding.FragmentTariffEditorBinding
-import com.alex3645.feature_conference_builder.databinding.FragmentTariffListBinding
 import com.alex3645.feature_conference_builder.domain.model.Tariff
-import com.alex3645.feature_conference_builder.presentation.tariffListView.TariffListFragmentArgs
-import com.alex3645.feature_conference_builder.presentation.tariffListView.TariffListViewModel
-import com.alex3645.feature_conference_builder.presentation.tariffListView.recyclerView.TariffAdapter
-import javax.inject.Inject
 
 class TariffEditorFragment: Fragment() {
 
@@ -49,6 +43,10 @@ class TariffEditorFragment: Fragment() {
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.saveButton.setOnClickListener {
             viewModel.tariff = Tariff(
                 id = 0,
@@ -65,5 +63,10 @@ class TariffEditorFragment: Fragment() {
                 viewModel.navigateBack(findNavController())
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

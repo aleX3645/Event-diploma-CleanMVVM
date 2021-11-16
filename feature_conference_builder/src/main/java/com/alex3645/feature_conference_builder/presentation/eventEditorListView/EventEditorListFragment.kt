@@ -90,6 +90,10 @@ class EventEditorListFragment : Fragment(){
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.floatingActionButton.setOnClickListener {
             viewModel.navigateToEventEditor(findNavController())
         }
@@ -100,5 +104,10 @@ class EventEditorListFragment : Fragment(){
                 viewModel.navigateBack(findNavController())
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

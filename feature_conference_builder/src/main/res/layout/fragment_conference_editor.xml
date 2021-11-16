@@ -5,10 +5,50 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topNavigationAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:theme="@style/MyThemeOverlay_Toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:background="@null"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white"
+                android:contentDescription="@string/back" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/backButton"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="start"
+                android:text="@string/conference_detail"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <com.alex3645.feature_conference_builder.customUI.LockableScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topNavigationAppBar"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="49dp">
 
@@ -43,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Название конференции"
+                    android:text="@string/conference_name"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Описание"
+                    android:text="@string/description"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -99,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Дата начала конференции"
+                    android:text="@string/start_date"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Время начала конференции"
+                    android:text="@string/start_time"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -157,7 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Дата окончания конференции"
+                    android:text="@string/end_date"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -187,7 +227,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Время окончания конференции"
+                    android:text="@string/end_time"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -217,7 +257,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Категория"
+                    android:text="@string/category"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -225,7 +265,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Не задано">
+                    android:hint="@string/no_specified">
 
                     <AutoCompleteTextView
                         android:id="@+id/menuInputText"
@@ -247,7 +287,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="Адрес"
+                    android:text="@string/place"
                     android:textColor="@color/purple_700" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -262,7 +302,8 @@
                         android:id="@+id/addressEditTextAuto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress" />
+                        android:inputType="textPostalAddress"
+                        tools:ignore="LabelFor" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.fragment.app.FragmentContainerView
@@ -279,7 +320,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Добавить события"
+                android:text="@string/add_events"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear" />
@@ -290,7 +331,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Добавить тарифы"
+                android:text="@string/add_tariffs"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear" />
@@ -301,7 +342,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Создать конференцию"
+                android:text="@string/create_conference"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear" />

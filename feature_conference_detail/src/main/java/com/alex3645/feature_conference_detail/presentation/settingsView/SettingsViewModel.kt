@@ -12,4 +12,8 @@ class SettingsViewModel: ViewModel(){
         val action = SettingsConferenceFragmentDirections.actionSettingsToStats(conferenceId.toInt())
         navController.navigate(action)
     }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
+    }
 }

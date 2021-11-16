@@ -1,14 +1,14 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceStatsView.recyclerView
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
 import com.alex3645.feature_conference_detail.databinding.StatisticaTariffItemBinding
-import com.alex3645.feature_conference_detail.databinding.TariffItemBinding
 import com.alex3645.feature_conference_detail.domain.model.Tariff
-import com.alex3645.feature_conference_detail.presentation.tariffListView.recyclerView.TariffAdapter
 
+@SuppressLint("NotifyDataSetChanged")
 class TariffStatsAdapter : RecyclerView.Adapter<TariffStatsAdapter.ViewHolder>() {
 
     var tariffs: MutableList<Tariff> by observer(mutableListOf()) {
@@ -26,10 +26,6 @@ class TariffStatsAdapter : RecyclerView.Adapter<TariffStatsAdapter.ViewHolder>()
 
     override fun getItemCount(): Int = tariffs.size
 
-    fun setOnDebouncedClickListener(listener: (tariff: Tariff) -> Unit) {
-        this.onDebouncedClickListener = listener
-    }
-
     inner class ViewHolder(binding: StatisticaTariffItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val name = binding.tariffName
@@ -41,6 +37,7 @@ class TariffStatsAdapter : RecyclerView.Adapter<TariffStatsAdapter.ViewHolder>()
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tariff = tariffs[position]
 

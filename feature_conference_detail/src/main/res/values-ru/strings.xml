@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_date_time">Дата и время начала</string>
+    <string name="end_date_time">Дата и время окончания</string>
+    <string name="register">Зарегистрироваться на мероприятие</string>
+    <string name="add_to_personal_schedule">Добавить в персональное расписание</string>
+    <string name="category">Категория</string>
+    <string name="place">Местоположение</string>
+    <string name="description">Описание</string>
+    <string name="organiser">Организатор</string>
+    <string name="speaker">Спикер</string>
+    <string name="event_schedule">Расписание события</string>
+    <string name="information">Информация</string>
+    <string name="schedule">Расписание</string>
+    <string name="chat">Чат</string>
+
+    <string name="back">Назад</string>
+    <string name="settings">Настройки</string>
+    <string name="conference_detail">Конференция</string>
+    <string name="event">Событие</string>
+    <string name="statistics">Статистика</string>
+    <string name="tariff">Тарифы</string>
+</resources>

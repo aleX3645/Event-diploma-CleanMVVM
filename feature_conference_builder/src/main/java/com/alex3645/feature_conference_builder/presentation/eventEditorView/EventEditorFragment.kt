@@ -49,7 +49,7 @@ class EventEditorFragment : Fragment() {
     private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
 
     private fun initView(){
-        var conference = args.conference
+        val conference = args.conference
         conference?.let {
             viewModel.conference = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
@@ -83,6 +83,10 @@ class EventEditorFragment : Fragment() {
     }
 
     private fun setButtons(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         binding.addEvents.setOnClickListener {
             if(save()){
                 viewModel.navigateToEventListEditor(findNavController())
@@ -297,5 +301,10 @@ class EventEditorFragment : Fragment() {
     private fun timeSettledFlag() : Boolean{
         return (!binding.endTimeTextField.editText?.text.contentEquals("")
                 && !binding.endTimeTextField.editText?.text.contentEquals(""))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -2,6 +2,9 @@ package com.alex3645.app.data.api
 
 class ServerConstants {
     companion object{
-        const val LOCAL_SERVER: String = "http://10.152.43.33:7777"
+        private const val LOCAL_SERVER_IP = "10.152.43.33"
+        private const val LOCAL_SERVER_PORT = "7777"
+        const val LOCAL_SERVER: String = "http://${LOCAL_SERVER_IP}:${LOCAL_SERVER_PORT}"
+        const val WEB_SOCKET_LOCAL_SERVER: String = "ws://${LOCAL_SERVER_IP}:${LOCAL_SERVER_PORT}"
     }
 }

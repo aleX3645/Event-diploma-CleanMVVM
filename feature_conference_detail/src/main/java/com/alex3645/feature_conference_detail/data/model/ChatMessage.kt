@@ -1,8 +1,6 @@
 package com.alex3645.feature_conference_detail.data.model
 
 import com.google.gson.annotations.SerializedName
-import java.time.OffsetDateTime
-
 
 data class ChatMessage(
     @SerializedName("id")

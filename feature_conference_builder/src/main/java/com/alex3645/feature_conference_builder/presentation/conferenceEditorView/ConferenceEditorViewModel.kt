@@ -3,15 +3,11 @@ package com.alex3645.feature_conference_builder.presentation.conferenceEditorVie
 import android.app.Application
 import android.content.ContentValues
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
-import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.di.components.DaggerBuilderViewModelComponent
@@ -40,7 +36,7 @@ class ConferenceEditorViewModel (application: Application):
     init{
         DaggerBuilderViewModelComponent.factory().create(BuilderViewModelModule(application)).inject(this)
         if (!Places.isInitialized()) {
-            Places.initialize(application, "AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y", Locale.getDefault())
+            Places.initialize(application, application.resources.getString(R.string.google_maps_key), Locale.getDefault())
         }
         places = Places.createClient(application)
     }
@@ -132,5 +128,9 @@ class ConferenceEditorViewModel (application: Application):
     fun navigateToTariffList(navController: NavController){
         val action = ConferenceEditorFragmentDirections.actionConferenceBuilderToTariffListFragment(conference)
         navController.navigate(action)
+    }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
     }
 }

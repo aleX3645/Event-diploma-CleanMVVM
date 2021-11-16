@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conference_name">Conference name</string>
+    <string name="event_name">Event name</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="category">Category</string>
+    <string name="place">Place</string>
+    <string name="description">Description</string>
+    <string name="organiser">Organiser</string>
+    <string name="speaker">Speaker</string>
+    <string name="add_events">Add events</string>
+    <string name="add_tariffs">Add tariffs</string>
+    <string name="create_conference">Create conference</string>
+    <string name="create_event">Create event</string>
+    <string name="no_specified">No specified</string>
+    <string name="event_list">Event list</string>
+    <string name="tariff_name">Tariff name</string>
+    <string name="ticket_max">Ticket limit</string>
+    <string name="price">Price</string>
+    <string name="create_tariff">Create tariff</string>
+    <string name="tickets_left">Tickets left: </string>
+    <string name="ticket_price">Ticket price: </string>
+
+    <string name="no_category">No category</string>
+    <string name="society">Society</string>
+    <string name="politics">Politics</string>
+    <string name="economics">Economics</string>
+    <string name="sport">Sport</string>
+    <string name="culture">Culture</string>
+    <string name="tech">Tech</string>
+    <string name="science">Science</string>
+    <string name="auto">Auto</string>
+    <string name="others">Others</string>
+
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="conference_detail">Conference</string>
+    <string name="event">Event</string>
+    <string name="statistics">Statistics</string>
+    <string name="tariff">Tariffs</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y</string>
+</resources>

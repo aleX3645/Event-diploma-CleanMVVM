@@ -3,6 +3,7 @@ package com.alex3645.feature_conference_detail.presentation.tariffListView
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
@@ -51,7 +52,7 @@ class TariffListViewModel(application: Application): BaseAndroidViewModel<Tariff
             loadConferenceByIdUseCase(conferenceId).also { result ->
                 val action = when (result) {
                     is LoadConferenceByIdUseCase.Result.Success ->
-                        Action.Success(result.data.tariffs?: listOf())
+                        Action.Success(result.data.tariffs)
                     is LoadConferenceByIdUseCase.Result.Error ->
                         Action.Failure("Ошибка подключения")
                     else -> Action.Failure("Ошибка подключения")
@@ -123,5 +124,9 @@ class TariffListViewModel(application: Application): BaseAndroidViewModel<Tariff
                 errorMessage = "Произошла непредвиденная ошибка"
             )
         }
+    }
+
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
     }
 }

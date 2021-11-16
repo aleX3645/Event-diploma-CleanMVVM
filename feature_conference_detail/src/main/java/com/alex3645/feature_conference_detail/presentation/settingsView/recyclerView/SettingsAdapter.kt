@@ -1,11 +1,13 @@
 package com.alex3645.feature_account.presentation.settingsView.recyclerView
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
 import com.alex3645.feature_conference_detail.databinding.SettingsItemBinding
 
+@SuppressLint("NotifyDataSetChanged")
 class SettingsAdapter : RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
 
     var settingsList: List<String> by observer(listOf()) {

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.feature_account.presentation.settingsView.recyclerView.SettingsAdapter
+import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentSettingsBinding
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailFragmentComponent
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class SettingsConferenceFragment: Fragment() {
     @Inject
     lateinit var settingsAdapter: SettingsAdapter
 
-    private val settingsList = listOf("Статистика")
+    private val settingsList = listOf(resources.getString(R.string.statistics))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +67,10 @@ class SettingsConferenceFragment: Fragment() {
     }
 
     private fun initActions(){
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
         settingsAdapter.setOnDebouncedClickListener {
             when(it){
                 settingsList[0] -> {
@@ -73,5 +78,10 @@ class SettingsConferenceFragment: Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

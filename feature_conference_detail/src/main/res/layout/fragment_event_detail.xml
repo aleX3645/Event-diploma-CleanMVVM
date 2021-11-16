@@ -4,10 +4,51 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topNavigationAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:theme="@style/MyThemeOverlay_Toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:background="@null"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white"
+                android:contentDescription="@string/back" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/backButton"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="start"
+                android:text="@string/event"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeEventContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topNavigationAppBar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,7 +87,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Дата и время начала"
+                    android:text="@string/start_date_time"
                     android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
@@ -71,7 +112,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Дата и время окончания"
+                    android:text="@string/end_date_time"
                     android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
@@ -96,7 +137,7 @@
                     android:id="@+id/eventAddToPersonalSchedule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Добавить в личное расписание"
+                    android:text="@string/add_to_personal_schedule"
                     android:background="@color/purple_700"
                     android:textColor="@color/white"
                     android:layout_marginBottom="10dp"
@@ -105,7 +146,7 @@
                     android:id="@+id/eventScheduleButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="План события"
+                    android:text="@string/event_schedule"
                     android:background="@color/purple_700"
                     android:textColor="@color/white"
                     />
@@ -122,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Описние"
+                    android:text="@string/description"
                     android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
@@ -146,7 +187,7 @@
                     android:id="@+id/speakerButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Спикер"
+                    android:text="@string/speaker"
                     android:background="@color/purple_700"
                     android:textColor="@color/white"
                     />
