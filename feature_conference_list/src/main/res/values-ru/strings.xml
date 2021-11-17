@@ -16,4 +16,6 @@
     <string name="science">Наука</string>
     <string name="auto">Aвтомобили</string>
     <string name="others">Другое</string>
+
+    <string name="no_data">Нет информации</string>
 </resources>

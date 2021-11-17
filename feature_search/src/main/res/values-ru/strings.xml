@@ -4,4 +4,6 @@
     <string name="conferences">Конференции</string>
     <string name="events">События</string>
     <string name="users">Пользователи</string>
+
+    <string name="no_data">Нет информации</string>
 </resources>

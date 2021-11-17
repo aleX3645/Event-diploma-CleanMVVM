@@ -1,5 +1,6 @@
 package com.alex3645.feature_conference_list.usecase
 
+import android.util.Log
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.domain.repository.ConferenceRepository
 import java.lang.Exception

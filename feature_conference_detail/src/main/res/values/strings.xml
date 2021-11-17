@@ -20,4 +20,6 @@
     <string name="event">Event</string>
     <string name="statistics">Statistics</string>
     <string name="tariff">Tariffs</string>
+
+    <string name="no_data">No data</string>
 </resources>

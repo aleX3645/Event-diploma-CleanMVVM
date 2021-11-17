@@ -1,26 +1,27 @@
 package com.alex3645.feature_search.data.model
 
 
+import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_search.domain.data.Event
 import com.google.gson.annotations.SerializedName
 
 data class EventJson(
     @SerializedName("conference_id")
-    val conferenceId: Int,
+    val conferenceId: Int = -1,
     @SerializedName("date_end")
-    val dateEnd: String,
+    val dateEnd: String = ServerConstants.serverDateTimeFormat.format(0),
     @SerializedName("date_start")
-    val dateStart: String,
+    val dateStart: String = ServerConstants.serverDateTimeFormat.format(0),
     @SerializedName("description")
-    val description: String,
+    val description: String = "",
     @SerializedName("events")
-    val events: ArrayList<EventJson>,
+    val events: ArrayList<EventJson> = ArrayList(),
     @SerializedName("id")
-    val id: Int,
+    val id: Int = -1,
     @SerializedName("name")
-    val name: String,
+    val name: String = "",
     @SerializedName("speaker_id")
-    val speakerId: Int
+    val speakerId: Int = -1
 ){
     internal fun toDomainModel(): Event {
         return Event(

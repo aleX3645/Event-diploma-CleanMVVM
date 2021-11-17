@@ -25,7 +25,7 @@ class SettingsFragment: Fragment() {
     @Inject
     lateinit var settingsAdapter: SettingsAdapter
 
-    private val settingsList = listOf(resources.getString(R.string.settings), resources.getString(R.string.exit))
+    private lateinit var settingsList: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +57,7 @@ class SettingsFragment: Fragment() {
         binding.settingsRecycler.adapter = settingsAdapter
         binding.settingsRecycler.layoutManager = LinearLayoutManager(activity)
 
+        settingsList = listOf(context?.resources?.getString(R.string.settings) ?: "error", context?.resources?.getString(R.string.exit) ?: "error")
         settingsAdapter.settingsList = settingsList
     }
 

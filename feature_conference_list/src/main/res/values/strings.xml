@@ -17,5 +17,7 @@
     <string name="auto">Auto</string>
     <string name="others">Others</string>
 
+    <string name="no_data">No data</string>
+
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y</string>
 </resources>

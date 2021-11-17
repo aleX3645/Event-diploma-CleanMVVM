@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
+import com.alex3645.feature_user_account.R
 import com.alex3645.feature_user_account.databinding.FragmentUserAccountBinding
 import com.alex3645.feature_user_account.domain.data.User
 
@@ -47,10 +48,10 @@ class UserAccountFragment: Fragment() {
     }
 
     private fun initAccount(user: User){
-        binding.accountDescription.text = user.description
-        binding.accountEmail.text = user.email
-        binding.accountLogin.text = user.login
-        binding.accountPhone.text = user.phone
+        binding.accountDescription.text = if(user.description != "") user.description else context?.getString(R.string.no_data)?:""
+        binding.accountEmail.text = if(user.email != "") user.email else context?.getString(R.string.no_data)?:""
+        binding.accountLogin.text = if(user.login != "") user.login else context?.getString(R.string.no_data)?:""
+        binding.accountPhone.text = if(user.phone != "") user.phone else context?.getString(R.string.no_data)?:""
     }
 
     private val stateObserver = Observer<UserAccountViewModel.ViewState> {

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,17 +39,19 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
-    private val menuItems = listOf(
-        resources.getString(R.string.no_category),
-        resources.getString(R.string.politics),
-        resources.getString(R.string.society),
-        resources.getString(R.string.economics),
-        resources.getString(R.string.sport),
-        resources.getString(R.string.culture),
-        resources.getString(R.string.tech),
-        resources.getString(R.string.science),
-        resources.getString(R.string.auto),
-        resources.getString(R.string.others))
+    private val menuItems = activity?.resources?.let {
+        listOf(
+            it.getString(R.string.no_category),
+            it.getString(R.string.politics),
+            it.getString(R.string.society),
+            it.getString(R.string.economics),
+            it.getString(R.string.sport),
+            it.getString(R.string.culture),
+            it.getString(R.string.tech),
+            it.getString(R.string.science),
+            it.getString(R.string.auto),
+            it.getString(R.string.others))
+    }?: listOf()
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
 
@@ -264,9 +267,8 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
     private fun getTimePickerByTime(hour: Int) : MaterialTimePicker{
         return MaterialTimePicker.Builder()
                 .setInputMode(INPUT_MODE_KEYBOARD)
-                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(hour)
-                .setMinute(0)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .build()
     }
 
@@ -314,7 +316,7 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
             val timePicker = getTimePickerByTime(9)
 
             timePicker.addOnPositiveButtonClickListener {
-                startDate.set(Calendar.HOUR, timePicker.hour)
+                startDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 startDate.set(Calendar.MINUTE, timePicker.minute)
 
                 binding.startTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(
@@ -355,7 +357,7 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
             val timePicker = getTimePickerByTime(18)
 
             timePicker.addOnPositiveButtonClickListener {
-                endDate.set(Calendar.HOUR, timePicker.hour)
+                endDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 endDate.set(Calendar.MINUTE, timePicker.minute)
 
                 binding.endTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(

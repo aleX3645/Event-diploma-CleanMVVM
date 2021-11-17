@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AccResponse(
     @SerializedName("message")
-    val message: String,
+    val message: String = "",
     @SerializedName("success")
-    val success: Boolean
+    val success: Boolean = false
 )

@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class UserRegJson(
     @SerializedName("login")
-    val login: String,
+    val login: String = "",
     @SerializedName("password_hash")
-    val password: String,
+    val password: String = "",
     @SerializedName("name")
-    val name: String,
+    val name: String = "",
     @SerializedName("surname")
-    val surname: String,
+    val surname: String = "",
     @SerializedName("description")
-    val description: String,
+    val description: String = "",
     @SerializedName("phone")
-    val phone: String,
+    val phone: String = "",
     @SerializedName("email")
-    val email: String
+    val email: String = ""
 )

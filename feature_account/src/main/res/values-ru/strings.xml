@@ -13,4 +13,6 @@
 
     <string name="account_title">Аккаунт</string>
     <string name="edit_title">Редактирование аккаунта</string>
+
+    <string name="no_data">Нет информации</string>
 </resources>

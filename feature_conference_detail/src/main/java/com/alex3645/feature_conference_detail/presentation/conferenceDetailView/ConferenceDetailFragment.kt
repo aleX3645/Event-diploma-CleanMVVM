@@ -128,12 +128,12 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
     private fun initConference(conference: Conference){
         this.conference = conference
 
-        binding.conferenceTitle.text = this.conference.name
-        binding.conferenceStartDate.text = this.conference.dateStart
-        binding.conferenceEndDate.text = this.conference.dateEnd
-        binding.conferencePlace.text = this.conference.location
-        binding.conferenceCategory.text = this.conference.category.toString()
-        binding.conferenceDescription.text = this.conference.description
+        binding.conferenceTitle.text = if(this.conference.name != "") this.conference.name else context?.getString(R.string.no_data)?:""
+        binding.conferenceStartDate.text = if(this.conference.dateStart != "") this.conference.dateStart else context?.getString(R.string.no_data)?:""
+        binding.conferenceEndDate.text = if(this.conference.dateEnd != "") this.conference.dateEnd else context?.getString(R.string.no_data)?:""
+        binding.conferencePlace.text = if(this.conference.location != "") this.conference.location else context?.getString(R.string.no_data)?:""
+        binding.conferenceCategory.text = if(this.conference.category.toString() != "") this.conference.category.toString() else context?.getString(R.string.no_data)?:""
+        binding.conferenceDescription.text = if(this.conference.description != "") this.conference.description else context?.getString(R.string.no_data)?:""
     }
 
     private val stateObserver = Observer<ConferenceDetailViewModel.ViewState> {

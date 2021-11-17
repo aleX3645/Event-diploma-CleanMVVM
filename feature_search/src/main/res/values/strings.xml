@@ -4,4 +4,6 @@
     <string name="conferences">Conferences</string>
     <string name="events">Events</string>
     <string name="users">Users</string>
+
+    <string name="no_data">No data</string>
 </resources>

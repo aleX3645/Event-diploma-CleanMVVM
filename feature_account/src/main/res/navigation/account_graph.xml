@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.alex3645.feature_conference_detail.presentation.settingsView.SettingsFragment"
+        android:name="com.alex3645.feature_account.presentation.settingsView.SettingsFragment"
         android:label="SettingsFragment"
         app:moduleName="feature_account">
         <action

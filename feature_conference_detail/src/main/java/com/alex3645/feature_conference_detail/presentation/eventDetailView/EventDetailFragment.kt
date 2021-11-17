@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
+import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentEventDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Event
 
@@ -62,10 +63,10 @@ class EventDetailFragment : Fragment() {
     private fun initEvent(event: Event){
         this.event = event
 
-        binding.eventTitle.text = this.event.name
-        binding.eventStartDate.text = this.event.dateStart
-        binding.eventEndDate.text = this.event.dateEnd
-        binding.eventDescription.text = this.event.description
+        binding.eventTitle.text = if(this.event.name != "") this.event.name else context?.getString(R.string.no_data)?:""
+        binding.eventStartDate.text = if(this.event.dateStart != "") this.event.dateStart else context?.getString(R.string.no_data)?:""
+        binding.eventEndDate.text = if(this.event.dateEnd != "") this.event.dateEnd else context?.getString(R.string.no_data)?:""
+        binding.eventDescription.text = if(this.event.description != "") this.event.description else context?.getString(R.string.no_data)?:""
     }
 
     override fun onDestroyView() {

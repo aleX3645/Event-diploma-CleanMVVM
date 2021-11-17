@@ -1,5 +1,6 @@
 package com.alex3645.feature_conference_detail.usecase
 
+import android.util.Log
 import com.alex3645.feature_conference_detail.domain.model.Event
 import com.alex3645.feature_conference_detail.domain.repository.ConferenceDetailRepository
 import java.lang.Exception
@@ -16,6 +17,7 @@ class LoadEventsForConferenceWithIdUseCase @Inject constructor(private val repos
             val events: List<Event> = repository.loadEventsForConferenceWithId(id)
             Result.Success(events)
         }catch (e: Exception){
+            e.message?.let { Log.d("!!!", it) }
             Result.Error(e)
         }
     }

@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName
 
 data class UserJson(
     @SerializedName("id")
-    val id: Int,
+    val id: Int = -1,
     @SerializedName("login")
-    val login: String,
+    val login: String = "login",
     @SerializedName("name")
-    val name: String,
+    val name: String = "",
     @SerializedName("surname")
-    val surname: String,
+    val surname: String = "",
     @SerializedName("description")
-    val description: String,
+    val description: String = "",
     @SerializedName("phone")
-    val phone: String,
+    val phone: String = "",
     @SerializedName("email")
-    val email: String
+    val email: String = ""
 ){
     internal fun toDomainModel() : User {
         return User(
