@@ -64,6 +64,11 @@ class ConferenceDetailViewModelModule {
     }
 
     @Provides
+    fun provideLoadPictureUseCase() : LoadPictureByUrlUseCase {
+        return LoadPictureByUrlUseCase()
+    }
+
+    @Provides
     fun provideEventById(conferenceRepository: ConferenceDetailRepository): LoadEventByIdUseCase {
         return LoadEventByIdUseCase(conferenceRepository)
     }

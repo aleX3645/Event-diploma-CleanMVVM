@@ -12,14 +12,14 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailHolderBinding
-import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatFragment
+import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity
 import com.alex3645.feature_conference_detail.presentation.conferenceDetailView.ConferenceDetailFragment
 import com.alex3645.feature_conference_detail.presentation.eventRecyclerView.EventRecyclerFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 
 class ConferenceDetailHolderFragment: Fragment()  {
-    private val numPages = 3
+    private val numPages = 2
 
     private val args by navArgs<ConferenceDetailHolderFragmentArgs>()
     private val viewModel: ConferenceDetailHolderViewModel by viewModels()
@@ -52,10 +52,6 @@ class ConferenceDetailHolderFragment: Fragment()  {
                     tab.icon = context?.let { AppCompatResources.getDrawable(it,R.drawable.ic_schedule) }
                     tab.text = resources.getString(R.string.schedule)
                 }
-                2 -> {
-                    tab.icon = context?.let { AppCompatResources.getDrawable(it,R.drawable.ic_chat) }
-                    tab.text = resources.getString(R.string.chat)
-                }
             }
         }.attach()
     }
@@ -87,7 +83,6 @@ class ConferenceDetailHolderFragment: Fragment()  {
         override fun createFragment(position: Int): Fragment = when(position){
             (0)-> ConferenceDetailFragment(args.conferenceId, findNavController())
             (1)-> EventRecyclerFragment(args.conferenceId, findNavController())
-            (2)-> ConferenceChatFragment(args.conferenceId.toLong())
             else -> ConferenceDetailFragment()
         }
     }

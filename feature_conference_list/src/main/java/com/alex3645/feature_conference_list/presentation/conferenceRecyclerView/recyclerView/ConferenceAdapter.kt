@@ -4,13 +4,18 @@ package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
 import com.alex3645.feature_conference_list.domain.model.Conference
+import com.alex3645.feature_conference_list.usecase.LoadPictureByUrlUseCase
 import com.alex3645.feature_event_list.databinding.FragmentRecyclerListItemBinding
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 @SuppressLint("NotifyDataSetChanged")
-class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
+class ConferenceAdapter @Inject constructor(val loadPictureByUrlUseCase: LoadPictureByUrlUseCase): RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
 
     var conferences: List<Conference> by observer(listOf()) {
         rawConferences = conferences
@@ -28,7 +33,7 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
 
         if(city != ""){
             conferences = conferences.filter{
-                it.location?.contains(city)?: false
+                it.location.contains(city)
             }
         }
 
@@ -53,6 +58,7 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         val name = binding.nameTextBox
         val info = binding.shortInfoTextBox
+        val image = binding.imageConferenceList
 
         fun bind(conference: Conference) {
             itemView.setOnClickListener { onDebouncedClickListener?.invoke(conference) }
@@ -67,6 +73,14 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceAdapter.ViewHolder>() {
         holder.name.text = conference.name
         holder.info.text = conference.description
 
+        loadImage(conference.photoUrl,holder.image)
+
         holder.bind(conference)
+    }
+
+    private fun loadImage(url: String, imageView: ImageView) = runBlocking {
+        launch {
+            loadPictureByUrlUseCase(url,imageView)
+        }
     }
 }

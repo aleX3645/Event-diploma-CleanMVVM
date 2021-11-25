@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceDetailView
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Conference
+import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -64,7 +66,7 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
     private fun initView(){
         val mapFragment = childFragmentManager.findFragmentById(R.id.conferenceDetailMap) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
-        viewModel.loadConference()
+        viewModel.loadConference(binding.imageConference)
 
         initActions()
     }
@@ -72,6 +74,13 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
     private fun initActions(){
         binding.registrationButton.setOnClickListener {
             parentNavController?.let { it1 -> viewModel.navigateToTariffs(it1) }
+        }
+
+        binding.toChatButton.setOnClickListener {
+            val intent = Intent(this.context, ConferenceChatActivity::class.java).apply {
+                conferenceId?.let { it1 -> putExtra("id", it1.toLong()) }
+            }
+            startActivity(intent)
         }
     }
 

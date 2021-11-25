@@ -9,8 +9,10 @@ import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.data.model.ChatMessage
+import com.alex3645.feature_conference_detail.data.model.UserMessage
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.usecase.ConnectToChatUseCase
+import com.alex3645.feature_conference_detail.usecase.LoadAccountByLoginUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadChatUseCase
 import com.alex3645.feature_conference_detail.usecase.SendMessageUseCase
 import kotlinx.coroutines.launch
@@ -18,7 +20,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class ConferenceChatViewModel(application: Application) : BaseAndroidViewModel<ConferenceChatViewModel.ViewState, ConferenceChatViewModel.Action>(ViewState(),application)  {
+class ConferenceChatViewModel : BaseAndroidViewModel<ConferenceChatViewModel.ViewState, ConferenceChatViewModel.Action> {
+
+    constructor(application: Application) : super(ViewState(),application) {
+        val spManager = SharedPreferencesManager(application)
+        username = spManager.fetchLogin()?:""
+    }
 
     init {
         DaggerConferenceDetailViewModelComponent.factory().create().inject(this)
@@ -40,37 +47,56 @@ class ConferenceChatViewModel(application: Application) : BaseAndroidViewModel<C
     lateinit var loadChatUseCase: LoadChatUseCase
     @Inject
     lateinit var sendMessageUseCase: SendMessageUseCase
+    @Inject
+    lateinit var loadAccountByLoginUseCase: LoadAccountByLoginUseCase
 
     var conferenceId: Long = 0
-
+    var username: String = ""
     private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
     fun sendMessage(message: String){
-        val application: Application = this.getApplication()
         viewModelScope.launch {
-            val spManager = SharedPreferencesManager(application)
+            loadAccountByLoginUseCase(username).also { result ->
+                val action = when (result) {
+                    is LoadAccountByLoginUseCase.Result.Success ->{
+                        Log.d("!!!",username)
+                        sendMessageFromUser(result.user.toChatMessageUser(), message)
+                        return@also
+                    }
+                    is LoadAccountByLoginUseCase.Result.Error ->
+                        Action.Failure(result.e.message ?: "Ошибка подключения")
+                    else -> Action.Failure("Ошибка подключения")
+                }
+                sendAction(action)
+            }
+        }
+    }
+
+    private fun sendMessageFromUser(user: UserMessage,message: String){
+        viewModelScope.launch {
             sendMessageUseCase(
                 ChatMessage(
                     id = 0,
                     conferenceId = conferenceId,
-                    senderName = spManager.fetchLogin()?:"",
+                    user = user,
                     content = message,
                     dateTime = simpleDateFormatServer.format(Calendar.getInstance(Locale.getDefault()).time)
                 )
-            )
-                .also{ result ->
-                val action = when (result) {
-                    is SendMessageUseCase.Result.Success -> {
-                        loadMessages()
-                        return@also
+            ).also{ result ->
+                    val action = when (result) {
+                        is SendMessageUseCase.Result.Success -> {
+                            //loadMessages()
+                            return@also
+                        }
+                        is SendMessageUseCase.Result.Error ->
+                            Action.Failure(result.e.message?: "Ошибка")
+                        else -> Action.Failure("Ошибка подключения")
                     }
-                    is SendMessageUseCase.Result.Error ->
-                        Action.Failure(result.e.message?: "Ошибка")
-                    else -> Action.Failure("Ошибка подключения")
-                }
                     sendAction(action)
                 }
         }
     }
+
+
 
     val liveDataMessages: MutableLiveData<MutableList<ChatMessage>> by lazy {
         MutableLiveData()
@@ -88,8 +114,6 @@ class ConferenceChatViewModel(application: Application) : BaseAndroidViewModel<C
                         temp.add(it.chatMessage)
                         messages.add(it.chatMessage)
                         liveDataMessages.postValue(messages)
-
-                        Log.d("!!!", "here - " + (messages.size))
                     }
                     is ConnectToChatUseCase.ResultMessage.Error ->
                         sendAction(Action.Failure(it.e.message ?: "Ошибка"))
@@ -118,7 +142,7 @@ class ConferenceChatViewModel(application: Application) : BaseAndroidViewModel<C
                     is LoadChatUseCase.Result.Success -> {
                         messages = result.data.toMutableList()
                         liveDataMessages.postValue(messages)
-
+                        //Log.d("!!!", messages[0].user.login)
                         return@also
                     }
                     is LoadChatUseCase.Result.Error ->
@@ -136,6 +160,7 @@ class ConferenceChatViewModel(application: Application) : BaseAndroidViewModel<C
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){
         is Action.Failure -> {
+            Log.d("!!!", "fail")
             val message = viewAction.message
             state.copy(
                 isLoading = false,

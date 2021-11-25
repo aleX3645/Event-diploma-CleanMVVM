@@ -12,5 +12,6 @@ data class Conference(
     val name: String,
     val organizerId: Int,
     val status: Int,
-    val tariffs: List<Tariff>
+    val tariffs: List<Tariff>,
+    val photoUrl: String
     )
