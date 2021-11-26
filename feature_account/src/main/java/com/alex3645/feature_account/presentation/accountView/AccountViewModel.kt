@@ -1,6 +1,7 @@
 package com.alex3645.feature_account.presentation.accountView
 
 import android.app.Application
+import android.widget.ImageView
 import androidx.lifecycle.viewModelScope
 
 import androidx.navigation.NavController
@@ -12,7 +13,9 @@ import com.alex3645.feature_account.di.component.DaggerAccountViewModelComponent
 import com.alex3645.feature_account.di.module.AccountViewModelModule
 import com.alex3645.feature_account.domain.model.User
 import com.alex3645.feature_account.usecase.LoadAccountByLoginUseCase
+import com.alex3645.feature_account.usecase.LoadPictureByUrlUseCase
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -24,6 +27,8 @@ class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountV
 
     @Inject
     lateinit var loadAccountByLoginUseCase: LoadAccountByLoginUseCase
+    @Inject
+    lateinit var loadPictureByUrlUseCase: LoadPictureByUrlUseCase
 
     data class ViewState(
         val isLoading: Boolean = true,
@@ -33,7 +38,7 @@ class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountV
 
     interface Action : BaseAction {
         class UserLoadingSuccess(val user: User) : Action
-        object LoadingFailure : Action
+        class LoadingFailure(e: Exception) : Action
     }
 
     fun isUserAuthed() : Boolean{
@@ -41,19 +46,32 @@ class AccountViewModel(application: Application) : BaseAndroidViewModel<AccountV
         return spManager.fetchLogin() != null
     }
 
-    fun loadUser(){
+    fun loadUser(imageView: ImageView){
         val application: Application = this.getApplication()
         viewModelScope.launch {
             val spManager = SharedPreferencesManager(application)
             loadAccountByLoginUseCase(spManager.fetchLogin() ?: "").also { result ->
-                val action = when (result) {
-                    is LoadAccountByLoginUseCase.Result.Success ->
-                        Action.UserLoadingSuccess(result.user)
+                when (result) {
+                    is LoadAccountByLoginUseCase.Result.Success ->{
+                        loadAccountImage(result.user.photoUrl,imageView)
+                        sendAction(Action.UserLoadingSuccess(result.user))
+                    }
                     is LoadAccountByLoginUseCase.Result.Error ->
-                        Action.LoadingFailure
-                    else -> Action.LoadingFailure
+                        sendAction(Action.LoadingFailure(result.e))
+                    else -> sendAction(Action.LoadingFailure(Exception("Unexpected error")))
                 }
-                sendAction(action)
+            }
+        }
+    }
+
+    private fun loadAccountImage(url:String, imageView: ImageView){
+        viewModelScope.launch {
+            loadPictureByUrlUseCase(url,imageView).also { result ->
+                when (result) {
+                    is LoadPictureByUrlUseCase.Result.Error ->
+                        sendAction(Action.LoadingFailure(result.e))
+                    else -> sendAction(Action.LoadingFailure(Exception("Unexpected error")))
+                }
             }
         }
     }

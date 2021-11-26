@@ -80,14 +80,8 @@ class ConferenceRecyclerFragment: Fragment() {
     }
 
     private fun initActions(){
-        binding.topNavigationAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.search -> {
-                    viewModel.navigateToSearch(findNavController())
-                    true
-                }
-                else -> false
-            }
+        binding.searchButton.setOnClickListener {
+            viewModel.navigateToSearch(findNavController())
         }
 
         binding.swipeContainer.setOnRefreshListener {

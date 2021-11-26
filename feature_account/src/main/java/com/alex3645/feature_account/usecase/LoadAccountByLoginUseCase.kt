@@ -11,7 +11,7 @@ class LoadAccountByLoginUseCase @Inject constructor(
 
     interface Result {
         data class Success(val user: User) : Result
-        data class Error(val e: Throwable) : Result
+        data class Error(val e: Exception) : Result
     }
 
     suspend operator fun invoke(login: String): Result {

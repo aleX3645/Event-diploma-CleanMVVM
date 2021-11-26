@@ -108,6 +108,14 @@ class SearchViewModel : BaseViewModel<SearchViewModel.ViewState, SearchViewModel
                 events = this.events
             )
         }
+        is Action.UserListLoadingSuccess -> {
+            this.users = viewAction.users as MutableList<User>
+            state.copy(
+                isLoading = false,
+                isError = false,
+                users= this.users
+            )
+        }
         is Action.LoadingFailure -> state.copy(
             isLoading = false,
             isError = true

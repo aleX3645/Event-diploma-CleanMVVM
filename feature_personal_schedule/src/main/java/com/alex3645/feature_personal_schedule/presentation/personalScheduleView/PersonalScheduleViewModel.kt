@@ -11,7 +11,10 @@ import com.alex3645.feature_personal_schedule.di.component.DaggerPersonalSchedul
 import com.alex3645.feature_personal_schedule.domain.model.Event
 import com.alex3645.feature_personal_schedule.usecase.LoadAccountByLoginUseCase
 import com.alex3645.feature_personal_schedule.usecase.LoadPersonalEventsUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel<PersonalScheduleViewModel.ViewState, PersonalScheduleViewModel.Action>(ViewState(), application) {
@@ -38,7 +41,7 @@ class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel
     }
 
     fun loadPersonalEventsForUser(){
-        viewModelScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             val spManager = SharedPreferencesManager(getApplication())
             loadUserByIdUseCase(spManager.fetchLogin()?: "").also { result ->
                 val action = when (result) {
@@ -55,20 +58,18 @@ class PersonalScheduleViewModel(application: Application) : BaseAndroidViewModel
         }
     }
 
-    private fun loadEvents(userId: Long, token: String){
-        viewModelScope.launch {
-            loadPersonalEventsUseCase(token,userId).also { result ->
-                val action = when (result) {
-                    is LoadPersonalEventsUseCase.Result.Success ->{
-                        Log.d("!!!", "onLoadEventsSuccess")
-                        Action.LoadSuccess(result.events)
-                    }
-                    is LoadPersonalEventsUseCase.Result.Error ->
-                        Action.Failure("Ошибка подключения")
-                    else -> Action.Failure("Ошибка подключения")
+    private suspend fun loadEvents(userId: Long, token: String){
+        loadPersonalEventsUseCase(token,userId).also { result ->
+            val action = when (result) {
+                is LoadPersonalEventsUseCase.Result.Success ->{
+                    Log.d("!!!", "onLoadEventsSuccess")
+                    Action.LoadSuccess(result.events)
                 }
-                sendAction(action)
+                is LoadPersonalEventsUseCase.Result.Error ->
+                    Action.Failure("Ошибка подключения")
+                else -> Action.Failure("Ошибка подключения")
             }
+            sendAction(action)
         }
     }
 

@@ -1,10 +1,15 @@
 package com.alex3645.feature_account.presentation.editAccountView
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_account.domain.model.User
 import com.example.feature_account.databinding.FragmentEditAccountBinding
+import com.squareup.picasso.Picasso
+import java.io.InputStream
 
 class EditAccountFragment : Fragment() {
 
@@ -54,9 +61,21 @@ class EditAccountFragment : Fragment() {
         viewModel.loadUser()
     }
 
+    private var uriInternal:Uri = Uri.EMPTY
+    private val pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+        uri?.let { it ->
+            uriInternal = it
+            Picasso.get().load(it).fit().centerCrop().into(binding.imageViewAccount)
+        }
+    }
+
     private fun initActions(){
         binding.backButton.setOnClickListener {
             viewModel.navigateBack(findNavController())
+        }
+
+        binding.changeImageButton.setOnClickListener {
+            pickImages.launch("image/*")
         }
 
         binding.saveButton.setOnClickListener {
@@ -66,8 +85,11 @@ class EditAccountFragment : Fragment() {
                 it.description = binding.aboutEditText.text.toString()
                 it.phone = binding.phoneNumberEditText.text.toString()
                 it.email = binding.emailEditText.text.toString()
-
-                viewModel.editAccount(it)
+                if(uriInternal.path != Uri.EMPTY.path){
+                    viewModel.editAccountWithImage(it, uriInternal)
+                }else{
+                    viewModel.editAccount(it)
+                }
             }
         }
     }

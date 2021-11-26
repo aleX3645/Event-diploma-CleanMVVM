@@ -5,68 +5,90 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.base.delegate.observer
 import com.alex3645.feature_conference_builder.databinding.EventEditorItemBinding
+import com.alex3645.feature_conference_builder.databinding.EventRecyclerItemBinding
+import com.alex3645.feature_conference_builder.databinding.TitleEventItemBinding
 import com.alex3645.feature_conference_builder.domain.model.Event
 import java.text.SimpleDateFormat
 import java.util.*
 
 @SuppressLint("NotifyDataSetChanged")
-class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var events: MutableList<Event> by observer(mutableListOf()) {
-        sortEvents()
+    var events: List<Event> by observer(listOf()) {
+        listDaysSeparatedAdapter = ListDaysSeparatedAdapter(it)
         notifyDataSetChanged()
     }
 
-    fun sortEvents(){
-        events.sortWith { o1: Event, o2: Event -> compFunc(o1, o2) }
-    }
-
-    private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.getDefault())
-    private fun compFunc(o1: Event, o2: Event) : Int{
-        if(simpleDateFormatServer.parse(o1.dateStart).time==simpleDateFormatServer.parse(o2.dateStart).time){
-            return if(simpleDateFormatServer.parse(o1.dateEnd).time>simpleDateFormatServer.parse(o2.dateStart).time){
-                1
-            }else{
-                -1
-            }
-        }
-
-        return if(simpleDateFormatServer.parse(o1.dateStart).time>simpleDateFormatServer.parse(o2.dateStart).time){
-            1
-        }else{
-            -1
-        }
-    }
+    private var listDaysSeparatedAdapter = ListDaysSeparatedAdapter(events)
 
     private var onDebouncedClickListener: ((event: Event) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: EventEditorItemBinding = EventEditorItemBinding.inflate(inflater, parent, false)
+        val bindingEvent: EventRecyclerItemBinding = EventRecyclerItemBinding.inflate(inflater, parent, false)
+        val bindingTitle: TitleEventItemBinding = TitleEventItemBinding.inflate(inflater, parent, false)
 
-        return ViewHolder(binding)
-    }
-
-    override fun getItemCount(): Int = events.size
-
-    inner class ViewHolder(binding: EventEditorItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val name = binding.nameTextBox
-        val info = binding.shortInfoTextBox
-
-        fun bind(conference: Event) {
-            itemView.setOnClickListener { onDebouncedClickListener?.invoke(conference) }
+        return when(viewType){
+            (0)-> ViewHolderTitle(bindingTitle)
+            (1)-> ViewHolderEvent(bindingEvent)
+            else-> ViewHolderEvent(bindingEvent)
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val event = events[position]
+    override fun getItemCount(): Int = listDaysSeparatedAdapter.getCount()
 
-        holder.name.text = event.name
-        holder.info.text = event.description
+    fun setOnDebouncedClickListener(listener: (event: Event) -> Unit) {
+        this.onDebouncedClickListener = listener
+    }
 
-        holder.bind(event)
+    override fun getItemViewType(position: Int): Int {
+        return when (listDaysSeparatedAdapter.getByPosition(position).type) {
+            0 -> ListDaysSeparatedAdapter.titleCode
+            1 -> ListDaysSeparatedAdapter.eventCode
+            else -> ListDaysSeparatedAdapter.eventCode
+        }
+    }
+
+    inner class ViewHolderEvent(binding: EventRecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        val name = binding.simpleNameTextBox
+        val info = binding.simpleShortInfoTextBox
+        val speaker = binding.speakerName
+        val startTime = binding.startTime
+        val endTime = binding.endTime
+
+        fun bind(event: Event) {
+            itemView.setOnClickListener { onDebouncedClickListener?.invoke(event) }
+        }
+    }
+
+    inner class ViewHolderTitle(binding: TitleEventItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        val text = binding.titleText
+    }
+
+    private val simpleDateFormatClientTime = SimpleDateFormat("HH:mm", Locale.getDefault())
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val event = listDaysSeparatedAdapter.getByPosition(position)
+
+        if(holder is ViewHolderEvent){
+            holder.name.text = event.event?.name ?: "no data"
+            holder.info.text = event.event?.description ?: "no data"
+            holder.speaker.text = event.event?.speakerId.toString()
+            holder.startTime.text = simpleDateFormatClientTime.format(ServerConstants.serverDateTimeFormat.parse(event.event?.dateStart ?: ""))
+            holder.endTime.text = simpleDateFormatClientTime.format(ServerConstants.serverDateTimeFormat.parse(event.event?.dateEnd ?: ""))
+
+            event.event?.let { holder.bind(it) }
+        }
+
+        if(holder is ViewHolderTitle){
+            holder.text.text = event.title
+        }
+
     }
 }

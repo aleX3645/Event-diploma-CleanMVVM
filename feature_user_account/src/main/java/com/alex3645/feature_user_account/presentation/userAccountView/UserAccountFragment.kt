@@ -38,7 +38,7 @@ class UserAccountFragment: Fragment() {
 
         initActions()
 
-        viewModel.loadUserById(args.userId)
+        viewModel.loadUserById(args.userId,binding.imageViewAccountUser)
     }
 
     private fun initActions(){

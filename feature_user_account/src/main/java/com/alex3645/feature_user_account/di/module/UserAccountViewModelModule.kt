@@ -4,6 +4,7 @@ import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_user_account.data.network.ApiRetrofitAccountUserService
 import com.alex3645.feature_user_account.data.repositoryImpl.UserRepositoryImpl
 import com.alex3645.feature_user_account.domain.repository.UserRepository
+import com.alex3645.feature_user_account.usecase.LoadPictureByUrlUseCase
 import com.alex3645.feature_user_account.usecase.LoadUserByIdUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -36,5 +37,10 @@ class UserAccountViewModelModule {
     @Provides
     fun provideLoadUserByIdUseCase(userRepository: UserRepository): LoadUserByIdUseCase {
         return LoadUserByIdUseCase(userRepository)
+    }
+
+    @Provides
+    fun provideLoadPictureByUrlUseCase(): LoadPictureByUrlUseCase {
+        return LoadPictureByUrlUseCase()
     }
 }

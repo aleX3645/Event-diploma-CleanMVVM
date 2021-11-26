@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LoadUserByIdUseCase @Inject constructor(private val repository: UserRepository){
     interface Result {
         data class Success(val user: User) : Result
-        data class Error(val e: Throwable) : Result
+        data class Error(val e: Exception) : Result
     }
 
     suspend operator fun invoke(id: Int) : Result {

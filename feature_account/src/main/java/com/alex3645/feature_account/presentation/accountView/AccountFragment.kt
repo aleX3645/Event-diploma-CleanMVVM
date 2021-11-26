@@ -32,23 +32,28 @@ class AccountFragment: Fragment() {
         return binding.root
     }
 
-    private fun initView(user: User){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observe(viewModel.stateLiveData, stateObserver)
+
+        initActions()
+
+        viewModel.loadUser(binding.imageViewAccount)
+    }
+
+    private fun initActions(){
         binding.settingsButton.setOnClickListener {
             viewModel.navigateToSettings(findNavController())
         }
+    }
+
+    private fun initView(user: User){
 
         binding.accountDescription.text = if(user.description != "") user.description else context?.getString(R.string.no_data)?:""
         binding.accountEmail.text = if(user.email != "") user.email else context?.getString(R.string.no_data)?:""
         binding.accountLogin.text = if(user.login != "") user.login else context?.getString(R.string.no_data)?:""
         binding.accountPhone.text = if(user.phone != "") user.phone else context?.getString(R.string.no_data)?:""
         binding.accountNameSurname.text = if(user.name != "" && user.surname != "") StringBuffer(user.name + " " + user.surname) else context?.getString(R.string.no_data)?:""
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observe(viewModel.stateLiveData, stateObserver)
-
-        viewModel.loadUser()
     }
 
     private val stateObserver = Observer<AccountViewModel.ViewState> {

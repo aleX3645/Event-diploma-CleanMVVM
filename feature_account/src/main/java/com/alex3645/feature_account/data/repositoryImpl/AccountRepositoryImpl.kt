@@ -5,6 +5,8 @@ import com.alex3645.feature_account.data.model.AccResponse
 import com.alex3645.feature_account.data.network.service.ApiRetrofitAccountService
 import com.alex3645.feature_account.domain.model.User
 import com.alex3645.feature_account.domain.repository.AccountRepository
+import okhttp3.MultipartBody
+import java.io.File
 
 class AccountRepositoryImpl (
     private val accountDao: AccountDao,
@@ -23,5 +25,9 @@ class AccountRepositoryImpl (
         user: User
     ): AccResponse {
         return service.editAccount(token, user, login)
+    }
+
+    override suspend fun uploadImage(token: String, file: MultipartBody.Part): AccResponse {
+        return service.addImage(token,file)
     }
 }

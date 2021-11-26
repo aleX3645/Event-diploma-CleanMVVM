@@ -17,7 +17,9 @@ data class UserJson(
     @SerializedName("phone")
     val phone: String = "",
     @SerializedName("email")
-    val email: String = ""
+    val email: String = "",
+    @SerializedName("photo_url")
+    val photoUrl: String = ""
 ){
     internal fun toDomainModel() : User {
         return User(
@@ -27,7 +29,8 @@ data class UserJson(
             surname = this.surname,
             description = this.description,
             phone = this.phone,
-            email = this.email
+            email = this.email,
+            photoUrl = photoUrl
         )
     }
 }

@@ -14,7 +14,6 @@ class SearchUsersUseCase @Inject constructor(private val searchRepository: Searc
         return try{
             val userList = searchRepository.searchUsers(conferenceName)
             Result.Success(userList)
-
         }catch (e: Exception){
             Result.Error(e)
         }

@@ -1,10 +1,12 @@
 package com.alex3645.feature_account.presentation.editAccountView
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.app.android.SharedPreferencesManager
+import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -13,7 +15,9 @@ import com.alex3645.feature_account.di.module.AccountViewModelModule
 import com.alex3645.feature_account.domain.model.User
 import com.alex3645.feature_account.usecase.EditAccountUseCase
 import com.alex3645.feature_account.usecase.LoadAccountByLoginUseCase
+import com.alex3645.feature_account.usecase.UploadPictureToServer
 import kotlinx.coroutines.launch
+import java.net.URI
 import javax.inject.Inject
 
 class EditAccountViewModel(application: Application) : BaseAndroidViewModel<EditAccountViewModel.ViewState, EditAccountViewModel.Action>(ViewState(), application){
@@ -38,6 +42,9 @@ class EditAccountViewModel(application: Application) : BaseAndroidViewModel<Edit
     @Inject
     lateinit var loadAccountByLoginUseCase: LoadAccountByLoginUseCase
 
+    @Inject
+    lateinit var uploadPictureToServer: UploadPictureToServer
+
     fun editAccount(user: User){
         val application: Application = this.getApplication()
         viewModelScope.launch {
@@ -51,6 +58,24 @@ class EditAccountViewModel(application: Application) : BaseAndroidViewModel<Edit
                     else -> Action.UserEditFailure
                 }
                 sendAction(action)
+            }
+        }
+    }
+
+    fun editAccountWithImage(user: User, uri: Uri){
+        val application: Application = this.getApplication()
+        viewModelScope.launch {
+            val spManager = SharedPreferencesManager(application)
+            uploadPictureToServer(spManager.fetchAuthToken()?:"",uri).also { result ->
+                when (result) {
+                    is UploadPictureToServer.Result.Success ->{
+                        user.photoUrl = ServerConstants.LOCAL_SERVER + "/api/usr/getPictureById/" + result.response.message
+                        editAccount(user)
+                    }
+                    is UploadPictureToServer.Result.Error ->
+                        sendAction(Action.UserEditFailure)
+                    else -> sendAction(Action.UserEditFailure)
+                }
             }
         }
     }

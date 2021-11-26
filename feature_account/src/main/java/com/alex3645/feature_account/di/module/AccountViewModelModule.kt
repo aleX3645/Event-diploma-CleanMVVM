@@ -12,6 +12,7 @@ import com.alex3645.feature_account.data.repositoryImpl.AccountRepositoryImpl
 import com.alex3645.feature_account.domain.repository.AccountRepository
 import com.alex3645.feature_account.usecase.EditAccountUseCase
 import com.alex3645.feature_account.usecase.LoadAccountByLoginUseCase
+import com.alex3645.feature_account.usecase.LoadPictureByUrlUseCase
 import com.alex3645.feature_account.usecase.RemoveAccountUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -79,5 +80,10 @@ class AccountViewModelModule (private val context: Context) {
     @Provides
     fun provideEditAccountUseCase(accountRepository: AccountRepository) : EditAccountUseCase{
         return EditAccountUseCase(accountRepository, context)
+    }
+
+    @Provides
+    fun provideLoadPictureByUrlUseCase() : LoadPictureByUrlUseCase{
+        return LoadPictureByUrlUseCase()
     }
 }

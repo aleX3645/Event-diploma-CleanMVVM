@@ -1,6 +1,7 @@
 package com.alex3645.feature_search.presentation.searchView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment

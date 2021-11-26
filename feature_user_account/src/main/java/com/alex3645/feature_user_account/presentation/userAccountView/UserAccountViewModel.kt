@@ -1,5 +1,6 @@
 package com.alex3645.feature_user_account.presentation.userAccountView
 
+import android.widget.ImageView
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
@@ -7,8 +8,10 @@ import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_user_account.di.component.DaggerUserAccountViewModelComponent
 import com.alex3645.feature_user_account.domain.data.User
+import com.alex3645.feature_user_account.usecase.LoadPictureByUrlUseCase
 import com.alex3645.feature_user_account.usecase.LoadUserByIdUseCase
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAccountViewModel.Action>(ViewState()) {
@@ -19,6 +22,8 @@ class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAc
 
     @Inject
     lateinit var loadUserByIdUseCase: LoadUserByIdUseCase
+    @Inject
+    lateinit var loadPictureByUrlUseCase: LoadPictureByUrlUseCase
 
     data class ViewState(
         val isLoading: Boolean = true,
@@ -29,20 +34,34 @@ class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAc
 
     interface Action : BaseAction {
         class UserLoadingSuccess(val user: User) : Action
-        class LoadingFailure(val message: String) : Action
+        class LoadingFailure(val exception: Exception) : Action
     }
 
-    fun loadUserById(id: Int){
+    fun loadUserById(id: Int, view: ImageView){
         viewModelScope.launch {
             loadUserByIdUseCase(id).also { result ->
                 val action = when (result) {
-                    is LoadUserByIdUseCase.Result.Success ->
+                    is LoadUserByIdUseCase.Result.Success ->{
+                        loadAccountImage(result.user.photoUrl,view)
                         Action.UserLoadingSuccess(result.user)
+                    }
                     is LoadUserByIdUseCase.Result.Error ->
-                        Action.LoadingFailure(result.e.message?: "")
-                    else -> Action.LoadingFailure("")
+                        Action.LoadingFailure(result.e)
+                    else -> Action.LoadingFailure(Exception("Произошла непредвиденная ошибка"))
                 }
                 sendAction(action)
+            }
+        }
+    }
+
+    private fun loadAccountImage(url:String, imageView: ImageView){
+        viewModelScope.launch {
+            loadPictureByUrlUseCase(url,imageView).also { result ->
+                when (result) {
+                    is LoadPictureByUrlUseCase.Result.Error ->
+                        sendAction(Action.LoadingFailure(result.e))
+                    else -> sendAction(Action.LoadingFailure(Exception("Unexpected error")))
+                }
             }
         }
     }
@@ -59,7 +78,7 @@ class UserAccountViewModel: BaseViewModel<UserAccountViewModel.ViewState, UserAc
             state.copy(
                 isLoading = false,
                 isError = true,
-                message = viewAction.message
+                message = viewAction.exception.message?:"Error"
             )
         }
         else -> state.copy(

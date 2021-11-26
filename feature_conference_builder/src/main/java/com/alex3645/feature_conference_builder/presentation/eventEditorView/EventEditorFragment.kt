@@ -197,7 +197,7 @@ class EventEditorFragment : Fragment() {
             val timePicker = getTimePickerByTime(9)
 
             timePicker.addOnPositiveButtonClickListener {
-                startDate.set(Calendar.HOUR, timePicker.hour)
+                startDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 startDate.set(Calendar.MINUTE, timePicker.minute)
 
                 binding.startTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(
@@ -238,7 +238,7 @@ class EventEditorFragment : Fragment() {
             val timePicker = getTimePickerByTime(18)
 
             timePicker.addOnPositiveButtonClickListener {
-                endDate.set(Calendar.HOUR, timePicker.hour)
+                endDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 endDate.set(Calendar.MINUTE, timePicker.minute)
 
                 binding.endTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(

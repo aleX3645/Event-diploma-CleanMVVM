@@ -8,7 +8,9 @@ data class User(val id: Int,
                 var surname: String,
                 var description: String,
                 var phone: String,
-                var email: String){
+                var email: String,
+                var photoUrl: String
+){
     internal fun toJson() : UserJson {
         return UserJson(
             id = this.id,
@@ -17,7 +19,8 @@ data class User(val id: Int,
             surname = this.surname,
             description = this.description,
             phone = this.phone,
-            email = this.email
+            email = this.email,
+            photoUrl = this.photoUrl
         )
     }
 }

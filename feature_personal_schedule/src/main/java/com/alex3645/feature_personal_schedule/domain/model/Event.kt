@@ -1,5 +1,9 @@
 package com.alex3645.feature_personal_schedule.domain.model
 
+import com.alex3645.app.data.api.ServerConstants
+import com.alex3645.feature_personal_schedule.presentation.personalScheduleView.recyclerView.EventCalendar
+import java.util.*
+
 data class Event(
     val conferenceId: Int,
     val dateEnd: String,
@@ -9,4 +13,23 @@ data class Event(
     val id: Int,
     val name: String,
     val speakerId: Int
-    )
+    ){
+    internal fun toEventCalendar(): EventCalendar {
+        val startDate: Calendar = Calendar.getInstance(Locale.getDefault())
+        val endDate: Calendar = Calendar.getInstance(Locale.getDefault())
+
+        endDate.time = ServerConstants.serverDateTimeFormat.parse(this.dateEnd)
+        startDate.time = ServerConstants.serverDateTimeFormat.parse(this.dateStart)
+
+        return EventCalendar(
+            conferenceId = this.conferenceId,
+            dateEnd = endDate,
+            dateStart = startDate,
+            description = this.description,
+            events = this.events,
+            id = this.id,
+            name = this.name,
+            speakerId = this.speakerId
+        )
+    }
+}

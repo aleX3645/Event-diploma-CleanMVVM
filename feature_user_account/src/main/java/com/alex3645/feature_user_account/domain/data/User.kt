@@ -9,7 +9,9 @@ data class User(val id: Int,
                 val surname: String,
                 val description: String,
                 val phone: String,
-                val email: String){
+                val email: String,
+                val photoUrl: String
+){
     internal fun toJson() : UserJson {
         return UserJson(
             id = this.id,
@@ -18,7 +20,8 @@ data class User(val id: Int,
             surname = this.surname,
             description = this.description,
             phone = this.phone,
-            email = this.email
+            email = this.email,
+            photoUrl = this.photoUrl
         )
     }
 }

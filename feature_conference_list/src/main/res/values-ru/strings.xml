@@ -5,6 +5,7 @@
     <string name="city">Город</string>
     <string name="filters">Фильтры</string>
     <string name="addConference">Добавить конференцию</string>
+    <string name="search">Поиск</string>
 
     <string name="no_category">Без категории</string>
     <string name="society">Общество</string>

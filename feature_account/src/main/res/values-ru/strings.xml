@@ -10,6 +10,7 @@
     <string name="edit">Редактировать</string>
     <string name="exit">Выйти</string>
     <string name="back">Назад</string>
+    <string name="edit_picture">Изменить изображение</string>
 
     <string name="account_title">Аккаунт</string>
     <string name="edit_title">Редактирование аккаунта</string>

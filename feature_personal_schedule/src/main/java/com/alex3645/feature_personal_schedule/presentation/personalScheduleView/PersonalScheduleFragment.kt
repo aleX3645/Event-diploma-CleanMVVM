@@ -1,6 +1,7 @@
 package com.alex3645.feature_personal_schedule.presentation.personalScheduleView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
+import com.alex3645.feature_personal_schedule.data.model.EventJson
 import com.alex3645.feature_personal_schedule.presentation.personalScheduleView.recyclerView.EventRecyclerAdapter
 import com.alex3645.feature_personal_schedule.databinding.FragmentPersonalEventsBinding
 import com.alex3645.feature_personal_schedule.di.component.DaggerPersonalScheduleFragmentComponent
+import com.alex3645.feature_personal_schedule.domain.model.Event
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class PersonalScheduleFragment : Fragment() {
@@ -63,14 +67,11 @@ class PersonalScheduleFragment : Fragment() {
     }
 
     private fun initActions(){
-        binding.swipeEventContainer.setOnRefreshListener {
-            viewModel.loadPersonalEventsForUser()
-        }
     }
 
     private val stateObserver = Observer<PersonalScheduleViewModel.ViewState> {
 
-        binding.swipeEventContainer.isVisible = it.isLoading
+        //binding.swipeEventContainer.isVisible = it.isLoading
         if(it.isError){
             Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
         }else{

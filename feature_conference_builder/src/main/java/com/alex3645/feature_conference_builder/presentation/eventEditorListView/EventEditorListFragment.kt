@@ -62,10 +62,12 @@ class EventEditorListFragment : Fragment(){
 
         args.conference?.let {
             viewModel.conference = it
+            eventAdapter.events = it.events?: listOf()
         }
 
         args.event?.let{
             viewModel.event = it
+            eventAdapter.events = it.events?: listOf()
         }
 
         initBackStackObserver()

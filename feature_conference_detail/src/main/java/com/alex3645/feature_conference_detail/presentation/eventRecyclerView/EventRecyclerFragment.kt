@@ -88,9 +88,9 @@ class EventRecyclerFragment(): Fragment() {
         if(parentNavController == null){
             val ar by navArgs<EventRecyclerFragmentArgs>()
             args = ar
-            binding.topNavigationAppBar.isVisible = false
+            binding.topNavigationAppBar.visibility = View.VISIBLE
         }else{
-            binding.topNavigationAppBar.isVisible = true
+            binding.topNavigationAppBar.visibility = View.GONE
         }
 
         args?.eventId?.let {

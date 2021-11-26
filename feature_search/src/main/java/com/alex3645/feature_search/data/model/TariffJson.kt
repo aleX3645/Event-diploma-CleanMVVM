@@ -14,7 +14,7 @@ data class TariffJson(
     @SerializedName("id")
     val id: Int = -1,
     @SerializedName("name")
-    val name: String = Resources.getSystem().getString(R.string.no_data),
+    val name: String = "",
     @SerializedName("tickets_left")
     val ticketsLeft: Int = 0,
     @SerializedName("tickets_total")
