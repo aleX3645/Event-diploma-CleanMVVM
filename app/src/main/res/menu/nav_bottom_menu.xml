@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_schedule"
         android:title="@string/Schedule"/>
     <item
+        android:id="@+id/TicketFeatureGraph"
+        android:enabled="true"
+        android:icon="@drawable/ic_ticket"
+        android:title="@string/tickets"/>
+    <item
         android:id="@+id/AccountFeatureGraph"
         android:enabled="true"
         android:icon="@drawable/ic_user"

@@ -19,11 +19,9 @@ import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -113,7 +111,15 @@ class ConferenceDetailFragment(): Fragment(), OnMapReadyCallback {
                 googleMap.clear()
                 googleMap.addMarker(MarkerOptions().position(point))
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(point))
+                val builder: LatLngBounds.Builder = LatLngBounds.Builder();
+                builder.include(point)
+
+                val bounds: LatLngBounds = builder.build()
+
+                val padding = 0 // offset from edges of the map in pixels
+                val cu: CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+
+                googleMap.animateCamera(cu)
             }
         }
 

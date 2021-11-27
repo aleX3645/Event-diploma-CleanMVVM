@@ -23,10 +23,9 @@ import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.presentation.validators.DateTimeValidator
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -123,6 +122,7 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
             binding.addressTextInput.editText?.text = Editable.Factory().newEditable(address.getAddressLine(address.maxAddressLineIndex))
             googleMap.clear()
             googleMap.addMarker(MarkerOptions().position(it))
+
         }
 
         googleMap.setOnCameraMoveListener {
@@ -206,6 +206,16 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
 
                         googleMap.clear()
                         googleMap.addMarker(MarkerOptions().position(point))
+
+                        val builder: LatLngBounds.Builder = LatLngBounds.Builder();
+                        builder.include(point)
+
+                        val bounds: LatLngBounds = builder.build()
+
+                        val padding = 0 // offset from edges of the map in pixels
+                        val cu: CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+
+                        googleMap.animateCamera(cu)
                     }
                 }
             })
