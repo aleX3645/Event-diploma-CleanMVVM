@@ -20,6 +20,9 @@
         <action
             android:id="@+id/actionDetailHolderToSettings"
             app:destination="@id/SettingsFragment"/>
+        <action
+            android:id="@+id/actionHolderToMap"
+            app:destination="@id/mapDetailFragment"/>
         <argument
             android:name="conference_id"
             app:argType="integer"/>
@@ -34,6 +37,7 @@
             android:name="conference_id"
             app:argType="integer"/>
     </fragment>
+
 
     <fragment
         android:id="@+id/SettingsFragment"
@@ -56,13 +60,6 @@
         <argument
             android:name="conference_id"
             app:argType="integer"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/conferenceDetailFragment"
-        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailView.ConferenceDetailFragment"
-        android:label="ConferenceDetailFragment"
-        app:moduleName="feature_conference_detail">
     </fragment>
 
     <fragment
@@ -89,6 +86,16 @@
         <argument
             android:name="event_id"
             app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapDetailFragment"
+        android:name="com.alex3645.feature_conference_detail.presentation.mapView.MapDetailFragment"
+        android:label="MapFragment"
+        app:moduleName="feature_conference_detail">
+        <argument
+            android:name="place"
+            app:argType="string"/>
     </fragment>
 
 </navigation>

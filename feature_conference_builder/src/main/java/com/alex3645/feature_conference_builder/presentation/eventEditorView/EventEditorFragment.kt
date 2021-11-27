@@ -135,8 +135,8 @@ class EventEditorFragment : Fragment() {
         if(correctDateTimeCheck(startDate, endDate)){
             viewModel.buildNewEvent(
                 binding.nameInputText.text.toString(),
-                globalDateStart,
-                globalDateEnd,
+                startDate,
+                endDate,
                 binding.descriptionInputText.text.toString())
 
             return true

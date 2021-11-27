@@ -71,6 +71,7 @@ class FilterFragment : Fragment(){
         binding.editTextAuto.addTextChangedListener{ editable ->
 
             viewModel.getPredictionAdapter(editable.toString(), callback = {
+                it.setDropDownViewResource(R.layout.dropdown_menu_item)
                 (binding.cityTextInput.editText as? AutoCompleteTextView)?.setAdapter(it)
                 if(!settledFlag){
                     (binding.cityTextInput.editText as? AutoCompleteTextView)?.showDropDown()

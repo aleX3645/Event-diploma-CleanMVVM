@@ -88,7 +88,7 @@ class ConferenceEditorViewModel (application: Application):
 
         places.findAutocompletePredictions(request)
             .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
-                callback.invoke(ArrayAdapter(this.getApplication(), R.layout.dropdown_menu_item, response.autocompletePredictions.map { it.getFullText(null).toString()}))
+                callback.invoke(ArrayAdapter(this.getApplication(), R.layout.dropdown_menu_item_builder, response.autocompletePredictions.map { it.getFullText(null).toString()}))
             }.addOnFailureListener { exception: Exception? ->
                 if (exception is ApiException) {
                     Log.e(ContentValues.TAG, "Place not found: " + exception.message)

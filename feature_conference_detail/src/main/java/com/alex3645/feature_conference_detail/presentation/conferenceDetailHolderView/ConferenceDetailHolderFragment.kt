@@ -81,14 +81,15 @@ class ConferenceDetailHolderFragment: Fragment()  {
         override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment = when(position){
-            (0)-> ConferenceDetailFragment(args.conferenceId, findNavController())
+            (0)-> ConferenceDetailFragment(args.conferenceId, findNavController(),binding.fragmentTitle)
             (1)-> EventRecyclerFragment(args.conferenceId, findNavController())
-            else -> ConferenceDetailFragment()
+            else -> ConferenceDetailFragment(args.conferenceId, findNavController(),binding.fragmentTitle)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+
+    override fun onDetach() {
+        super.onDetach()
         _binding = null
     }
 }

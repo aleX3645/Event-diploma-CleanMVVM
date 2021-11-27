@@ -1,5 +1,6 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceDetailView
 
+import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragmentDirections
@@ -58,19 +60,17 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
 
     private fun loadPicture(imageView: ImageView, url: String){
         viewModelScope.launch {
-            Log.d("!!!","loadPFun")
-            loadPictureByUrlUseCase(url,imageView).also { result ->
-                when (result) {
-                    is LoadPictureByUrlUseCase.Result.Error ->
-                        sendAction(Action.AuthFailure("Ошибка подключения"))
-                    else -> sendAction(Action.AuthFailure("Ошибка подключения"))
-                }
-            }
+            loadPictureByUrlUseCase(url,imageView)
         }
     }
 
     fun navigateToTariffs(navController: NavController){
         val action = ConferenceDetailHolderFragmentDirections.actionDetailHolderToTariffList(conferenceId)
+        navController.navigate(action)
+    }
+
+    fun navigateToMap(navController: NavController, place: String){
+        val action = ConferenceDetailHolderFragmentDirections.actionHolderToMap(place)
         navController.navigate(action)
     }
 

@@ -23,6 +23,7 @@
     <string name="create_tariff">Создать тарифф</string>
     <string name="tickets_left">Выпущено билетов: </string>
     <string name="ticket_price">Цена билета: </string>
+    <string name="choose_picture">Выбрать фотографию</string>
 
     <string name="no_category">Без категории</string>
     <string name="society">Общество</string>

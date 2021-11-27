@@ -33,24 +33,15 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
-    private val menuItems = activity?.resources?.let {
-        listOf(
-            it.getString(R.string.no_category),
-            it.getString(R.string.politics),
-            it.getString(R.string.society),
-            it.getString(R.string.economics),
-            it.getString(R.string.sport),
-            it.getString(R.string.culture),
-            it.getString(R.string.tech),
-            it.getString(R.string.science),
-            it.getString(R.string.auto),
-            it.getString(R.string.others))
-    }?: listOf()
+    private var menuItems: List<String> = listOf()
 
     private val viewModel: ConferenceEditorViewModel by viewModels()
 
@@ -79,6 +70,7 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun initView(){
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.conferenceEditorMap) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
@@ -116,13 +108,13 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
         }
 
         googleMap.setOnMapClickListener {
+            GlobalScope.launch (Dispatchers.Main){
+                val address = geocoder.getFromLocation(it.latitude, it.longitude,1)[0]
 
-            val address = geocoder.getFromLocation(it.latitude, it.longitude,1)[0]
-
-            binding.addressTextInput.editText?.text = Editable.Factory().newEditable(address.getAddressLine(address.maxAddressLineIndex))
-            googleMap.clear()
-            googleMap.addMarker(MarkerOptions().position(it))
-
+                binding.addressTextInput.editText?.text = Editable.Factory().newEditable(address.getAddressLine(address.maxAddressLineIndex))
+                googleMap.clear()
+                googleMap.addMarker(MarkerOptions().position(it))
+            }
         }
 
         googleMap.setOnCameraMoveListener {
@@ -198,24 +190,26 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
                 }
 
                 if(editable.toString() != ""){
-                    val geocoder = Geocoder(context, Locale.getDefault())
-                    val addresses = geocoder.getFromLocationName(editable.toString(), 1)
+                    GlobalScope.launch(Dispatchers.Main) {
+                        val geocoder = Geocoder(context, Locale.getDefault())
+                        val addresses = geocoder.getFromLocationName(editable.toString(), 1)
 
-                    if(addresses.size !=0){
-                        val point = LatLng(addresses[0].latitude, addresses[0].longitude)
+                        if(addresses.size !=0){
+                            val point = LatLng(addresses[0].latitude, addresses[0].longitude)
 
-                        googleMap.clear()
-                        googleMap.addMarker(MarkerOptions().position(point))
+                            googleMap.clear()
+                            googleMap.addMarker(MarkerOptions().position(point))
 
-                        val builder: LatLngBounds.Builder = LatLngBounds.Builder();
-                        builder.include(point)
+                            val builder: LatLngBounds.Builder = LatLngBounds.Builder();
+                            builder.include(point)
 
-                        val bounds: LatLngBounds = builder.build()
+                            val bounds: LatLngBounds = builder.build()
 
-                        val padding = 0 // offset from edges of the map in pixels
-                        val cu: CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                            val padding = 0 // offset from edges of the map in pixels
+                            val cu: CameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
 
-                        googleMap.animateCamera(cu)
+                            googleMap.animateCamera(cu)
+                        }
                     }
                 }
             })
@@ -270,6 +264,20 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setDropDownMenu(){
+        menuItems = activity?.resources?.let {
+            listOf(
+                it.getString(R.string.no_category),
+                it.getString(R.string.politics),
+                it.getString(R.string.society),
+                it.getString(R.string.economics),
+                it.getString(R.string.sport),
+                it.getString(R.string.culture),
+                it.getString(R.string.tech),
+                it.getString(R.string.science),
+                it.getString(R.string.auto),
+                it.getString(R.string.others))
+        }?: listOf()
+
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, menuItems)
         (binding.exposedMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }

@@ -25,7 +25,7 @@ class SettingsConferenceFragment: Fragment() {
     @Inject
     lateinit var settingsAdapter: SettingsAdapter
 
-    private val settingsList = listOf(resources.getString(R.string.statistics))
+    private var settingsList: List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +63,7 @@ class SettingsConferenceFragment: Fragment() {
         binding.settingsRecycler.adapter = settingsAdapter
         binding.settingsRecycler.layoutManager = LinearLayoutManager(activity)
 
+        settingsList = listOf(activity?.resources?.getString(R.string.statistics) ?: "error")
         settingsAdapter.settingsList = settingsList
     }
 

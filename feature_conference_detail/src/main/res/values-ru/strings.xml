@@ -21,6 +21,18 @@
     <string name="event">Событие</string>
     <string name="statistics">Статистика</string>
     <string name="tariff">Тарифы</string>
+    <string name="map">Карта</string>
+
+    <string name="no_category">Без категории</string>
+    <string name="society">Общество</string>
+    <string name="politics">Политика</string>
+    <string name="economics">Экономика</string>
+    <string name="sport">Спорт</string>
+    <string name="culture">Культура</string>
+    <string name="tech">Технологии</string>
+    <string name="science">Наука</string>
+    <string name="auto">Aвтомобили</string>
+    <string name="others">Другое</string>
 
     <string name="no_data">Нет информации</string>
 </resources>

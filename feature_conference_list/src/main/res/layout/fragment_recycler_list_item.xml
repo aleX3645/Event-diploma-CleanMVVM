@@ -6,17 +6,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="280dp"
         android:orientation="vertical"
         app:cardElevation="2dp">
 
         <ImageView
             android:id="@+id/imageConferenceList"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
-            android:src="@mipmap/ic_launcher"
+            android:layout_height="match_parent"
+
+            android:src="@drawable/picture_placeholder"
             android:scaleType="centerCrop"
             android:contentDescription="@string/app_name"
             />
@@ -24,8 +25,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:background="#BBFFFFFF">
 
             <!-- Title, secondary and supporting text -->
             <TextView
@@ -47,6 +50,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

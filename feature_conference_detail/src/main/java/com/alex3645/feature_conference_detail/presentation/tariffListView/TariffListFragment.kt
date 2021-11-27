@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_detail.presentation.tariffListView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,12 +72,14 @@ class TariffListFragment : Fragment() {
     }
 
     private fun initActions(){
-        viewModel.navigateBack(findNavController())
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
     }
 
     private val stateObserver = Observer<TariffListViewModel.ViewState> {
 
-        binding.swipeEventContainer.isRefreshing = it.isLoading
+        //binding.swipeEventContainer.isRefreshing = it.isLoading
         if(it.isError){
             Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
         }else{

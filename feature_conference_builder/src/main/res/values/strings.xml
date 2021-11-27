@@ -23,6 +23,7 @@
     <string name="create_tariff">Create tariff</string>
     <string name="tickets_left">Tickets left: </string>
     <string name="ticket_price">Ticket price: </string>
+    <string name="choose_picture">Choose picure </string>
 
     <string name="no_category">No category</string>
     <string name="society">Society</string>
