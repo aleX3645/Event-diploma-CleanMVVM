@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
+import android.text.Editable
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -22,6 +23,7 @@ import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Conference
+import com.alex3645.feature_conference_detail.domain.model.User
 import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
@@ -61,6 +63,14 @@ class ConferenceDetailFragment(
         conferenceId.let{viewModel.conferenceId = it}
 
         observe(viewModel.stateLiveData, stateObserver)
+
+        val observer = Observer<User> {
+
+            binding.organizerName.text = "${it.name} ${it.surname}"
+            binding.shortInfoOrganizerTextBox.text = it.description
+        }
+
+        viewModel.organizer.observe(viewLifecycleOwner,observer)
         initView()
     }
 
@@ -84,7 +94,8 @@ class ConferenceDetailFragment(
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.conferenceDetailMap) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
-        viewModel.loadConference(binding.imageConference)
+
+        viewModel.loadConference(binding.imageConference,binding.organizerImage)
 
         initActions()
     }

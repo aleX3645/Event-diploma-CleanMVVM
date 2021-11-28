@@ -10,7 +10,7 @@
     <string name="place">Местоположение</string>
     <string name="description">Описание</string>
     <string name="organiser">Организатор</string>
-    <string name="speaker">Спикер</string>
+    <string name="speaker">Логин организатора события</string>
     <string name="add_events">Добавить события</string>
     <string name="add_tariffs">Добавить тарифы</string>
     <string name="create_conference">Создать конференции</string>

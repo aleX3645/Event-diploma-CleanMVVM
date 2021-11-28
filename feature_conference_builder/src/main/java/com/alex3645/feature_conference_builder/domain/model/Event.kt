@@ -15,7 +15,8 @@ data class Event(
     var description: String?,
     val events: MutableList<Event>?,
     var name: String?,
-    val speakerId: Int?
+    val speakerId: Int?,
+    var speakerLogin: String?
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -25,7 +26,8 @@ data class Event(
         parcel.readString(),
         parcel.createTypedArrayList(CREATOR),
         parcel.readString(),
-        parcel.readValue(Int::class.java.classLoader) as? Int
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString()
     )
 
     fun toJson() : EventJson {
@@ -37,7 +39,8 @@ data class Event(
             description = this.description?:"",
             events = this.events?.map{it.toJson()}?.toMutableList()?: mutableListOf(),
             name = this.name?:"",
-            speakerId = this.speakerId?:0
+            speakerId = null,
+            speakerLogin = this.speakerLogin?:""
         )
     }
 
@@ -50,6 +53,7 @@ data class Event(
         parcel.writeTypedList(events)
         parcel.writeString(name)
         parcel.writeValue(speakerId)
+        parcel.writeValue(speakerLogin)
     }
 
     override fun describeContents(): Int {
@@ -71,7 +75,8 @@ data class Event(
             events = this.events?:mutableListOf(),
             id = this.id,
             name = this.name?:"",
-            speakerId = this.speakerId?:0
+            speakerId = this.speakerId?:0,
+            speakerLogin = speakerLogin
         )
     }
 

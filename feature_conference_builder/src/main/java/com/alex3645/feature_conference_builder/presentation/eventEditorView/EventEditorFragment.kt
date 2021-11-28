@@ -5,12 +5,21 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.alex3645.base.extension.observe
+import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Event
+import com.alex3645.feature_conference_builder.domain.model.User
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -50,6 +59,21 @@ class EventEditorFragment : Fragment() {
 
     private fun initView(){
         val conference = args.conference
+/*
+        val observer = Observer<List<User>> {
+
+            context?.let{ it1 ->
+                (binding.loginTextField.editText as AutoCompleteTextView).setAdapter(ArrayAdapter(
+                    it1, R.layout.dropdown_menu_item_builder, it))
+            }
+
+            (binding.loginTextField.editText as AutoCompleteTextView).showDropDown()
+        }
+
+        viewModel.usersPrediction.observe(viewLifecycleOwner,observer)*/
+
+        observe(viewModel.stateLiveData, stateObserver)
+
         conference?.let {
             viewModel.conference = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
@@ -76,12 +100,18 @@ class EventEditorFragment : Fragment() {
     }
 
     private fun initActions(){
+        /*
+        binding.loginInputText.addTextChangedListener{
+            viewModel.searchUsers(it.toString())
+        }*/
+
         setStartDateTimeActions()
         setEndDateTimeActions()
 
         setButtons()
     }
 
+    var moveConsider = 0
     private fun setButtons(){
         binding.backButton.setOnClickListener {
             viewModel.navigateBack(findNavController())
@@ -89,13 +119,15 @@ class EventEditorFragment : Fragment() {
 
         binding.addEvents.setOnClickListener {
             if(save()){
-                viewModel.navigateToEventListEditor(findNavController())
+                moveConsider= 0
+                viewModel.loadUserByLogin(binding.loginInputText.text.toString())
             }
         }
 
         binding.saveButton.setOnClickListener {
             if(save()){
-                viewModel.navigateBack(findNavController())
+                moveConsider=1
+                viewModel.loadUserByLogin(binding.loginInputText.text.toString())
             }
         }
     }
@@ -301,6 +333,18 @@ class EventEditorFragment : Fragment() {
     private fun timeSettledFlag() : Boolean{
         return (!binding.endTimeTextField.editText?.text.contentEquals("")
                 && !binding.endTimeTextField.editText?.text.contentEquals(""))
+    }
+
+    private val stateObserver = Observer<EventEditorViewModel.ViewState> {
+        if(it.isError){
+            binding.loginTextField.helperText = "Пользователь не найден"
+        }else{
+            if (moveConsider == 0) {
+                viewModel.navigateToEventListEditor(findNavController())
+            } else {
+                viewModel.navigateBack(findNavController())
+            }
+        }
     }
 
     override fun onDestroyView() {

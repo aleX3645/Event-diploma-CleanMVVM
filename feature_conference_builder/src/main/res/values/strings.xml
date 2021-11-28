@@ -10,7 +10,7 @@
     <string name="place">Place</string>
     <string name="description">Description</string>
     <string name="organiser">Organiser</string>
-    <string name="speaker">Speaker</string>
+    <string name="speaker">Speaker login</string>
     <string name="add_events">Add events</string>
     <string name="add_tariffs">Add tariffs</string>
     <string name="create_conference">Create conference</string>

@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.ContentValues
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -15,7 +17,9 @@ import com.alex3645.feature_conference_builder.di.module.BuilderViewModelModule
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.Tariff
+import com.alex3645.feature_conference_builder.domain.model.User
 import com.alex3645.feature_conference_builder.usecase.SaveConferenceUseCase
+import com.alex3645.feature_conference_builder.usecase.SearchUsersUseCase
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -42,7 +46,7 @@ class ConferenceEditorViewModel (application: Application):
     }
 
     var conference: Conference = Conference(0,0,null,null,"",
-        mutableListOf<Event>(),false,"",null,0,0,mutableListOf<Tariff>())
+        mutableListOf<Event>(),false,"",null,-1,0,mutableListOf<Tariff>(),null)
 
     data class ViewState(
         val isLoading: Boolean = true,
@@ -60,6 +64,9 @@ class ConferenceEditorViewModel (application: Application):
 
     fun saveConference(){
         viewModelScope.launch {
+            val spManager = SharedPreferencesManager(getApplication())
+            conference.organizerLogin = spManager.fetchLogin()
+
             saveConferenceUseCase(conference).also { result ->
                 val action = when (result) {
                     is SaveConferenceUseCase.Result.Success ->

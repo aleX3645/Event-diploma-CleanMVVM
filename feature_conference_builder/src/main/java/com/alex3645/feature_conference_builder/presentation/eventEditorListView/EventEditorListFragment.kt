@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorLi
 import com.alex3645.feature_conference_builder.di.components.DaggerFragmentBuilderComponent
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.Event
+import com.alex3645.feature_conference_builder.domain.model.User
 import com.alex3645.feature_conference_builder.presentation.eventEditorListView.recyclerView.EventAdapter
 import javax.inject.Inject
 

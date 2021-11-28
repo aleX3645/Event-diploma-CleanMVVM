@@ -20,7 +20,9 @@ data class EventJson(
     @SerializedName("name")
     val name: String,
     @SerializedName("speaker_id")
-    val speakerId: Int
+    val speakerId: Int?,
+    @SerializedName("speaker_login")
+    val speakerLogin: String
 ){
     internal fun toDomainModel(): Event {
         return Event(
@@ -31,7 +33,8 @@ data class EventJson(
             description = this.description,
             events = this.events?.map{it.toDomainModel()}?.toMutableList(),
             name = this.name,
-            speakerId = this.speakerId
+            speakerId = null,
+            speakerLogin = this.speakerLogin
         )
     }
 }

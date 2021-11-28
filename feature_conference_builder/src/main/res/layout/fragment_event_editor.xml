@@ -118,7 +118,8 @@
                         android:id="@+id/descriptionInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -143,8 +144,8 @@
                         android:id="@+id/loginInputText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:focusable="false"/>
+                        android:inputType="text"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

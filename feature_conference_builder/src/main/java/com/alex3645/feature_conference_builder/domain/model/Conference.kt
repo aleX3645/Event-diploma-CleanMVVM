@@ -14,9 +14,10 @@ data class Conference(
     val isCancelled: Boolean,
     var location: String?,
     var name: String?,
-    var organizerId: Int,
+    var organizerId: Int?,
     val status: Int,
-    val tariffs: MutableList<Tariff>?
+    val tariffs: MutableList<Tariff>?,
+    var organizerLogin: String?
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -30,7 +31,8 @@ data class Conference(
         parcel.readString(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.createTypedArrayList(Tariff)
+        parcel.createTypedArrayList(Tariff),
+        parcel.readString()
     )
 
     fun toJson(): ConferenceJson{
@@ -44,9 +46,10 @@ data class Conference(
             isCancelled = this.isCancelled,
             location = this.location?:"",
             name = this.name?:"",
-            organizerId = this.organizerId,
+            organizerId = null,
             status = this.status,
-            tariffsJson = this.tariffs?.map { it.toJson() }?.toMutableList()?: mutableListOf()
+            tariffsJson = this.tariffs?.map { it.toJson() }?.toMutableList()?: mutableListOf(),
+            organizerLogin = this.organizerLogin?:""
         )
     }
 
@@ -60,9 +63,10 @@ data class Conference(
         parcel.writeByte(if (isCancelled) 1 else 0)
         parcel.writeString(location)
         parcel.writeString(name)
-        parcel.writeInt(organizerId)
+        parcel.writeInt(organizerId?:-1)
         parcel.writeInt(status)
         parcel.writeTypedList(tariffs)
+        parcel.writeString(organizerLogin)
     }
 
     override fun describeContents(): Int {

@@ -9,15 +9,17 @@ data class UserJson(
     @SerializedName("login")
     val login: String,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("surname")
-    val surname: String,
+    val surname: String?,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("phone")
-    val phone: String,
+    val phone: String?,
     @SerializedName("email")
-    val email: String
+    val email: String?,
+    @SerializedName("photo_url")
+    val photoUrl: String? = ""
 ){
     internal fun toDomainModel() : User {
         return User(
@@ -27,7 +29,8 @@ data class UserJson(
             surname = this.surname,
             description = this.description,
             phone = this.phone,
-            email = this.email
+            email = this.email,
+            photoUrl = this.photoUrl
         )
     }
 }

@@ -12,7 +12,8 @@ data class EventCalendar(
     val events: List<Event>,
     val id: Int,
     val name: String,
-    val speakerId: Int
+    val speakerId: Int,
+    val speakerLogin: String?
 ){
     internal fun toEvent() : Event{
         return Event(
@@ -23,7 +24,8 @@ data class EventCalendar(
             events = this.events.toMutableList(),
             id = this.id,
             name = this.name,
-            speakerId = this.speakerId
+            speakerId = this.speakerId,
+            speakerLogin = this.speakerLogin
         )
     }
 }

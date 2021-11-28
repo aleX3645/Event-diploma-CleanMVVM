@@ -5,6 +5,7 @@ import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.feature_conference_builder.data.internet.service.ApiRetrofitBuilderService
 import com.alex3645.feature_conference_builder.data.model.Response
 import com.alex3645.feature_conference_builder.domain.model.Conference
+import com.alex3645.feature_conference_builder.domain.model.User
 import com.alex3645.feature_conference_builder.domain.repository.ConferenceBuilderRepository
 import javax.inject.Inject
 
@@ -17,5 +18,13 @@ class ConferenceBuilderRepositoryImpl @Inject constructor(
 
     override suspend fun addConference(conference: Conference) : Response{
         return service.addConference(sharedPreferences.fetchAuthToken()?: "",conference.toJson())
+    }
+
+    override suspend fun searchUsers(text: String): List<User>{
+        return service.searchUsers(text).map { it.toDomainModel() }
+    }
+
+    override suspend fun loadAccountByLogin(login: String): User {
+        return service.loadUserByLogin(login).toDomainModel()
     }
 }

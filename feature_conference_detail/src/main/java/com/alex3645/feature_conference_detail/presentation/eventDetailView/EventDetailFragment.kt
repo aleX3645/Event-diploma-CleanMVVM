@@ -15,6 +15,7 @@ import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentEventDetailBinding
 import com.alex3645.feature_conference_detail.domain.model.Event
+import com.alex3645.feature_conference_detail.domain.model.User
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,9 +38,17 @@ class EventDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val observer = Observer<User> {
+
+            binding.organizerName.text = "${it.name} ${it.surname}"
+            binding.shortInfoOrganizerTextBox.text = it.description
+        }
+
+        viewModel.organizer.observe(viewLifecycleOwner,observer)
         observe(viewModel.stateLiveData, stateObserver)
 
-        viewModel.loadEventsForConference(args.eventId)
+        viewModel.loadEvent(args.eventId, binding.organizerImage)
         initActions()
     }
 

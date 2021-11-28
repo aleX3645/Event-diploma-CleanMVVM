@@ -28,4 +28,7 @@ interface ApiRetrofitConferenceDetailService {
 
     @POST("/api/usr/registerTicket/{buyerId}")
     suspend fun registerTicket(@Header("token") token: String, @Path("buyerId") id: Long, @Body ticket: TicketJson)
+
+    @GET("api/usr/info/byId/{id}")
+    suspend fun loadUserById(@Path("id") userId: Int) : UserJson
 }

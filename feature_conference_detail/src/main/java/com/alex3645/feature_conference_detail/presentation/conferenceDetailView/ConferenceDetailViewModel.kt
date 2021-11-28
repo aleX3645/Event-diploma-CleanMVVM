@@ -3,6 +3,8 @@ package com.alex3645.feature_conference_detail.presentation.conferenceDetailView
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
@@ -11,7 +13,9 @@ import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Conference
+import com.alex3645.feature_conference_detail.domain.model.User
 import com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragmentDirections
+import com.alex3645.feature_conference_detail.usecase.LoadAccountByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadPictureByUrlUseCase
 import kotlinx.coroutines.launch
@@ -41,13 +45,33 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
     lateinit var loadConferenceByIdUseCase: LoadConferenceByIdUseCase
     @Inject
     lateinit var loadPictureByUrlUseCase: LoadPictureByUrlUseCase
+    @Inject
+    lateinit var loadAccountByIdUseCase: LoadAccountByIdUseCase
 
-    fun loadConference(imageView: ImageView){
+    val organizer: MutableLiveData<User> = MutableLiveData()
+    private fun loadOrganizer(id:Int, imageView: ImageView){
+        viewModelScope.launch {
+            loadAccountByIdUseCase(id).also { result ->
+                when (result) {
+                    is LoadAccountByIdUseCase.Result.Success ->{
+                        organizer.postValue(result.user)
+                        loadPicture(imageView, result.user.photoUrl)
+                    }
+                    is LoadAccountByIdUseCase.Result.Error ->
+                        sendAction(Action.AuthFailure("Ошибка загрузки данных организатора"))
+                    else -> sendAction(Action.AuthFailure("Ошибка загрузки данных организатора"))
+                }
+            }
+        }
+    }
+
+    fun loadConference(conferenceImageView: ImageView,orgImageView: ImageView){
         viewModelScope.launch {
             loadConferenceByIdUseCase(conferenceId).also { result ->
                 when (result) {
                     is LoadConferenceByIdUseCase.Result.Success ->{
-                        loadPicture(imageView, result.data.photoUrl)
+                        loadPicture(conferenceImageView, result.data.photoUrl)
+                        loadOrganizer(result.data.organizerId,orgImageView)
                         sendAction(Action.LoadSuccess(result.data))
                     }
                     is LoadConferenceByIdUseCase.Result.Error ->

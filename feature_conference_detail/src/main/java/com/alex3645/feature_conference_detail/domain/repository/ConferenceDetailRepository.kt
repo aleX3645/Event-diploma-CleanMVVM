@@ -13,6 +13,7 @@ interface ConferenceDetailRepository {
     suspend fun loadEventsForConferenceWithId(id: Int): List<Event>
     suspend fun loadEventsForEventWithId(id: Int): List<Event>
     suspend fun loadChatByConferenceId(id: Long) : List<ChatMessage>
+    suspend fun loadUserById(id: Int) : User
 
     suspend fun sendChatMessage(chatMessage: ChatMessage)
     suspend fun registerTicket(ticket: Ticket, id: Long, token: String)

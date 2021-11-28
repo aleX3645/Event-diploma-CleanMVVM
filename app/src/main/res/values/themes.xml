@@ -25,6 +25,7 @@
     <style name="MyThemeOverlay_Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <!-- color used by navigation icon and overflow icon -->
         <item name="colorOnPrimary">@color/white</item>
+        <item name="elevation">10dp</item>
     </style>
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
@@ -37,4 +38,5 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+
 </resources>

@@ -22,6 +22,7 @@ import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
 import com.alex3645.feature_conference_builder.domain.model.Conference
+import com.alex3645.feature_conference_builder.domain.model.User
 import com.alex3645.feature_conference_builder.presentation.validators.DateTimeValidator
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
@@ -63,6 +64,7 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observe(viewModel.stateLiveData, stateObserver)
 
         initView()

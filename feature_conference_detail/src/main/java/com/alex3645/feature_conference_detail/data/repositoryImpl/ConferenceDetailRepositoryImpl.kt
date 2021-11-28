@@ -35,6 +35,10 @@ class ConferenceDetailRepositoryImpl @Inject constructor(private val conferenceD
         return conferenceDetailService.getChatByConferenceId(id)
     }
 
+    override suspend fun loadUserById(id: Int) : User {
+        return conferenceDetailService.loadUserById(id).toDomainModel()
+    }
+
     override suspend fun sendChatMessage(chatMessage: ChatMessage) {
         conferenceDetailService.sendChatMessage(chatMessage)
     }
