@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
 import com.alex3645.feature_search.databinding.SearchSimpleItemBinding
+import com.alex3645.feature_search.databinding.SearchUserItemBinding
 import com.alex3645.feature_search.domain.data.User
+import com.squareup.picasso.Picasso
 
 @SuppressLint("NotifyDataSetChanged")
 class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>(){
@@ -19,7 +21,7 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: SearchSimpleItemBinding = SearchSimpleItemBinding.inflate(inflater, parent, false)
+        val binding: SearchUserItemBinding = SearchUserItemBinding.inflate(inflater, parent, false)
 
         return ViewHolder(binding)
     }
@@ -30,10 +32,11 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>(){
         this.onDebouncedClickListener = listener
     }
 
-    inner class ViewHolder(binding: SearchSimpleItemBinding) :
+    inner class ViewHolder(binding: SearchUserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val name = binding.simpleNameTextBox
-        val info = binding.simpleShortInfoTextBox
+        val name = binding.userName
+        val info = binding.userInfo
+        val userPicture = binding.userImage
 
         fun bind(user: User) {
             itemView.setOnClickListener { onDebouncedClickListener?.invoke(user) }
@@ -43,8 +46,10 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>(){
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[position]
 
-        holder.name.text = user.name
-        holder.info.text = user.description
+        holder.name.text = "${user.name} ${user.surname}"
+        holder.info.text = user.login
+
+        //Picasso.get().load(user.photoUrl).centerCrop().fit().into(holder.userPicture)
 
         holder.bind(user)
     }

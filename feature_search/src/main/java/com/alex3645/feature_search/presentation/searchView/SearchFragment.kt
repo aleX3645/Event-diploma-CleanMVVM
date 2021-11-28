@@ -65,10 +65,6 @@ class SearchFragment: Fragment() {
                 return true
             }
             1 -> {
-                viewModel.searchEvents(text)
-                return true
-            }
-            2 -> {
                 viewModel.searchUsers(text)
                 return true
             }
@@ -116,7 +112,7 @@ class SearchFragment: Fragment() {
                         }
                         1 -> {
                             binding.searchRecyclerView.adapter = searchUserAdapter
-                            tabPosition = 2
+                            tabPosition = 1
                         }
                     }
                     considerAdapterCall(searchView.query.toString())

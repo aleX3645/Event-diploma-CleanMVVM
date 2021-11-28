@@ -10,7 +10,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        android:theme="@style/MyThemeOverlay_Toolbar">
+        android:theme="@style/MyThemeOverlay_Toolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -22,6 +25,7 @@
                 app:layout_constraintTop_toTopOf="@id/searchView"
                 app:layout_constraintBottom_toBottomOf="@id/searchView"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:src="@drawable/ic_back"
                 app:tint="@color/white"
