@@ -167,6 +167,7 @@
                             app:layout_constraintTop_toTopOf="@id/organizerImage"
                             app:layout_constraintBottom_toBottomOf="@id/organizerImage"
                             app:layout_constraintRight_toRightOf="parent"
+                            android:layout_marginStart="5dp"
                             android:orientation="vertical"
                             >
                             <TextView

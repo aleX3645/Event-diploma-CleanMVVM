@@ -33,6 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/userImage"
                 app:layout_constraintRight_toRightOf="parent"
                 android:orientation="vertical"
+                android:layout_marginStart="5dp"
                 >
                 <TextView
                     android:id="@+id/userName"
