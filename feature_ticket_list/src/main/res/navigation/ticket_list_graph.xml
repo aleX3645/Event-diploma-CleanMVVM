@@ -7,6 +7,6 @@
         android:id="@+id/ticketsList"
         android:name="com.alex3645.feature_ticket_list.presentation.ticketListView.TicketListFragment"
         android:label="TicketsList"
-        app:moduleName="feature_ticket_List">
+        app:moduleName="feature_ticket_list">
     </fragment>
 </navigation>
