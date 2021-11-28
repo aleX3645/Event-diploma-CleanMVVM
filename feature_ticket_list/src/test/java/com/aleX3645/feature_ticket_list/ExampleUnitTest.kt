@@ -1,4 +1,4 @@
-package com.example.feature_account
+package com.alex3645.feature_ticket_list
 
 import org.junit.Test
 

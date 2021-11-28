@@ -10,12 +10,16 @@ import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.data.model.ChatMessage
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailFragmentComponent
+import com.alex3645.feature_conference_detail.presentation.conferenceChatView.chatView.ChatMessageIncomingViewHolder
+import com.alex3645.feature_conference_detail.presentation.conferenceChatView.chatView.ChatMessageOutcomingViewHolder
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.messages.MessageHolders
 import com.stfalcon.chatkit.messages.MessageInput
 import com.stfalcon.chatkit.messages.MessagesList
 import com.stfalcon.chatkit.messages.MessagesListAdapter
+import java.lang.Exception
 
 class ConferenceChatActivity() : AppCompatActivity(){
 
@@ -76,13 +80,17 @@ class ConferenceChatActivity() : AppCompatActivity(){
     lateinit var messagesAdapter: MessagesListAdapter<ChatMessage>
 
     private var imageLoader = ImageLoader { imageView: ImageView?, url: String?, _: Any? ->
-        Picasso.get().load(url).into(imageView)
+        if (url != null) {
+            if(url.isNotEmpty()){
+                Picasso.get().load(url).centerCrop().fit().into(imageView)
+            }
+        }
     }
 
     private fun initAdapter(){
         val holdersConfig = MessageHolders()
-            .setIncomingTextLayout(R.layout.item_custom_incoming_text_message)
-            .setOutcomingTextLayout(R.layout.item_custom_outcoming_text_message)
+            .setIncomingTextConfig(ChatMessageIncomingViewHolder::class.java,R.layout.item_custom_incoming_text_message)
+            .setOutcomingTextConfig(ChatMessageOutcomingViewHolder::class.java, R.layout.item_custom_outcoming_text_message)
 
         messagesAdapter = MessagesListAdapter <ChatMessage> (viewModel.username, holdersConfig,imageLoader)
         messagesList.setAdapter(messagesAdapter)

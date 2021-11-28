@@ -14,6 +14,12 @@ import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.databinding.FragmentSettingsBinding
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailFragmentComponent
 import javax.inject.Inject
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import com.alex3645.app.data.api.AppConstants
+
 
 class SettingsConferenceFragment: Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -63,7 +69,8 @@ class SettingsConferenceFragment: Fragment() {
         binding.settingsRecycler.adapter = settingsAdapter
         binding.settingsRecycler.layoutManager = LinearLayoutManager(activity)
 
-        settingsList = listOf(activity?.resources?.getString(R.string.statistics) ?: "error")
+        settingsList = listOf(activity?.resources?.getString(R.string.statistics) ?: "error",
+            activity?.resources?.getString(R.string.create_invite_link)?:"error")
         settingsAdapter.settingsList = settingsList
     }
 
@@ -76,6 +83,15 @@ class SettingsConferenceFragment: Fragment() {
             when(it){
                 settingsList[0] -> {
                     viewModel.navigateToStats(findNavController())
+                }
+                settingsList[1]->{
+                    context?.let{ it1 ->
+                        val clipboard: ClipboardManager? = getSystemService(it1, ClipboardManager::class.java)
+                        val clip = ClipData.newPlainText(it1.resources.getString(R.string.link_info),
+                            AppConstants.INVITE_LINK_CONFERENCE+args.conferenceId)
+                        clipboard?.setPrimaryClip(clip)
+                        Toast.makeText(context, it1.resources.getString(R.string.link_created), Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }

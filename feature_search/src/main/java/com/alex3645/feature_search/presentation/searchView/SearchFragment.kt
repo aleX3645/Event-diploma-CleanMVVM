@@ -1,7 +1,6 @@
 package com.alex3645.feature_search.presentation.searchView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -10,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.base.extension.observe
-import com.alex3645.feature_search.presentation.searchView.recycler.SearchEventAdapter
 import com.alex3645.feature_search.presentation.searchView.recycler.SearchUserAdapter
 import com.alex3645.feature_search.databinding.FragmentSearchBinding
 import com.alex3645.feature_search.di.component.DaggerSearchFragmentComponent
@@ -28,8 +26,6 @@ class SearchFragment: Fragment() {
 
     @Inject
     lateinit var searchConferenceAdapter: SearchConferenceAdapter
-    @Inject
-    lateinit var searchEventAdapter: SearchEventAdapter
     @Inject
     lateinit var searchUserAdapter: SearchUserAdapter
 
@@ -59,7 +55,6 @@ class SearchFragment: Fragment() {
 
         if(text == ""){
             searchConferenceAdapter.conferences = listOf()
-            searchEventAdapter.events = listOf()
             searchUserAdapter.users = listOf()
             return true
         }
@@ -104,9 +99,6 @@ class SearchFragment: Fragment() {
         searchConferenceAdapter.setOnDebouncedClickListener {
             viewModel.navigateToConferenceDetail(findNavController(),it.id)
         }
-        searchEventAdapter.setOnDebouncedClickListener {
-            viewModel.navigateToConferenceDetail(findNavController(),it.conferenceId)
-        }
         searchUserAdapter.setOnDebouncedClickListener {
             viewModel.navigateToUserAccount(findNavController(), it.id)
         }
@@ -115,7 +107,6 @@ class SearchFragment: Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     searchConferenceAdapter.conferences = listOf()
-                    searchEventAdapter.events = listOf()
                     searchUserAdapter.users = listOf()
 
                     when (tab.position) {
@@ -124,10 +115,6 @@ class SearchFragment: Fragment() {
                             tabPosition = 0
                         }
                         1 -> {
-                            binding.searchRecyclerView.adapter = searchEventAdapter
-                            tabPosition = 1
-                        }
-                        2 -> {
                             binding.searchRecyclerView.adapter = searchUserAdapter
                             tabPosition = 2
                         }
@@ -166,9 +153,6 @@ class SearchFragment: Fragment() {
                     searchConferenceAdapter.conferences = it.conferences
                 }
                 1 -> {
-                    searchEventAdapter.events = it.events
-                }
-                2 -> {
                     searchUserAdapter.users = it.users
                 }
             }

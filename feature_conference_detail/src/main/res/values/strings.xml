@@ -20,6 +20,7 @@
     <string name="conference_detail">Conference</string>
     <string name="event">Event</string>
     <string name="statistics">Statistics</string>
+    <string name="create_invite_link">Create invite link</string>
     <string name="tariff">Tariffs</string>
     <string name="map">Map</string>
 
@@ -35,4 +36,6 @@
     <string name="others">Others</string>
 
     <string name="no_data">No data</string>
+    <string name="link_info">Link to conference</string>
+    <string name="link_created">Link copied into clipboard</string>
 </resources>

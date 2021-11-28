@@ -4,5 +4,9 @@ class AppConstants {
     companion object{
         const val ACCOUNT_DB_NAME: String = "account.db"
         const val DB_CODE_PHRASE: String = "EaoIgnCAwA"
+        const val INVITE_LINK_CONFERENCE: String
+        = "https://play.google.com/store/apps/details?id=com.rovio.angrybirds&referrer=conferenceId%"
+        const val INVITE_LINK_USER: String
+        = "https://play.google.com/store/apps/details?id=com.rovio.angrybirds&referrer=userLogin%"
     }
 }

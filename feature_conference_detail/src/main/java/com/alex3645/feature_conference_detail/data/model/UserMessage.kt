@@ -17,7 +17,9 @@ class UserMessage (
     @SerializedName("phone")
     val phone: String = "",
     @SerializedName("email")
-    val email: String = ""
+    val email: String = "",
+    @SerializedName("photo_url")
+    val photoUrl: String = ""
 ): IUser{
     override fun getId(): String {
         return login

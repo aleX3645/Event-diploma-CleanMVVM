@@ -9,6 +9,9 @@
     <string name="save">Сохранить аккаунт</string>
     <string name="edit">Редактировать</string>
     <string name="exit">Выйти</string>
+    <string name="create_link">Создать ссылку на меня</string>
+    <string name="link_info">Ссылка на мой аккаунт</string>
+    <string name="link_created">Ссылка на мой аккаунт создана</string>
     <string name="back">Назад</string>
     <string name="edit_picture">Изменить изображение</string>
 

@@ -11,6 +11,10 @@
         app:moduleName="feature_personal_schedule"
         app:graphResName="personal_schedule_graph"/>
     <include-dynamic
+        android:id="@+id/TicketListFeatureGraph"
+        app:moduleName="feature_ticket_list"
+        app:graphResName="ticket_list_graph"/>
+    <include-dynamic
         android:id="@+id/AccountFeatureGraph"
         app:moduleName="feature_account"
         app:graphResName="account_graph"/>

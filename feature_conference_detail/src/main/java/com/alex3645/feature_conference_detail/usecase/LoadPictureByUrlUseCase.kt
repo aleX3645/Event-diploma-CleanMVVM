@@ -15,7 +15,6 @@ class LoadPictureByUrlUseCase {
 
     suspend operator fun invoke(imageUri: String, view: ImageView): Result {
         return try{
-            Log.d("!!!","loadPic")
             if(imageUri.isNotEmpty()){
                 Picasso.get().load(imageUri).fit().centerCrop().into(view)
             }

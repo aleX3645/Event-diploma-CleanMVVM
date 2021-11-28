@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/ticketsList">
+
+    <fragment
+        android:id="@+id/ticketsList"
+        android:name="com.alex3645.feature_ticket_list.presentation.ticketListView.TicketListFragment"
+        android:label="TicketsList"
+        app:moduleName="feature_ticket_List">
+    </fragment>
+</navigation>

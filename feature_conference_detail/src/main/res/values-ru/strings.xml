@@ -20,6 +20,7 @@
     <string name="conference_detail">Конференция</string>
     <string name="event">Событие</string>
     <string name="statistics">Статистика</string>
+    <string name="create_invite_link">Создать пригласительную ссылку</string>
     <string name="tariff">Тарифы</string>
     <string name="map">Карта</string>
 
@@ -35,4 +36,6 @@
     <string name="others">Другое</string>
 
     <string name="no_data">Нет информации</string>
+    <string name="link_info">Ссылка на конференцию</string>
+    <string name="link_created">Ссылка скопирована в буфер обмена</string>
 </resources>

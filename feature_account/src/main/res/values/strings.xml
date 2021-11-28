@@ -12,6 +12,9 @@
     <string name="edit">Edit</string>
     <string name="edit_picture">Change picture</string>
     <string name="exit">Exit</string>
+    <string name="create_link">Create link to me</string>
+    <string name="link_info">Link to my account</string>
+    <string name="link_created">Link copied into clipboard</string>
     <string name="back">Back</string>
 
     <string name="account_title">Account</string>

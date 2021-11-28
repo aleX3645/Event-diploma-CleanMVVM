@@ -18,4 +18,5 @@
     <string name="title_feature_personal_schedule" translatable="false">Personal Schedule</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCqhPMMLDYoGkgoIdn9T2evhbfssWsNg4Y</string>
+    <string name="title_feature_ticket_list">Ticket module</string>
 </resources>
