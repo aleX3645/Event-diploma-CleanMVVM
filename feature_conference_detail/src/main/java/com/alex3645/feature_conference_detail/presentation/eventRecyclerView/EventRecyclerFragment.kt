@@ -21,20 +21,11 @@ import javax.inject.Inject
 
 class EventRecyclerFragment(): Fragment() {
 
-    private var conferenceId: Int? = null
-    private var eventId: Int? = null
-    private var parentNavController: NavController? = null
-
-    constructor(id: Int, parentNavController: NavController) : this() {
-        conferenceId = id
-        this.parentNavController = parentNavController
-    }
-
     @Inject
     lateinit var eventAdapter: EventRecyclerAdapter
 
     private val viewModel: EventRecyclerViewModel by viewModels()
-    private var args: EventRecyclerFragmentArgs? = null
+    private val args: EventRecyclerFragmentArgs by navArgs()
 
     private var _binding: FragmentEventRecyclerListBinding? = null
     private val binding get() = _binding!!
@@ -59,10 +50,6 @@ class EventRecyclerFragment(): Fragment() {
 
     private  fun initRecycler(){
         eventAdapter.setOnDebouncedClickListener {
-            parentNavController?.let {
-                    it1 -> viewModel.navigateToEventByParent(it1,it.id)
-                    return@setOnDebouncedClickListener
-            }
             viewModel.navigateToEventByNavigation(findNavController(),it.id)
         }
 
@@ -73,7 +60,8 @@ class EventRecyclerFragment(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        conferenceId?.let{viewModel.conferenceId = it}
+        viewModel.eventId = args.eventId
+        viewModel.conferenceId = args.conferenceId
 
         observe(viewModel.stateLiveData, stateObserver)
 
@@ -85,18 +73,8 @@ class EventRecyclerFragment(): Fragment() {
     }
 
     private fun initView(){
-        if(parentNavController == null){
-            val ar by navArgs<EventRecyclerFragmentArgs>()
-            args = ar
-            binding.topNavigationAppBar.visibility = View.VISIBLE
-        }else{
-            binding.topNavigationAppBar.visibility = View.GONE
-        }
 
-        args?.eventId?.let {
-            eventId = it
-            viewModel.eventId = it
-        }
+        viewModel.eventId = args.eventId
     }
 
     private fun initActions(){

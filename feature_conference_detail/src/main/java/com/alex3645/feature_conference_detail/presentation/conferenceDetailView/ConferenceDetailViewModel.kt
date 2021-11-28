@@ -1,20 +1,15 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceDetailView
 
-import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
-import com.alex3645.feature_conference_detail.R
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.domain.model.User
-import com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragmentDirections
 import com.alex3645.feature_conference_detail.usecase.LoadAccountByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadPictureByUrlUseCase
@@ -89,13 +84,26 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
     }
 
     fun navigateToTariffs(navController: NavController){
-        val action = ConferenceDetailHolderFragmentDirections.actionDetailHolderToTariffList(conferenceId)
+        val action = ConferenceDetailFragmentDirections.actionDetailToTariffList(conferenceId)
+        navController.navigate(action)
+    }
+
+    fun navigateToEvents(navController: NavController){
+        val action = ConferenceDetailFragmentDirections.actionDetailToEventList(conferenceId = conferenceId,eventId = -1)
         navController.navigate(action)
     }
 
     fun navigateToMap(navController: NavController, place: String){
-        val action = ConferenceDetailHolderFragmentDirections.actionHolderToMap(place)
+        val action = ConferenceDetailFragmentDirections.actionDetailToMap(place)
         navController.navigate(action)
+    }
+
+    fun navigateToSettings(navController: NavController){
+        val action = ConferenceDetailFragmentDirections.actionDetailToSettings(conferenceId)
+        navController.navigate(action)
+    }
+    fun navigateBack(navController: NavController){
+        navController.popBackStack()
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){

@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_list.presentation.filterView
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,12 @@ class FilterFragment : Fragment(){
     private fun initView(){
         args.filterList.forEach {
             setSelectedId(it)
+        }
+
+        if(args.city != ""){
+            binding.cityTextInput.editText?.let {
+                it.text = Editable.Factory.getInstance().newEditable(args.city)
+            }
         }
 
 

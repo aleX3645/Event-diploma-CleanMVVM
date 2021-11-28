@@ -8,7 +8,6 @@ import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Event
-import com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragmentDirections
 import com.alex3645.feature_conference_detail.usecase.LoadEventByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadEventsForConferenceWithIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadEventsForEventWithIdUseCase
@@ -20,8 +19,8 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
         DaggerConferenceDetailViewModelComponent.factory().create().inject(this)
     }
 
-    var conferenceId = 0
-    var eventId = 0
+    var conferenceId:Int = -1
+    var eventId:Int = -1
 
     data class ViewState(
         val isLoading: Boolean = true,
@@ -42,19 +41,8 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
 
     fun loadEventsForConference(){
         viewModelScope.launch {
-            Log.d("!!!", "eventId - " + eventId)
-            if(eventId != 0){
-                loadEventsForEventWithIdUseCase(eventId).also { result ->
-                    val action = when (result) {
-                        is LoadEventsForEventWithIdUseCase.Result.Success ->
-                            Action.LoadSuccess(result.data)
-                        is LoadEventsForEventWithIdUseCase.Result.Error ->
-                            Action.AuthFailure("Ошибка подключения")
-                        else -> Action.AuthFailure("Ошибка подключения")
-                    }
-                    sendAction(action)
-                }
-            }else{
+
+            if(conferenceId != -1){
                 loadEventsForConferenceWithIdUseCase(conferenceId).also { result ->
                     val action = when (result) {
                         is LoadEventsForConferenceWithIdUseCase.Result.Success ->
@@ -65,8 +53,23 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
                     }
                     sendAction(action)
                 }
+                return@launch
+            }
+
+            if(eventId != -1){
+                loadEventsForEventWithIdUseCase(eventId).also { result ->
+                    val action = when (result) {
+                        is LoadEventsForEventWithIdUseCase.Result.Success ->
+                            Action.LoadSuccess(result.data)
+                        is LoadEventsForEventWithIdUseCase.Result.Error ->
+                            Action.AuthFailure("Ошибка подключения")
+                        else -> Action.AuthFailure("Ошибка подключения")
+                    }
+                    sendAction(action)
+                }
             }
         }
+
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){
@@ -96,11 +99,6 @@ class EventRecyclerViewModel: BaseViewModel<EventRecyclerViewModel.ViewState, Ev
 
     fun navigateToEventByNavigation(navController: NavController, id: Int){
         val action = EventRecyclerFragmentDirections.actionEventListToEvent(id)
-        navController.navigate(action)
-    }
-
-    fun navigateToEventByParent(navController: NavController, id: Int){
-        val action = ConferenceDetailHolderFragmentDirections.actionHolderToEvent(id)
         navController.navigate(action)
     }
 

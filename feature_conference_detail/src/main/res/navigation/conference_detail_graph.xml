@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/detailHolder">
+    app:startDestination="@id/conferenceDetail">
+
+
 
     <fragment
-        android:id="@+id/detailHolder"
-        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailHolderView.ConferenceDetailHolderFragment"
-        android:label="FragmentDetailHolder"
+        android:id="@+id/conferenceDetail"
+        android:name="com.alex3645.feature_conference_detail.presentation.conferenceDetailView.ConferenceDetailFragment"
+        android:label="FragmentTariffList"
         app:moduleName="feature_conference_detail">
         <action
-            android:id="@+id/actionHolderToEvent"
-            app:destination="@id/eventFragment"/>
-        <action
-            android:id="@+id/actionDetailHolderToTariffList"
+            android:id="@+id/actionDetailToTariffList"
             app:destination="@id/tariffList"/>
         <action
-            android:id="@+id/actionDetailHolderToEventList"
+            android:id="@+id/actionDetailToEventList"
             app:destination="@id/eventListFragment"/>
         <action
-            android:id="@+id/actionDetailHolderToSettings"
+            android:id="@+id/actionDetailToSettings"
             app:destination="@id/SettingsFragment"/>
         <action
-            android:id="@+id/actionHolderToMap"
+            android:id="@+id/actionDetailToMap"
             app:destination="@id/mapDetailFragment"/>
         <argument
             android:name="conference_id"
@@ -69,6 +68,9 @@
         app:moduleName="feature_conference_detail">
         <argument
             android:name="event_id"
+            app:argType="integer"/>
+        <argument
+            android:name="conference_id"
             app:argType="integer"/>
         <action
             android:id="@+id/actionEventListToEvent"

@@ -83,7 +83,7 @@ class EventDetailViewModel: BaseViewModel<EventDetailViewModel.ViewState, EventD
     }
 
     fun navigateToEvent(navController: NavController, id: Int){
-        val action = EventDetailFragmentDirections.actionEventToEventList(id)
+        val action = EventDetailFragmentDirections.actionEventToEventList(conferenceId = -1,eventId = id)
         navController.navigate(action)
     }
 

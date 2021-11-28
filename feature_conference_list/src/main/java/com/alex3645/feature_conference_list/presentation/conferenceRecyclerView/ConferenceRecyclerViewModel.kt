@@ -103,7 +103,7 @@ class ConferenceRecyclerViewModel: BaseViewModel<ConferenceRecyclerViewModel.Vie
     }
 
     fun navigateToFilter(navController: NavController){
-        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToFilter(filterList.toIntArray())
+        val action = ConferenceRecyclerFragmentDirections.actionRecyclerToFilter(filterList.toIntArray(),city)
         navController.navigate(action)
     }
 

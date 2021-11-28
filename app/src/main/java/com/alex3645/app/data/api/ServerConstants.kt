@@ -11,7 +11,7 @@ class ServerConstants {
         const val LOCAL_SERVER: String = "http://${LOCAL_SERVER_IP}:${LOCAL_SERVER_PORT}"
         const val WEB_SOCKET_LOCAL_SERVER: String = "ws://${LOCAL_SERVER_IP}:${LOCAL_SERVER_PORT}"
 
-        @SuppressLint("ConstantLocale")
-        val serverDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+        @SuppressLint("SimpleDateFormat")
+        val serverDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     }
 }

@@ -37,6 +37,9 @@
         <argument
             android:name="filterList"
             app:argType="integer[]" />
+        <argument
+            android:name="city"
+            app:argType="string"/>
     </fragment>
 
     <include-dynamic

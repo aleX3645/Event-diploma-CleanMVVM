@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_detail.R
@@ -25,6 +26,7 @@ import com.alex3645.feature_conference_detail.databinding.FragmentConferenceDeta
 import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.domain.model.User
 import com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity
+import com.alex3645.feature_conference_detail.presentation.eventDetailView.EventDetailFragmentArgs
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -35,13 +37,11 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ConferenceDetailFragment(
-    private var conferenceId: Int,
-    private var parentNavigationController: NavController,
-    private var title: TextView
-) : Fragment(), OnMapReadyCallback {
+class ConferenceDetailFragment() : Fragment(), OnMapReadyCallback {
 
     private val viewModel: ConferenceDetailViewModel by viewModels()
+
+    private val args by navArgs<ConferenceDetailFragmentArgs>()
 
     private lateinit var googleMap: GoogleMap
 
@@ -60,7 +60,7 @@ class ConferenceDetailFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        conferenceId.let{viewModel.conferenceId = it}
+        viewModel.conferenceId = args.conferenceId
 
         observe(viewModel.stateLiveData, stateObserver)
 
@@ -102,12 +102,24 @@ class ConferenceDetailFragment(
 
     private fun initActions(){
         binding.registrationButton.setOnClickListener {
-            viewModel.navigateToTariffs(parentNavigationController)
+            viewModel.navigateToTariffs(findNavController())
+        }
+        
+        binding.backButton.setOnClickListener {
+            viewModel.navigateBack(findNavController())
+        }
+
+        binding.toScheduleButton.setOnClickListener {
+            viewModel.navigateToEvents(findNavController())
+        }
+
+        binding.settingsButton.setOnClickListener {
+            viewModel.navigateToSettings(findNavController())
         }
 
         binding.toChatButton.setOnClickListener {
             val intent = Intent(this.context, ConferenceChatActivity::class.java).apply {
-                putExtra("id", conferenceId.toLong())
+                putExtra("id", args.conferenceId)
             }
             startActivity(intent)
         }
@@ -125,7 +137,7 @@ class ConferenceDetailFragment(
         }
 
         googleMap.setOnMapClickListener {
-            viewModel.navigateToMap(parentNavigationController,binding.conferencePlace.text.toString())
+            viewModel.navigateToMap(findNavController(),binding.conferencePlace.text.toString())
         }
 
         googleMap.uiSettings.setAllGesturesEnabled(false);
@@ -176,7 +188,7 @@ class ConferenceDetailFragment(
     private fun initConference(conference: Conference){
         this.conference = conference
 
-        title.text = if(this.conference.name != "") this.conference.name else context?.getString(R.string.no_data)?:""
+        binding.conferenceTitle.text = if(this.conference.name != "") this.conference.name else context?.getString(R.string.no_data)?:""
         binding.conferenceStartDate.text = if(this.conference.dateStart != "") beautyDateTimeFormatter.format(ServerConstants.serverDateTimeFormat.parse(this.conference.dateStart)) else context?.getString(R.string.no_data)?:""
         binding.conferenceEndDate.text = if(this.conference.dateEnd != "") beautyDateTimeFormatter.format(ServerConstants.serverDateTimeFormat.parse(this.conference.dateEnd)) else context?.getString(R.string.no_data)?:""
         binding.conferencePlace.text = if(this.conference.location != "") this.conference.location else context?.getString(R.string.no_data)?:""

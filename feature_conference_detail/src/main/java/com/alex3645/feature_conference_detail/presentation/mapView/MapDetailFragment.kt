@@ -32,8 +32,6 @@ class MapDetailFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: MapViewModel by viewModels()
     private val args by navArgs<MapDetailFragmentArgs>()
 
-    private var parentNavController: NavController? = null
-
     private lateinit var googleMap: GoogleMap
 
 
