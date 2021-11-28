@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application>
-        <activity android:name="com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity">
+        <activity android:name="com.alex3645.feature_conference_detail.presentation.conferenceChatView.ConferenceChatActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

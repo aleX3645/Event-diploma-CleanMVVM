@@ -103,7 +103,9 @@
                     android:text="@string/description"
                     android:textSize="16sp"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="0dp">
+                    app:cardElevation="0dp"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="#00000000">
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -116,7 +118,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/user_placeholder"
-                            app:roundPercent="100"/>
+                            app:roundPercent="100"
+                            android:layout_marginStart="8dp"/>
 
                         <LinearLayout
                             android:layout_width="0dp"

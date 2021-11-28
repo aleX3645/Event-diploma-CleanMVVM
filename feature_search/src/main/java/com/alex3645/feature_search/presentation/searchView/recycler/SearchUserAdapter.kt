@@ -49,7 +49,9 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.ViewHolder>(){
         holder.name.text = "${user.name} ${user.surname}"
         holder.info.text = user.login
 
-        //Picasso.get().load(user.photoUrl).centerCrop().fit().into(holder.userPicture)
+        if(user.photoUrl.isNotEmpty()){
+            Picasso.get().load(user.photoUrl).centerCrop().fit().into(holder.userPicture)
+        }
 
         holder.bind(user)
     }
