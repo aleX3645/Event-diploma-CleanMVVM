@@ -45,8 +45,8 @@ class TariffAdapter : RecyclerView.Adapter<TariffAdapter.ViewHolder>() {
         val tariff = tariffs[position]
 
         holder.name.text = tariff.name
-        holder.tickets.text = tariff.ticketsTotal.toString()
-        holder.cost.text = tariff.cost.toString()
+        holder.tickets.text = " ${tariff.ticketsLeft}/${tariff.ticketsTotal}"
+        holder.cost.text = " ${tariff.cost}"
 
         holder.bind(tariff)
     }

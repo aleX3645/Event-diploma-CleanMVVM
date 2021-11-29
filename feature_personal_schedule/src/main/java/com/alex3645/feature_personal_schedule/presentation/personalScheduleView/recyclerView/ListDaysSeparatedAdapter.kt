@@ -18,19 +18,20 @@ class ListDaysSeparatedAdapter {
         var sortedList = events.sortedWith(comparator)
 
         var lastDate: Calendar = Calendar.getInstance(Locale.getDefault())
-        if(events.isNotEmpty()){
-            lastDate = events[0].dateStart
+        if(sortedList.isNotEmpty()){
+            lastDate = sortedList[0].dateStart
             result.add(EventSeparatedListItem(titleCode,null, dateFormatter.format(lastDate.time)))
         }
 
         var i = 0
-        while(i<events.size){
-            if(events[i].dateStart.get(Calendar.DAY_OF_YEAR)==lastDate.get(Calendar.DAY_OF_YEAR) &&
-                events[i].dateStart.get(Calendar.YEAR)==lastDate.get(Calendar.YEAR)){
-                result.add(EventSeparatedListItem(eventCode,events[i].toEvent()))
+        while(i<sortedList.size){
+            if(sortedList[i].dateStart.get(Calendar.DAY_OF_YEAR)==lastDate.get(Calendar.DAY_OF_YEAR) &&
+                sortedList[i].dateStart.get(Calendar.YEAR)==lastDate.get(Calendar.YEAR)){
+                result.add(EventSeparatedListItem(eventCode,sortedList[i].toEvent()))
+
                 i++
             }else{
-                lastDate = events[i].dateStart
+                lastDate = sortedList[i].dateStart
                 result.add(EventSeparatedListItem(titleCode,null, dateFormatter.format(lastDate.time)))
             }
         }

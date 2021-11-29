@@ -169,7 +169,8 @@ class EventEditorFragment : Fragment() {
                 binding.nameInputText.text.toString(),
                 startDate,
                 endDate,
-                binding.descriptionInputText.text.toString())
+                binding.descriptionInputText.text.toString(),
+                binding.loginInputText.text.toString())
 
             return true
         }

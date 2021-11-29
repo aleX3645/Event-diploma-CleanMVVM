@@ -57,7 +57,6 @@ class EventAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         val name = binding.simpleNameTextBox
         val info = binding.simpleShortInfoTextBox
-        val speaker = binding.speakerName
         val startTime = binding.startTime
         val endTime = binding.endTime
 
@@ -79,7 +78,6 @@ class EventAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if(holder is ViewHolderEvent){
             holder.name.text = event.event?.name ?: "no data"
             holder.info.text = event.event?.description ?: "no data"
-            holder.speaker.text = event.event?.speakerId.toString()
             holder.startTime.text = simpleDateFormatClientTime.format(ServerConstants.serverDateTimeFormat.parse(event.event?.dateStart ?: ""))
             holder.endTime.text = simpleDateFormatClientTime.format(ServerConstants.serverDateTimeFormat.parse(event.event?.dateEnd ?: ""))
 

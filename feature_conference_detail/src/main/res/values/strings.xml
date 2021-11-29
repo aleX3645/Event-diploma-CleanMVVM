@@ -38,4 +38,6 @@
     <string name="no_data">No data</string>
     <string name="link_info">Link to conference</string>
     <string name="link_created">Link copied into clipboard</string>
+    <string name="price">Price:</string>
+    <string name="sold">Sold: </string>
 </resources>

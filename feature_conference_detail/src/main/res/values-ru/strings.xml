@@ -38,4 +38,6 @@
     <string name="no_data">Нет информации</string>
     <string name="link_info">Ссылка на конференцию</string>
     <string name="link_created">Ссылка скопирована в буфер обмена</string>
+    <string name="price">Цена:</string>
+    <string name="sold">Продано:</string>
 </resources>

@@ -119,7 +119,7 @@ class ConferenceDetailFragment() : Fragment(), OnMapReadyCallback {
 
         binding.toChatButton.setOnClickListener {
             val intent = Intent(this.context, ConferenceChatActivity::class.java).apply {
-                putExtra("id", args.conferenceId)
+                putExtra("conferenceId", viewModel.conferenceId)
             }
             startActivity(intent)
         }

@@ -18,12 +18,12 @@
     <string name="no_specified">No specified</string>
     <string name="event_list">Event list</string>
     <string name="tariff_name">Tariff name</string>
-    <string name="ticket_max">Ticket limit</string>
+    <string name="ticket_max">Ticket limit: </string>
     <string name="price">Price</string>
     <string name="create_tariff">Create tariff</string>
     <string name="tickets_left">Tickets left: </string>
     <string name="ticket_price">Ticket price: </string>
-    <string name="choose_picture">Choose picure </string>
+    <string name="choose_picture">Choose picture</string>
 
     <string name="no_category">No category</string>
     <string name="society">Society</string>

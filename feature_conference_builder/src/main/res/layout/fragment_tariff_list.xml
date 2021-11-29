@@ -35,7 +35,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:gravity="start"
-                android:text="@string/event_list"
+                android:text="@string/tariff"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginStart="10dp"

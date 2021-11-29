@@ -1,5 +1,6 @@
 package com.alex3645.feature_conference_detail.usecase
 
+import android.util.Log
 import com.alex3645.feature_conference_detail.data.model.ChatMessage
 import com.alex3645.feature_conference_detail.domain.repository.ConferenceDetailRepository
 import java.lang.Exception
@@ -13,6 +14,7 @@ class LoadChatUseCase @Inject constructor(private val repository: ConferenceDeta
 
     suspend operator fun invoke(id: Long) : Result{
         return try{
+            Log.d("!!!",id.toString())
             val messages: List<ChatMessage> = repository.loadChatByConferenceId(id)
             Result.Success(messages)
         }catch (e: Exception){

@@ -36,8 +36,10 @@ class ConferenceChatActivity() : AppCompatActivity(){
 
         val b = intent.extras
         if(b!=null){
-            conferenceId = b.getLong("id")
+            conferenceId = b.getInt("conferenceId").toLong()
         }
+
+        viewModel.conferenceId = conferenceId?:0
 
         setContentView(R.layout.activity_conference_chat)
         input = findViewById(R.id.input)
