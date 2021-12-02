@@ -15,6 +15,7 @@
         android:text="@string/no_data"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:textSize="20sp"
         android:textAppearance="?attr/textAppearanceBody1"
         />
 
@@ -27,6 +28,7 @@
         android:text="@string/no_data"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:textSize="20sp"
         android:textAppearance="?attr/textAppearanceBody1"
         />
 
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             android:text="@string/no_data"
             android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textSize="23sp"
             />
 
         <TextView
@@ -65,6 +68,16 @@
             android:text="@string/no_data"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:id="@+id/organizerNameSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_data"
+            android:textAppearance="?attr/textAppearanceBody2"
+
+            android:textSize="15sp"
             />
 
     </LinearLayout>

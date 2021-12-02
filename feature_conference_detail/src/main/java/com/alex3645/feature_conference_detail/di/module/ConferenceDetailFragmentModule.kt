@@ -19,11 +19,11 @@ class ConferenceDetailFragmentModule {
     fun provideTariffAdapter(): TariffAdapter {
         return TariffAdapter()
     }*/
-
+/*
     @Provides
     fun provideTariffStatsAdapter(): TariffStatsAdapter {
         return TariffStatsAdapter()
-    }
+    }*/
 
     @Provides
     fun provideSettingsAdapter(): SettingsAdapter {

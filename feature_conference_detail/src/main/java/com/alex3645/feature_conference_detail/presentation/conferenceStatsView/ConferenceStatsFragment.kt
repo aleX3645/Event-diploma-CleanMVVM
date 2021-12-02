@@ -25,7 +25,6 @@ class ConferenceStatsFragment : Fragment(){
     private var _binding: FragmentConferenceStatisticaBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
     lateinit var tariffStatsAdapter: TariffStatsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +63,7 @@ class ConferenceStatsFragment : Fragment(){
     }
 
     private fun initRecycler(){
+        context?.let { tariffStatsAdapter = TariffStatsAdapter(it) }
         binding.eventRecyclerView.adapter = tariffStatsAdapter
         binding.eventRecyclerView.layoutManager = LinearLayoutManager(activity)
     }
