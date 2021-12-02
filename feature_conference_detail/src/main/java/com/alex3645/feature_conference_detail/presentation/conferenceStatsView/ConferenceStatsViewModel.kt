@@ -11,7 +11,8 @@ import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ConferenceStatsViewModel: BaseViewModel<ConferenceStatsViewModel.ViewState, ConferenceStatsViewModel.Action>(ViewState()) {
+class ConferenceStatsViewModel: BaseViewModel<ConferenceStatsViewModel.ViewState,
+        ConferenceStatsViewModel.Action>(ViewState()) {
 
     init{
         DaggerConferenceDetailViewModelComponent.factory().create().inject(this)
@@ -50,7 +51,7 @@ class ConferenceStatsViewModel: BaseViewModel<ConferenceStatsViewModel.ViewState
         }
     }
 
-    override fun onReduceState(viewAction: Action): ViewState = when (viewAction){
+    override fun onReduceState(viewAction: Action): ViewState = when (viewAction) {
         is Action.LoadSuccess -> {
             state.copy(
                 isLoading = false,

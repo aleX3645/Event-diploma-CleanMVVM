@@ -50,4 +50,8 @@ class ConferenceDetailRepositoryImpl @Inject constructor(private val conferenceD
             ticket = ticket.toJson()
         )
     }
+
+    override suspend fun addToPersonalSchedule(token: String, id: Long, eventId: Long) {
+        conferenceDetailService.addToPersonalSchedule(token, id, eventId)
+    }
 }

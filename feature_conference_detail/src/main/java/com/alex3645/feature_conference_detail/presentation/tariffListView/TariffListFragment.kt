@@ -26,7 +26,7 @@ class TariffListFragment : Fragment() {
     private var _binding: FragmentTariffRecyclerBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
+
     lateinit var tariffAdapter: TariffAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +58,7 @@ class TariffListFragment : Fragment() {
     }
 
     private fun initView(){
+        context?.let { tariffAdapter = TariffAdapter(it) }
         viewModel.conferenceId = args.conferenceId
         viewModel.loadTariffs()
     }

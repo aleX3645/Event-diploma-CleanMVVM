@@ -5,6 +5,9 @@ import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.domain.model.Event
 import com.alex3645.feature_conference_detail.domain.model.Ticket
 import com.alex3645.feature_conference_detail.domain.model.User
+import retrofit2.http.Header
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ConferenceDetailRepository {
     suspend fun loadAccountByLogin(login: String) : User
@@ -17,4 +20,5 @@ interface ConferenceDetailRepository {
 
     suspend fun sendChatMessage(chatMessage: ChatMessage)
     suspend fun registerTicket(ticket: Ticket, id: Long, token: String)
+    suspend fun addToPersonalSchedule(@Header("token") token: String, @Path("userId") id: Long, @Query("eventId") eventId: Long)
 }

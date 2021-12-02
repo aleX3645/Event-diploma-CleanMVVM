@@ -14,11 +14,11 @@ class ConferenceDetailFragmentModule {
     fun provideEventAdapter(): EventRecyclerAdapter {
         return EventRecyclerAdapter()
     }
-
+/*
     @Provides
     fun provideTariffAdapter(): TariffAdapter {
         return TariffAdapter()
-    }
+    }*/
 
     @Provides
     fun provideTariffStatsAdapter(): TariffStatsAdapter {

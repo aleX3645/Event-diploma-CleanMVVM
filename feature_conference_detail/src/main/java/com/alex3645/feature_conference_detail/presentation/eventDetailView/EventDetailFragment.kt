@@ -39,13 +39,27 @@ class EventDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val observer = Observer<User> {
+        viewModel.eventId = args.eventId
 
+        val observerUser = Observer<User> {
             binding.organizerName.text = "${it.name} ${it.surname}"
             binding.shortInfoOrganizerTextBox.text = it.description
         }
 
-        viewModel.organizer.observe(viewLifecycleOwner,observer)
+        val observerPersonal = Observer<Boolean> {
+            context?.let{ it1 ->
+                Toast.makeText(context,
+                    it1.resources.getText(R.string.add_to_personal_schedule), Toast.LENGTH_LONG).show()
+
+                binding.eventAddToPersonalSchedule.alpha = .5f
+                binding.eventAddToPersonalSchedule.isClickable = false
+            }
+        }
+
+        viewModel.organizer.observe(viewLifecycleOwner,observerUser)
+        viewModel.successFlag.observe(viewLifecycleOwner,observerPersonal)
+
+
         observe(viewModel.stateLiveData, stateObserver)
 
         viewModel.loadEvent(args.eventId, binding.organizerImage)
@@ -57,6 +71,10 @@ class EventDetailFragment : Fragment() {
     private fun initActions(){
         binding.backButton.setOnClickListener {
             viewModel.navigateBack(findNavController())
+        }
+
+        binding.eventAddToPersonalSchedule.setOnClickListener {
+            viewModel.addToPersonalSchedule()
         }
 
         binding.eventScheduleButton.setOnClickListener{

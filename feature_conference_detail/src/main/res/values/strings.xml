@@ -40,4 +40,8 @@
     <string name="link_created">Link copied into clipboard</string>
     <string name="price">Price:</string>
     <string name="sold">Sold: </string>
+    <string name="limit">Registrations count: </string>
+    <string name="registrations">Registrations</string>
+    <string name="tickets">Tickets</string>
+    <string name="added_to_schedule">Added to personal schedule</string>
 </resources>

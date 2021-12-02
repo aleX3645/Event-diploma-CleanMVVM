@@ -82,4 +82,9 @@ class ConferenceDetailViewModelModule {
     fun provideRegisterTicketUseCase(conferenceRepository: ConferenceDetailRepository): RegisterTicketUseCase {
         return RegisterTicketUseCase(conferenceRepository)
     }
+
+    @Provides
+    fun provideAddToPersonalSchedule(conferenceRepository: ConferenceDetailRepository): AddToPersonalScheduleUseCase {
+        return AddToPersonalScheduleUseCase(conferenceRepository)
+    }
 }

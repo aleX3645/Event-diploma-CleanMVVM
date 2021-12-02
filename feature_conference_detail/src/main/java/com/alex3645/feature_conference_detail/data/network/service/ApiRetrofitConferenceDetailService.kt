@@ -31,4 +31,7 @@ interface ApiRetrofitConferenceDetailService {
 
     @GET("api/usr/info/byId/{id}")
     suspend fun loadUserById(@Path("id") userId: Int) : UserJson
+
+    @POST("/api/usr/addEvent/{userId}")
+    suspend fun addToPersonalSchedule(@Header("token") token: String, @Path("userId") id: Long, @Query("eventId") eventId: Long)
 }

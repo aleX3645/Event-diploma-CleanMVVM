@@ -18,7 +18,7 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:id="@+id/paidTariffNameTextView"
+                android:id="@+id/freeTariffNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -34,30 +34,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@string/sold"/>
+                    android:text="@string/limit"/>
                 <TextView
-                    android:id="@+id/ticketsTotal"
+                    android:id="@+id/regsTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text=""/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="@string/price"/>
-                <TextView
-                    android:id="@+id/cost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text=""/>
             </LinearLayout>
 
             <TextView
@@ -68,6 +53,4 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>

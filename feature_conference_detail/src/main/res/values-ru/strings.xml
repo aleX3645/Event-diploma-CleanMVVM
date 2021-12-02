@@ -38,6 +38,10 @@
     <string name="no_data">Нет информации</string>
     <string name="link_info">Ссылка на конференцию</string>
     <string name="link_created">Ссылка скопирована в буфер обмена</string>
-    <string name="price">Цена:</string>
-    <string name="sold">Продано:</string>
+    <string name="price">Цена: </string>
+    <string name="sold">Продано: </string>
+    <string name="limit">Количество регистраций: </string>
+    <string name="registrations">Виды регистраций</string>
+    <string name="tickets">Билеты</string>
+    <string name="added_to_schedule">Событие добавлено в персональное расписание</string>
 </resources>

@@ -4,16 +4,22 @@ import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_conference_detail.data.network.service.ApiRetrofitConferenceDetailService
+import com.alex3645.feature_conference_detail.data.repositoryImpl.ConferenceDetailRepositoryImpl
 import com.alex3645.feature_conference_detail.di.component.DaggerConferenceDetailViewModelComponent
 import com.alex3645.feature_conference_detail.domain.model.Conference
 import com.alex3645.feature_conference_detail.domain.model.User
 import com.alex3645.feature_conference_detail.usecase.LoadAccountByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadConferenceByIdUseCase
 import com.alex3645.feature_conference_detail.usecase.LoadPictureByUrlUseCase
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewState, ConferenceDetailViewModel.Action>(ViewState()) {
@@ -27,7 +33,7 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
-        val errorMessage: String = "Авторизация успешна",
+        val errorMessage: String = "",
         val conference: Conference? = null
     ) : BaseViewState
 
