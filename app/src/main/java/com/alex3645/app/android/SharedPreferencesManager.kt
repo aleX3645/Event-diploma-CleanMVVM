@@ -12,6 +12,13 @@ class SharedPreferencesManager (context: Context) {
         const val USER_TOKEN = "user_token"
         const val LOGIN = "login"
         const val ORG_FLAG = "org_flag"
+        const val DEEP_LINK = "deep_link"
+    }
+
+    fun setDeepLink(deepLink: String?) {
+        val editor = prefs.edit()
+        editor.putString(DEEP_LINK, deepLink)
+        editor.apply()
     }
 
     fun setOrgFlag(orgFlag: Boolean) {
@@ -25,6 +32,10 @@ class SharedPreferencesManager (context: Context) {
         editor.putString(USER_TOKEN, token)
         editor.putString(LOGIN, login)
         editor.apply()
+    }
+
+    fun fetchDeepLink(): String? {
+        return prefs.getString(DEEP_LINK, null)
     }
 
     fun fetchAuthToken(): String? {

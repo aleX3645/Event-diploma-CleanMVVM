@@ -26,4 +26,8 @@ class NavHostActivity : AppCompatActivity() {
     private fun initBottomNavigation() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
+
+    public fun navigateToItemBottomNavigation(id: Int){
+        navController.navigate(R.id.ConferenceListFeatureGraph)
+    }
 }

@@ -13,7 +13,8 @@
     <include-dynamic
         android:id="@+id/TicketListFeatureGraph"
         app:moduleName="feature_ticket_list"
-        app:graphResName="ticket_list_graph"/>
+        app:graphResName="ticket_list_graph">
+    </include-dynamic>
     <include-dynamic
         android:id="@+id/AccountFeatureGraph"
         app:moduleName="feature_account"

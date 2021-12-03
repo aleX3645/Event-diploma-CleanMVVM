@@ -14,5 +14,7 @@
         android:layout_marginLeft="10dp"
         android:textAppearance="?attr/textAppearanceBody2"
         android:textColor="?android:attr/textColorSecondary"
+        android:textSize="20sp"
+        android:gravity="center"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

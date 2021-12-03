@@ -8,12 +8,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.app.presentation.util.infoDialogView.InfoDialogFragment
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_list.di.component.DaggerConferenceListFragmentComponent
 import com.alex3645.feature_conference_list.presentation.conferenceRecyclerView.recyclerView.ConferenceAdapter
 import com.alex3645.feature_event_list.R
 import com.alex3645.feature_event_list.databinding.FragmentRecyclerListBinding
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -52,6 +54,11 @@ class ConferenceRecyclerFragment: Fragment() {
 
         initRecycler()
         initActions()
+
+        context?.let {
+            viewModel.navigateToConferenceWithDeepLink(it, findNavController())
+        }
+
         initView()
     }
 
@@ -99,7 +106,7 @@ class ConferenceRecyclerFragment: Fragment() {
         }
 
         conferenceAdapter.setOnDebouncedClickListener {
-            viewModel.navigateToConferenceDetail(navController,it)
+            viewModel.navigateToConferenceDetail(navController,it.id)
         }
     }
 

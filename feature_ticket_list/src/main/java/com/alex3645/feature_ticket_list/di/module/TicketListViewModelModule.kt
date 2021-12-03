@@ -4,6 +4,7 @@ import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_ticket_list.data.network.service.ApiRetrofitTicketListService
 import com.alex3645.feature_ticket_list.data.repositoryImpl.TicketListRepositoryImpl
 import com.alex3645.feature_ticket_list.domain.repository.TicketListRepository
+import com.alex3645.feature_ticket_list.usecase.LoadTicketsInfoUseCase
 import com.alex3645.feature_ticket_list.usecase.LoadTicketsUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -36,5 +37,10 @@ class TicketListViewModelModule {
     @Provides
     fun provideLoadTicketsUseCase(repository: TicketListRepository): LoadTicketsUseCase {
         return LoadTicketsUseCase(repository)
+    }
+
+    @Provides
+    fun provideLoadConferenceByIdUseCase(repository: TicketListRepository): LoadTicketsInfoUseCase {
+        return LoadTicketsInfoUseCase(repository)
     }
 }

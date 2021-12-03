@@ -3,6 +3,8 @@ package com.alex3645.feature_conference_list.presentation.conferenceRecyclerView
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
@@ -11,6 +13,7 @@ import com.alex3645.feature_conference_list.di.component.DaggerConferenceViewMod
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 class ConferenceRecyclerViewModel: BaseViewModel<ConferenceRecyclerViewModel.ViewState, ConferenceRecyclerViewModel.Action>(ViewState()){
@@ -91,9 +94,29 @@ class ConferenceRecyclerViewModel: BaseViewModel<ConferenceRecyclerViewModel.Vie
         )
     }
 
-    fun navigateToConferenceDetail(navController: NavController, conference: Conference){
+    fun navigateToConferenceWithDeepLink(context: Context, navController: NavController){
+        val spManager = SharedPreferencesManager(context)
 
-        val action = ConferenceRecyclerFragmentDirections.actionConferenceListToConferenceDetail(conference.id)
+        try{
+            val deepLink = spManager.fetchDeepLink()
+            if(deepLink != null){
+                if(!deepLink.contains("/")){
+                    var conferenceId = (deepLink.split(":")[1]).toInt()
+                    navigateToConferenceDetail(navController,conferenceId)
+                }else{
+                    var deepLinkList = deepLink.split("/")
+                }
+            }
+        }catch(ex: Exception){
+            throw ex
+        }finally {
+            spManager.setDeepLink(null)
+        }
+    }
+
+    fun navigateToConferenceDetail(navController: NavController, conferenceId: Int){
+
+        val action = ConferenceRecyclerFragmentDirections.actionConferenceListToConferenceDetail(conferenceId)
         navController.navigate(action)
     }
 

@@ -10,15 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Media -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/app_name"
-            />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,19 +18,36 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:id="@+id/nameTextBox"
+                android:id="@+id/mainNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/app_name"
+                android:text="@string/no_data"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/supNameTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text=""/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@string/start_date"/>
+                <TextView
+                    android:id="@+id/startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text=""/>
+            </LinearLayout>
 
         </LinearLayout>
 

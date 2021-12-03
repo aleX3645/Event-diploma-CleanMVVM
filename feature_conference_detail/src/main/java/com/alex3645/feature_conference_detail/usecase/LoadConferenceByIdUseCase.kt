@@ -16,7 +16,6 @@ class LoadConferenceByIdUseCase @Inject constructor(private val repository: Conf
             val conference: Conference = repository.loadConferenceById(id)
             Result.Success(conference)
         }catch (e: Exception){
-            throw e
             Result.Error(e)
         }
     }

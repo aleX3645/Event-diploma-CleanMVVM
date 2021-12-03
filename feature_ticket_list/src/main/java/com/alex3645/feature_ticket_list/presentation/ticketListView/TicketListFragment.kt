@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alex3645.app.presentation.NavHostActivity
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_ticket_list.di.component.DaggerTicketListFragmentComponent
 import com.alex3645.feature_ticket_list.presentation.ticketListView.recyclerView.TicketListAdapter
@@ -62,6 +63,13 @@ class TicketListFragment: Fragment() {
     }
 
     private fun initActions(){
+
+        ticketRecyclerAdapter.setOnDebouncedClickListener {
+
+            activity?.let{it1->
+                viewModel.navigateWithDeepLink(it1, it.conference.id)
+            }
+        }
     }
 
     private val stateObserver = Observer<TicketListViewModel.ViewState> {
