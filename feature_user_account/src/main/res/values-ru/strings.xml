@@ -12,6 +12,7 @@
     <string name="edit">Редактировать</string>
     <string name="exit">Выйти</string>
     <string name="back">Назад</string>
+    <string name="personal_schedule">Показать расписание пользователя</string>
 
     <string name="no_data">Нет информации</string>
 </resources>
