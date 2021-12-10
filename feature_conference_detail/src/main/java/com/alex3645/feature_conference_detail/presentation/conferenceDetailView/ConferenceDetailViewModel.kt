@@ -1,9 +1,11 @@
 package com.alex3645.feature_conference_detail.presentation.conferenceDetailView
 
+import android.content.Context
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
@@ -81,6 +83,11 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
                 }
             }
         }
+    }
+
+    fun isUserAuthed(context: Context) : Boolean{
+        val spManager = SharedPreferencesManager(context)
+        return spManager.fetchLogin() != null
     }
 
     private fun loadPicture(imageView: ImageView, url: String){

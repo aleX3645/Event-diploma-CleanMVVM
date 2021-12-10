@@ -8,6 +8,9 @@
         android:name="com.alex3645.feature_conference_builder.presentation.conferenceEditorView.ConferenceEditorFragment"
         android:label="conferenceBuilderFragment"
         app:moduleName="feature_conference_builder">
+        <argument
+            android:name="editableConferenceId"
+            app:argType="integer" />
         <action
             android:id="@+id/actionConferenceBuilderToEventEditorFragment"
             app:destination="@id/eventBuilderListFragment"/>
@@ -43,7 +46,9 @@
         <action
             android:id="@+id/actionEventBuilderToEventBuilderListFragment"
             app:destination="@id/eventBuilderListFragment"/>
-
+        <argument
+            android:name="editableEventId"
+            app:argType="integer" />
         <argument
             android:name="event"
             app:nullable="true"
@@ -73,6 +78,9 @@
         android:name="com.alex3645.feature_conference_builder.presentation.tariffEditorView.TariffEditorFragment"
         android:label="tariffEditorFragment"
         app:moduleName="feature_conference_builder">
+        <argument
+            android:name="editableTariffId"
+            app:argType="integer" />
         <argument
             android:name="conference"
             app:nullable="true"

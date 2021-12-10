@@ -17,7 +17,7 @@ class TariffListViewModel: ViewModel() {
 
     fun navigateToTariffEditor(navController: NavController){
         conference?.let{
-            val action = TariffListFragmentDirections.actionTariffListToTariffEditorFragment(conference)
+            val action = TariffListFragmentDirections.actionTariffListToTariffEditorFragment(-1,conference)
             navController.navigate(action)
         }
     }

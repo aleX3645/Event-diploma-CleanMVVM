@@ -32,14 +32,42 @@ class EventEditorListViewModel : ViewModel(){
         }
     }
 
-    fun navigateToEventEditor(navController: NavController){
+    fun navigateToEvent(navController: NavController, id:Int){
         if(event != null){
-            val action = EventEditorListFragmentDirections.actionEventBuilderListToEventBuilderFragment(event, null)
+            val action = EventEditorListFragmentDirections.actionEventBuilderListToEventBuilderFragment(
+                conference = null,
+                event = event,
+                editableEventId = id
+            )
             navController.navigate(action)
         }
 
         if(conference != null){
-            val action = EventEditorListFragmentDirections.actionEventBuilderListToEventBuilderFragment(null, conference)
+            val action = EventEditorListFragmentDirections.actionEventBuilderListToEventBuilderFragment(
+                conference = conference,
+                event = null,
+                editableEventId = id
+            )
+            navController.navigate(action)
+        }
+    }
+
+    fun navigateToEventEditor(navController: NavController){
+        if(event != null){
+            val action = EventEditorListFragmentDirections.actionEventBuilderListToEventBuilderFragment(
+                conference = null,
+                event = event,
+                editableEventId = -1
+            )
+            navController.navigate(action)
+        }
+
+        if(conference != null){
+            val action = EventEditorListFragmentDirections.actionEventBuilderListToEventBuilderFragment(
+                conference = conference,
+                event = null,
+                editableEventId = -1
+            )
             navController.navigate(action)
         }
     }

@@ -20,6 +20,7 @@
     <string name="conference_detail">Конференция</string>
     <string name="event">Событие</string>
     <string name="statistics">Статистика</string>
+    <string name="edit_conference">Редактировать конференцию</string>
     <string name="create_invite_link">Создать пригласительную ссылку</string>
     <string name="tariff">Тарифы</string>
     <string name="map">Карта</string>

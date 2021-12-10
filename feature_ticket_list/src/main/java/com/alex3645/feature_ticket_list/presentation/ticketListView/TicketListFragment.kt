@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alex3645.app.presentation.NavHostActivity
 import com.alex3645.base.extension.observe
+import com.alex3645.feature_ticket_list.R
 import com.alex3645.feature_ticket_list.di.component.DaggerTicketListFragmentComponent
 import com.alex3645.feature_ticket_list.presentation.ticketListView.recyclerView.TicketListAdapter
 import com.alex3645.feature_ticket_list.databinding.FragmentTicketListBinding
@@ -59,7 +60,15 @@ class TicketListFragment: Fragment() {
     }
 
     private fun initView(){
-        viewModel.loadTickets()
+        if(viewModel.isUserAthed()){
+            viewModel.loadTickets()
+        }else{
+            context?.let{ it1 ->
+                binding.infoTextView.visibility = View.VISIBLE
+                binding.infoTextView.text = it1.resources.getText(R.string.clear_list)
+                Toast.makeText(context, it1.getText(R.string.auth_need), Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun initActions(){
@@ -74,11 +83,22 @@ class TicketListFragment: Fragment() {
 
     private val stateObserver = Observer<TicketListViewModel.ViewState> {
 
-        //binding.swipeEventContainer.isVisible = it.isLoading
         if(it.isError){
             Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
+            if(ticketRecyclerAdapter.tickets.isEmpty()){
+                context?.let{ it1 ->
+                    binding.infoTextView.text = it1.resources.getText(R.string.clear_list)
+                }
+            }
         }else{
             ticketRecyclerAdapter.tickets = it?.tickets ?: listOf()
+
+            if(ticketRecyclerAdapter.tickets.isEmpty()){
+                context?.let{ it1 ->
+                    binding.infoTextView.text = it1.resources.getText(R.string.clear_list)
+                }
+            }
+
         }
     }
 

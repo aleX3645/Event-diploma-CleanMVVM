@@ -56,6 +56,12 @@ class TicketListViewModel (application: Application) : BaseAndroidViewModel<Tick
         }
     }
 
+    fun isUserAthed(): Boolean{
+        val spManager = SharedPreferencesManager(getApplication())
+
+        return spManager.fetchLogin() != null
+    }
+
     fun navigateWithDeepLink(activity: Activity, conferenceId: Int){
         val spManager = SharedPreferencesManager(activity)
         spManager.setDeepLink("conference:${conferenceId}")

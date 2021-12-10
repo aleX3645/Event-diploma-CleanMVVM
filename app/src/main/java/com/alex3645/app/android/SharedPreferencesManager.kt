@@ -13,6 +13,7 @@ class SharedPreferencesManager (context: Context) {
         const val LOGIN = "login"
         const val ORG_FLAG = "org_flag"
         const val DEEP_LINK = "deep_link"
+        const val REMEMBER_FLAG = "remember_flag"
     }
 
     fun setDeepLink(deepLink: String?) {
@@ -24,6 +25,12 @@ class SharedPreferencesManager (context: Context) {
     fun setOrgFlag(orgFlag: Boolean) {
         val editor = prefs.edit()
         editor.putBoolean(ORG_FLAG, orgFlag)
+        editor.apply()
+    }
+
+    fun setRememberFlag(flag: Boolean) {
+        val editor = prefs.edit()
+        editor.putBoolean(REMEMBER_FLAG, flag)
         editor.apply()
     }
 
@@ -48,6 +55,10 @@ class SharedPreferencesManager (context: Context) {
 
     fun fetchOrgFlag(): Boolean {
         return prefs.getBoolean(ORG_FLAG, false)
+    }
+
+    fun fetchRememberFlag(): Boolean {
+        return prefs.getBoolean(REMEMBER_FLAG, false)
     }
 
     fun removeUserData(){

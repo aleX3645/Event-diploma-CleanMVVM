@@ -98,6 +98,10 @@ class EventEditorListFragment : Fragment(){
             viewModel.navigateBack(findNavController())
         }
 
+        eventAdapter.setOnDebouncedClickListener {
+            viewModel.navigateToEvent(findNavController(),it.id)
+        }
+
         binding.floatingActionButton.setOnClickListener {
             viewModel.navigateToEventEditor(findNavController())
         }

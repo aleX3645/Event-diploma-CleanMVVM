@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alex3645.base.extension.observe
+import com.alex3645.feature_auth.R
 import com.alex3645.feature_auth.databinding.FragmentAuthBinding
 import java.net.PasswordAuthentication
 
@@ -37,8 +38,14 @@ class AuthFragment : Fragment() {
 
     private fun initActions(){
         binding.loginButton.setOnClickListener {
-            binding.loginTextField.isActivated = false
-            binding.passwordTextField.isActivated = false
+            binding.loginTextField.alpha = .5f
+            binding.loginTextField.clearFocus()
+
+            binding.passwordTextField.alpha = .5f
+            binding.passwordTextField.clearFocus()
+
+            binding.loginButton.alpha = .5f
+            binding.registerButton.alpha = .5f
 
             if(binding.orgSwitch.isChecked){
                 viewModel.tryAuthAsOrganizer(PasswordAuthentication(
@@ -59,10 +66,20 @@ class AuthFragment : Fragment() {
     private val stateObserver = Observer<AuthViewModel.ViewState> {
 
         if(it.isError){
-            Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
-            binding.loginTextField.isActivated = true
-            binding.passwordTextField.isActivated = true
+            context?.let{it1->
+                Toast.makeText(it1, it1.resources.getText(R.string.auth_error), Toast.LENGTH_LONG).show()
+            }
+
+            binding.loginTextField.alpha = 1.0f
+            binding.loginTextField.clearFocus()
+
+            binding.passwordTextField.alpha = 1.0f
+            binding.passwordTextField.clearFocus()
+
+            binding.loginButton.alpha = 1.0f
+            binding.registerButton.alpha = 1.0f
         }else{
+            viewModel.setRememberFlag(binding.rememberSwitch.isChecked)
             viewModel.navigateToAccount(findNavController())
         }
     }

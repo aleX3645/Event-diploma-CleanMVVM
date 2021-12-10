@@ -101,9 +101,6 @@ class ConferenceDetailFragment() : Fragment(), OnMapReadyCallback {
     }
 
     private fun initActions(){
-        binding.registrationButton.setOnClickListener {
-            viewModel.navigateToTariffs(findNavController())
-        }
         
         binding.backButton.setOnClickListener {
             viewModel.navigateBack(findNavController())
@@ -117,11 +114,22 @@ class ConferenceDetailFragment() : Fragment(), OnMapReadyCallback {
             viewModel.navigateToSettings(findNavController())
         }
 
-        binding.toChatButton.setOnClickListener {
-            val intent = Intent(this.context, ConferenceChatActivity::class.java).apply {
-                putExtra("conferenceId", viewModel.conferenceId)
+        context?.let{
+            if(viewModel.isUserAuthed(it)){
+                binding.registrationButton.setOnClickListener {
+                    viewModel.navigateToTariffs(findNavController())
+                }
+
+                binding.toChatButton.setOnClickListener {
+                    val intent = Intent(this.context, ConferenceChatActivity::class.java).apply {
+                        putExtra("conferenceId", viewModel.conferenceId)
+                    }
+                    startActivity(intent)
+                }
+            }else{
+                binding.registrationButton.alpha = .5f
+                binding.toChatButton.alpha = .5f
             }
-            startActivity(intent)
         }
     }
 

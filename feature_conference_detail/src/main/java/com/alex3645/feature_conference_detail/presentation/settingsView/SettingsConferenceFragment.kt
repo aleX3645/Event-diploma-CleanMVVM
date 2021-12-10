@@ -70,7 +70,8 @@ class SettingsConferenceFragment: Fragment() {
         binding.settingsRecycler.layoutManager = LinearLayoutManager(activity)
 
         settingsList = listOf(activity?.resources?.getString(R.string.statistics) ?: "error",
-            activity?.resources?.getString(R.string.create_invite_link)?:"error")
+            activity?.resources?.getString(R.string.create_invite_link)?:"error",
+            activity?.resources?.getString(R.string.edit_conference)?:"error")
         settingsAdapter.settingsList = settingsList
     }
 
@@ -91,6 +92,7 @@ class SettingsConferenceFragment: Fragment() {
                             AppConstants.INVITE_LINK_CONFERENCE+args.conferenceId)
                         clipboard?.setPrimaryClip(clip)
                         Toast.makeText(context, it1.resources.getString(R.string.link_created), Toast.LENGTH_LONG).show()
+                        viewModel.navigateBack(findNavController())
                     }
                 }
             }

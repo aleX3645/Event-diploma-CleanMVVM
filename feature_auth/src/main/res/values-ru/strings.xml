@@ -14,4 +14,6 @@
     <string name="phone">Номер телефона</string>
     <string name="about">Обо мне</string>
     <string name="back">Назад</string>
+
+    <string name="auth_error">Неверный логин или пароль</string>
 </resources>

@@ -20,6 +20,7 @@
     <string name="conference_detail">Conference</string>
     <string name="event">Event</string>
     <string name="statistics">Statistics</string>
+    <string name="edit_conference">Edit conference</string>
     <string name="create_invite_link">Create invite link</string>
     <string name="tariff">Tariffs</string>
     <string name="map">Map</string>

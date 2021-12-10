@@ -65,7 +65,7 @@ class TariffListFragment : Fragment() {
 
     private fun initRecycler(){
         tariffAdapter.setOnDebouncedClickListener {
-            viewModel.registerTicket(it.id.toLong())
+            viewModel.registerTicket(it.id.toLong(),findNavController())
         }
 
         binding.eventRecyclerView.adapter = tariffAdapter

@@ -62,13 +62,14 @@ class TariffListViewModel(application: Application): BaseAndroidViewModel<Tariff
         }
     }
 
-    fun registerTicket(id: Long){
+    fun registerTicket(id: Long,navController: NavController){
         viewModelScope.launch {
             val spManager = SharedPreferencesManager(getApplication())
             loadAccountByLoginUseCase(spManager.fetchLogin() ?: "").also { result ->
                 val action = when (result) {
                     is LoadAccountByLoginUseCase.Result.Success ->{
-                        registerTicket(userId = result.user.id.toLong(), tariffId = id, spManager.fetchAuthToken()?:"")
+                        Log.d("!!!", "afterLoad")
+                        registerTicket(userId = result.user.id.toLong(), tariffId = id, spManager.fetchAuthToken()?:"", navController)
                         return@also
                     }
                     is LoadAccountByLoginUseCase.Result.Error ->
@@ -81,7 +82,7 @@ class TariffListViewModel(application: Application): BaseAndroidViewModel<Tariff
     }
 
     private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
-    private suspend fun registerTicket(userId: Long, tariffId: Long, token: String){
+    private suspend fun registerTicket(userId: Long, tariffId: Long, token: String, navController: NavController){
         Log.d("!!!", "regTicket")
         val ticket = Ticket(
             buyerId = userId,
@@ -90,14 +91,14 @@ class TariffListViewModel(application: Application): BaseAndroidViewModel<Tariff
             tariffId = tariffId
         )
         registerTicketUseCase(token = token, id = userId, ticket = ticket).also { result ->
-            val action = when (result) {
-                is RegisterTicketUseCase.Result.Success ->
-                    Action.RegComplete
+            when (result) {
+                is RegisterTicketUseCase.Result.Success ->{
+                    navigateBack(navController)
+                }
                 is RegisterTicketUseCase.Result.Error ->
-                    Action.Failure(result.e.message ?:"Произошла непредвиденная ошибка")
+                    sendAction(Action.Failure(result.e.message ?:"Вы успешно зарегистрировались на мероприятие"))
                 else -> Action.Failure("Произошла непредвиденная ошибка")
             }
-            sendAction(action)
         }
     }
 

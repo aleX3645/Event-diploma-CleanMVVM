@@ -19,9 +19,9 @@ class RegisterTicketUseCase @Inject constructor(private val repository: Conferen
                 id = id,
                 token = token
             )
+            Log.d("!!!","after post ticket")
             Result.Success
         }catch (e: Exception){
-            Log.d("!!!",e.message?:"nullMessage")
             Result.Error(e)
         }
     }

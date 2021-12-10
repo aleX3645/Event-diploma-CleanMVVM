@@ -1,8 +1,10 @@
 package com.alex3645.feature_auth.presentation.authView
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -69,6 +71,12 @@ class AuthViewModel(application: Application) : BaseAndroidViewModel<AuthViewMod
                 sendAction(action)
             }
         }
+    }
+
+    fun setRememberFlag(flag: Boolean){
+        val spManager = SharedPreferencesManager(getApplication())
+
+        spManager.setRememberFlag(flag)
     }
 
     override fun onReduceState(viewAction: Action): ViewState = when (viewAction){

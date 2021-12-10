@@ -4,4 +4,7 @@
 
     <string name="ticket_list_title">Tickets</string>
     <string name="start_date">Start date</string>
+
+    <string name="clear_list">This list is empty</string>
+    <string name="auth_need">To get tickets you need authorize</string>
 </resources>

@@ -48,6 +48,7 @@ class UserAccountFragment: Fragment() {
     }
 
     private fun initAccount(user: User){
+        binding.accountName.text = if(user.name != "") "${user.name} ${user.surname}" else context?.getString(R.string.no_data)?:""
         binding.accountDescription.text = if(user.description != "") user.description else context?.getString(R.string.no_data)?:""
         binding.accountEmail.text = if(user.email != "") user.email else context?.getString(R.string.no_data)?:""
         binding.accountLogin.text = if(user.login != "") user.login else context?.getString(R.string.no_data)?:""

@@ -12,6 +12,17 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.content.Intent
+import androidx.core.content.ContextCompat
+
+import androidx.core.content.ContextCompat.startActivity
+import okhttp3.Interceptor
+
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
+
 
 @Module
 class TicketListViewModelModule {
@@ -19,8 +30,29 @@ class TicketListViewModelModule {
     fun provideGson(): Gson = GsonBuilder().create()
 
     @Provides
-    fun provideRetrofit(gson: Gson) : Retrofit = Retrofit.Builder()
+    fun provideClient(): OkHttpClient{
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(object : Interceptor {
+                override fun intercept(chain: Interceptor.Chain): Response? {
+                    val request: Request = chain.request()
+                    val response: Response = chain.proceed(request)
+
+                    // todo deal with the issues the way you need to
+                    if (response.code() == 500) {
+
+                        throw IOException()
+                    }
+                    return response
+                }
+            })
+            .build()
+        return okHttpClient
+    }
+
+    @Provides
+    fun provideRetrofit(gson: Gson, client: OkHttpClient) : Retrofit = Retrofit.Builder()
         .baseUrl(ServerConstants.LOCAL_SERVER)
+        //.client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 

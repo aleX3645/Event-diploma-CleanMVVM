@@ -91,6 +91,8 @@ class SettingsFragment: Fragment() {
 
                         var toast = Toast.makeText(it1, it1.resources.getString(R.string.link_created), Toast.LENGTH_LONG)
                         toast.show()
+
+                        viewModel.navigateBack(findNavController())
                     }
                 }
                 settingsList[2] -> {

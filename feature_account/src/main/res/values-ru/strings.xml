@@ -1,5 +1,5 @@
 <resources>
-    <string name="settings">Настройки</string>
+    <string name="settings">Редактировать</string>
     <string name="nickname">Имя аккаунта</string>
     <string name="email">Электронная почта</string>
     <string name="phone">Номер телефона</string>

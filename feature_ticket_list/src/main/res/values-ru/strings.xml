@@ -4,4 +4,7 @@
 
     <string name="ticket_list_title">Билеты</string>
     <string name="start_date">Дата начала</string>
+
+    <string name="clear_list">Данный список пуст</string>
+    <string name="auth_need">Для работы с билетами необходимо авторизоваться</string>
 </resources>
