@@ -13,7 +13,7 @@ data class Event(
     var dateEnd: String?,
     var dateStart: String?,
     var description: String?,
-    val events: MutableList<Event>?,
+    var events: MutableList<Event>?,
     var name: String?,
     val speakerId: Int?,
     var speakerLogin: String?

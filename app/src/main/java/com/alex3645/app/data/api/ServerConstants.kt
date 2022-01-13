@@ -6,7 +6,7 @@ import java.util.*
 
 class ServerConstants {
     companion object{
-        private const val LOCAL_SERVER_IP = "100.113.12.132"
+        private const val LOCAL_SERVER_IP = "100.113.9.239"
         private const val LOCAL_SERVER_PORT = "7777"
         const val LOCAL_SERVER: String = "http://${LOCAL_SERVER_IP}:${LOCAL_SERVER_PORT}"
         const val WEB_SOCKET_LOCAL_SERVER: String = "ws://${LOCAL_SERVER_IP}:${LOCAL_SERVER_PORT}"

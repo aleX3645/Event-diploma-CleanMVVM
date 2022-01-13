@@ -10,7 +10,7 @@ data class Conference(
     var dateEnd: String?,
     var dateStart: String?,
     var description: String?,
-    val events: MutableList<Event>?,
+    var events: MutableList<Event>?,
     val isCancelled: Boolean,
     var location: String?,
     var name: String?,

@@ -52,9 +52,9 @@ class EventEditorViewModel(application: Application) :
 
     private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
 
-    fun buildNewEvent(name: String, dateStart: Calendar, dateEnd: Calendar, description: String,speakerLogin:String){
+    fun buildNewEvent(name: String, dateStart: Calendar, dateEnd: Calendar, description: String,speakerLogin:String,id:Int){
         newEvent = Event(
-            0,
+            id,
             0,
             simpleDateFormatServer.format(dateEnd.time),
             simpleDateFormatServer.format(dateStart.time),

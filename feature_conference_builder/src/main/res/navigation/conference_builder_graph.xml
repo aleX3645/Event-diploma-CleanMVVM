@@ -27,7 +27,6 @@
         <action
             android:id="@+id/actionEventBuilderListToEventBuilderFragment"
             app:destination="@id/eventBuilderFragment"/>
-
         <argument
             android:name="conference"
             app:nullable="true"

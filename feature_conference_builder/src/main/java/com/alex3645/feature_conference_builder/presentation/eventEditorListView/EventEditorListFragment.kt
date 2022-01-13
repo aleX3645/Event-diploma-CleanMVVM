@@ -99,6 +99,7 @@ class EventEditorListFragment : Fragment(){
         }
 
         eventAdapter.setOnDebouncedClickListener {
+            Log.d("!!!", "event" + it.id)
             viewModel.navigateToEvent(findNavController(),it.id)
         }
 

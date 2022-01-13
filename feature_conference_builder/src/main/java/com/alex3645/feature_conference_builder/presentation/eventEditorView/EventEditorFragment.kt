@@ -2,6 +2,7 @@ package com.alex3645.feature_conference_builder.presentation.eventEditorView
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentEventEditorBinding
+import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.User
 import com.google.android.material.datepicker.CalendarConstraints
@@ -58,7 +60,6 @@ class EventEditorFragment : Fragment() {
     private val simpleDateFormatServer = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ",Locale.getDefault())
 
     private fun initView(){
-        val conference = args.conference
 /*
         val observer = Observer<List<User>> {
 
@@ -73,23 +74,57 @@ class EventEditorFragment : Fragment() {
         viewModel.usersPrediction.observe(viewLifecycleOwner,observer)*/
 
         observe(viewModel.stateLiveData, stateObserver)
-
-        conference?.let {
+        Log.d("!!!","test-1")
+        args.conference?.let {
             viewModel.conference = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
             globalDateEnd.time = simpleDateFormatServer.parse(it!!.dateEnd)
+            Log.d("!!!","test-2")
+            if(args.editableEventId >= 0){
+                Log.d("!!!","test-3")
+                val ev = it.events!!.first { e -> e.id == args.editableEventId }
+                initFields(ev)
+            }
         }
-
-
 
         args.event?.let{
             viewModel.event = it
             globalDateStart.time = simpleDateFormatServer.parse(it!!.dateStart)
             globalDateEnd.time = simpleDateFormatServer.parse(it!!.dateEnd)
+
+            if(args.editableEventId >= 0){
+                Log.d("!!!","test-3")
+                val ev = it.events!!.first { e -> e.id == args.editableEventId }
+                initFields(ev)
+            }
         }
 
         initBackStackObserver()
         initActions()
+    }
+
+    private fun initFields(event: Event){
+        globalDateStart.time = simpleDateFormatServer.parse(event.dateStart)
+        globalDateEnd.time = simpleDateFormatServer.parse(event.dateEnd)
+
+        binding.loginInputText.text = Editable.Factory.getInstance().newEditable(event.speakerLogin)
+        binding.nameInputText.text = Editable.Factory.getInstance().newEditable(event.name)
+        binding.descriptionInputText.text = Editable.Factory.getInstance().newEditable(event.description)
+
+        binding.startDateInputText.text = Editable.Factory.getInstance().newEditable(
+            simpleDateFormatClientDate.format(simpleDateFormatServer.parse(event.dateStart))
+        )
+        binding.endDateInputText.text = Editable.Factory.getInstance().newEditable(
+            simpleDateFormatClientDate.format(simpleDateFormatServer.parse(event.dateEnd))
+        )
+
+        binding.startTimeInputText.text = Editable.Factory.getInstance().newEditable(
+            simpleDateFormatClientTime.format(simpleDateFormatServer.parse(event.dateStart))
+        )
+
+        binding.endTimeInputText.text = Editable.Factory.getInstance().newEditable(
+            simpleDateFormatClientTime.format(simpleDateFormatServer.parse(event.dateEnd))
+        )
     }
 
     private fun initBackStackObserver(){
@@ -165,17 +200,58 @@ class EventEditorFragment : Fragment() {
 
 
         if(correctDateTimeCheck(startDate, endDate)){
-            viewModel.buildNewEvent(
-                binding.nameInputText.text.toString(),
-                startDate,
-                endDate,
-                binding.descriptionInputText.text.toString(),
-                binding.loginInputText.text.toString())
+            if(args.editableEventId>=0){
+                viewModel.event?.let{ it ->
+                    it.events = it.events!!.filterNot { it.id == args.editableEventId }.toMutableList()
+                    viewModel.buildNewEvent(
+                        binding.nameInputText.text.toString(),
+                        startDate,
+                        endDate,
+                        binding.descriptionInputText.text.toString(),
+                        binding.loginInputText.text.toString(),getMaxId(it.events!!)+1)
+                }
+
+                viewModel.conference?.let{ it ->
+                    it.events = it.events!!.filterNot { it.id == args.editableEventId }.toMutableList()
+                    viewModel.buildNewEvent(
+                        binding.nameInputText.text.toString(),
+                        startDate,
+                        endDate,
+                        binding.descriptionInputText.text.toString(),
+                        binding.loginInputText.text.toString(),getMaxId(it.events!!)+1)
+                }
+            }else{
+
+                viewModel.event?.let{ it ->
+                    viewModel.buildNewEvent(
+                        binding.nameInputText.text.toString(),
+                        startDate,
+                        endDate,
+                        binding.descriptionInputText.text.toString(),
+                        binding.loginInputText.text.toString(),getMaxId(it.events!!)+1)
+                }
+
+                viewModel.conference?.let{ it ->
+                    viewModel.buildNewEvent(
+                        binding.nameInputText.text.toString(),
+                        startDate,
+                        endDate,
+                        binding.descriptionInputText.text.toString(),
+                        binding.loginInputText.text.toString(),getMaxId(it.events!!)+1)
+                }
+            }
 
             return true
         }
 
         return false
+    }
+
+    private fun getMaxId(events:List<Event>): Int{
+        if (events.isEmpty()){
+            return 0
+        }
+        return events.maxOf { it.id }
     }
 
     private fun getTimePickerByTime(hour: Int) : MaterialTimePicker {

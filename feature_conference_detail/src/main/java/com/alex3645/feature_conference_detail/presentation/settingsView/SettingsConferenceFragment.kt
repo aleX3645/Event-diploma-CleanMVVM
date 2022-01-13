@@ -18,7 +18,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.Observer
 import com.alex3645.app.data.api.AppConstants
+import com.alex3645.base.extension.observe
 
 
 class SettingsConferenceFragment: Fragment() {
@@ -61,18 +63,25 @@ class SettingsConferenceFragment: Fragment() {
     private fun initView(){
         viewModel.conferenceId = args.conferenceId.toLong()
 
+        observe(viewModel.stateLiveData, stateObserver)
+
+        initMenuValues()
         initRecycler()
         initActions()
+    }
+
+    private lateinit var menu: List<String>
+    private fun initMenuValues(){
+        menu = listOf(activity?.resources?.getString(R.string.statistics) ?: "error",
+            activity?.resources?.getString(R.string.create_invite_link)?:"error",
+            activity?.resources?.getString(R.string.edit_conference)?:"error")
     }
 
     private fun initRecycler(){
         binding.settingsRecycler.adapter = settingsAdapter
         binding.settingsRecycler.layoutManager = LinearLayoutManager(activity)
 
-        settingsList = listOf(activity?.resources?.getString(R.string.statistics) ?: "error",
-            activity?.resources?.getString(R.string.create_invite_link)?:"error",
-            activity?.resources?.getString(R.string.edit_conference)?:"error")
-        settingsAdapter.settingsList = settingsList
+        viewModel.determineMenuType()
     }
 
     private fun initActions(){
@@ -82,10 +91,10 @@ class SettingsConferenceFragment: Fragment() {
 
         settingsAdapter.setOnDebouncedClickListener {
             when(it){
-                settingsList[0] -> {
+                menu[0] -> {
                     viewModel.navigateToStats(findNavController())
                 }
-                settingsList[1]->{
+                menu[1]->{
                     context?.let{ it1 ->
                         val clipboard: ClipboardManager? = getSystemService(it1, ClipboardManager::class.java)
                         val clip = ClipData.newPlainText(it1.resources.getString(R.string.link_info),
@@ -96,6 +105,19 @@ class SettingsConferenceFragment: Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private val stateObserver = Observer<SettingsViewModel.ViewState> {
+        if(it.isError){
+            Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
+        }else{
+            settingsList = if(it.userOrganizer){
+                listOf(menu[0], menu[1],menu[2])
+            }else{
+                listOf(menu[1])
+            }
+            settingsAdapter.settingsList = settingsList
         }
     }
 
