@@ -12,7 +12,7 @@ interface ApiRetrofitAccountService {
     suspend fun loadUserByLogin(@Path("login") login: String) : UserJson
 
     @POST("api/usr/change/{login}")
-    suspend fun editAccount(@Header("token") token: String, @Body user: User, @Path("login") login: String) : AccResponse
+    suspend fun editAccount(@Header("token") token: String, @Body user: UserJson, @Path("login") login: String) : AccResponse
 
     @Multipart
     @POST("api/usr/upload/picture")

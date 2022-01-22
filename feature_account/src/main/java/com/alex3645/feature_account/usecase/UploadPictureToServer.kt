@@ -2,6 +2,7 @@ package com.alex3645.feature_account.usecase
 
 import android.net.Uri
 import android.widget.ImageView
+import androidx.core.net.toFile
 import com.alex3645.feature_account.data.model.AccResponse
 import com.alex3645.feature_account.domain.repository.AccountRepository
 import com.squareup.picasso.Picasso
@@ -9,6 +10,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.io.InputStream
 import java.lang.Exception
 import java.net.URI
 import javax.inject.Inject
@@ -21,12 +23,11 @@ class UploadPictureToServer @Inject constructor(
         data class Error(val e: Exception) : Result
     }
 
-    suspend operator fun invoke(token: String,imageUri: Uri): Result {
+    suspend operator fun invoke(token: String,stream: InputStream): Result {
         return try{
-            var file = File(imageUri.path?:"")
             var response = repository.uploadImage(token,
-                MultipartBody.Part.createFormData("file", file.name, RequestBody.create(
-                    MediaType.parse("image/*"), file)))
+                MultipartBody.Part.createFormData("file", stream.hashCode().toString(), RequestBody.create(
+                    MediaType.parse("image/*"), stream.readBytes())))
             if(response.success){
                 Result.Success(response)
             }else{

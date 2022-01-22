@@ -24,7 +24,7 @@ class AccountRepositoryImpl (
         login: String,
         user: User
     ): AccResponse {
-        return service.editAccount(token, user, login)
+        return service.editAccount(token, user.toJson(), login)
     }
 
     override suspend fun uploadImage(token: String, file: MultipartBody.Part): AccResponse {

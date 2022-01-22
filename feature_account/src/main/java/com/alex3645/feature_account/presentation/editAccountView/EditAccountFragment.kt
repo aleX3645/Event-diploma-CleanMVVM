@@ -1,5 +1,7 @@
 package com.alex3645.feature_account.presentation.editAccountView
 
+import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -62,6 +64,8 @@ class EditAccountFragment : Fragment() {
     }
 
     private var uriInternal:Uri = Uri.EMPTY
+
+
     private val pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
         uri?.let { it ->
             uriInternal = it
@@ -86,7 +90,11 @@ class EditAccountFragment : Fragment() {
                 it.phone = binding.phoneNumberEditText.text.toString()
                 it.email = binding.emailEditText.text.toString()
                 if(uriInternal.path != Uri.EMPTY.path){
-                    viewModel.editAccountWithImage(it, uriInternal)
+                    val stream = activity?.contentResolver?.openInputStream(uriInternal)
+
+                    stream?.let{ it1 ->
+                        viewModel.editAccountWithImage(it,it1)
+                    }
                 }else{
                     viewModel.editAccount(it)
                 }

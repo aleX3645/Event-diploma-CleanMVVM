@@ -2,6 +2,7 @@ package com.alex3645.feature_account.presentation.editAccountView
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -17,6 +18,7 @@ import com.alex3645.feature_account.usecase.EditAccountUseCase
 import com.alex3645.feature_account.usecase.LoadAccountByLoginUseCase
 import com.alex3645.feature_account.usecase.UploadPictureToServer
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import java.net.URI
 import javax.inject.Inject
 
@@ -62,14 +64,15 @@ class EditAccountViewModel(application: Application) : BaseAndroidViewModel<Edit
         }
     }
 
-    fun editAccountWithImage(user: User, uri: Uri){
+    fun editAccountWithImage(user: User, stream: InputStream){
         val application: Application = this.getApplication()
         viewModelScope.launch {
             val spManager = SharedPreferencesManager(application)
-            uploadPictureToServer(spManager.fetchAuthToken()?:"",uri).also { result ->
+            uploadPictureToServer(spManager.fetchAuthToken()?:"",stream).also { result ->
                 when (result) {
                     is UploadPictureToServer.Result.Success ->{
                         user.photoUrl = ServerConstants.LOCAL_SERVER + "/api/usr/getPictureById/" + result.response.message
+                        Log.d("!!!", user.photoUrl)
                         editAccount(user)
                     }
                     is UploadPictureToServer.Result.Error ->
