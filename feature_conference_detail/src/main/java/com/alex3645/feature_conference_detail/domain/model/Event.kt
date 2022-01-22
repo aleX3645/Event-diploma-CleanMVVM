@@ -20,7 +20,6 @@ data class Event(
 
         endDate.time = ServerConstants.serverDateTimeFormat.parse(this.dateEnd)
         startDate.time = ServerConstants.serverDateTimeFormat.parse(this.dateStart)
-
         return EventCalendar(
             conferenceId = this.conferenceId,
             dateEnd = endDate,

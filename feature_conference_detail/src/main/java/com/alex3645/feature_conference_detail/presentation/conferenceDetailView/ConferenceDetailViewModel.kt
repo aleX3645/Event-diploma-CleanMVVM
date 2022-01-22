@@ -53,7 +53,7 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
 
     val organizer: MutableLiveData<User> = MutableLiveData()
     private fun loadOrganizer(id:Int, imageView: ImageView){
-        viewModelScope.launch {
+        val a = viewModelScope.launch {
             loadAccountByIdUseCase(id).also { result ->
                 when (result) {
                     is LoadAccountByIdUseCase.Result.Success ->{

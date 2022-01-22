@@ -18,8 +18,10 @@ import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.Tariff
 import com.alex3645.feature_conference_builder.domain.model.User
+import com.alex3645.feature_conference_builder.usecase.LoadConferenceByIdUseCase
 import com.alex3645.feature_conference_builder.usecase.SaveConferenceUseCase
 import com.alex3645.feature_conference_builder.usecase.SearchUsersUseCase
+import com.alex3645.feature_conference_builder.usecase.UpdateConferenceUseCase
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -61,8 +63,44 @@ class ConferenceEditorViewModel (application: Application):
 
     @Inject
     lateinit var saveConferenceUseCase: SaveConferenceUseCase
+    @Inject
+    lateinit var updateConferenceUseCase: UpdateConferenceUseCase
+    @Inject
+    lateinit var loadConferenceByIdUseCase: LoadConferenceByIdUseCase
 
+    var newConference = false
     fun saveConference(){
+        viewModelScope.launch {
+            if(newConference){
+                saveNewConference()
+            }else{
+                updateConference()
+            }
+        }
+
+    }
+
+    val loadedConference: MutableLiveData<Conference> by lazy {
+        MutableLiveData()
+    }
+
+    fun loadConferenceById(id: Int){
+        viewModelScope.launch {
+            loadConferenceByIdUseCase(id).also { result ->
+                when (result) {
+                    is LoadConferenceByIdUseCase.Result.Success ->{
+                        conference = result.data
+                        loadedConference.postValue(result.data)
+                    }
+                    is LoadConferenceByIdUseCase.Result.Error ->
+                        Action.BuildFailure("Ошибка сервера")
+                    else -> Action.BuildFailure("Ошибка подключения")
+                }
+            }
+        }
+    }
+
+    private fun saveNewConference(){
         viewModelScope.launch {
             val spManager = SharedPreferencesManager(getApplication())
             conference.organizerLogin = spManager.fetchLogin()
@@ -76,6 +114,26 @@ class ConferenceEditorViewModel (application: Application):
                             Action.BuildFailure(result.response.message)
                         }
                     is SaveConferenceUseCase.Result.Error ->
+                        Action.BuildFailure("Ошибка сервера")
+                    else -> Action.BuildFailure("Ошибка подключения")
+                }
+                sendAction(action)
+            }
+        }
+    }
+
+    private fun updateConference(){
+        viewModelScope.launch {
+            val spManager = SharedPreferencesManager(getApplication())
+            updateConferenceUseCase(spManager.fetchAuthToken() ?:"",conference).also { result ->
+                val action = when (result) {
+                    is UpdateConferenceUseCase.Result.Success ->
+                        if (result.response.success) {
+                            Action.BuildSuccess
+                        } else {
+                            Action.BuildFailure(result.response.message)
+                        }
+                    is UpdateConferenceUseCase.Result.Error ->
                         Action.BuildFailure("Ошибка сервера")
                     else -> Action.BuildFailure("Ошибка подключения")
                 }

@@ -3,6 +3,7 @@ package com.alex3645.feature_conference_builder.data.repositoryImpl
 import android.content.Context
 import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.feature_conference_builder.data.internet.service.ApiRetrofitBuilderService
+import com.alex3645.feature_conference_builder.data.model.ConferenceJson
 import com.alex3645.feature_conference_builder.data.model.Response
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.User
@@ -26,5 +27,13 @@ class ConferenceBuilderRepositoryImpl @Inject constructor(
 
     override suspend fun loadAccountByLogin(login: String): User {
         return service.loadUserByLogin(login).toDomainModel()
+    }
+
+    override suspend fun changeConference(token: String, id: Int, conferenceJson: ConferenceJson) : Response{
+        return service.changeConference(token, id, conferenceJson)
+    }
+
+    override suspend fun loadConferenceById(id: Int): Conference {
+        return service.getConferenceById(id).toDomainModel()
     }
 }

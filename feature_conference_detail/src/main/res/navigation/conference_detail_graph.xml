@@ -46,10 +46,26 @@
         <action
             android:id="@+id/actionSettingsToStats"
             app:destination="@id/ConferenceStats"/>
+        <action
+            android:id="@+id/actionSettingsToBuilder"
+            app:destination="@id/conferenceBuilderFeatureGraph">
+            <argument
+                android:name="conference_id"
+                app:argType="integer"/>
+        </action>
         <argument
             android:name="conference_id"
             app:argType="integer"/>
     </fragment>
+
+    <include-dynamic
+        android:id="@+id/conferenceBuilderFeatureGraph"
+        app:moduleName="feature_conference_builder"
+        app:graphResName="conference_builder_graph">
+        <argument
+            android:name="conference_id"
+            app:argType="integer" />
+    </include-dynamic>
 
     <fragment
         android:id="@+id/ConferenceStats"

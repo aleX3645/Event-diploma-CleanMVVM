@@ -5,9 +5,7 @@ import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.feature_conference_builder.data.internet.service.ApiRetrofitBuilderService
 import com.alex3645.feature_conference_builder.data.repositoryImpl.ConferenceBuilderRepositoryImpl
 import com.alex3645.feature_conference_builder.domain.repository.ConferenceBuilderRepository
-import com.alex3645.feature_conference_builder.usecase.LoadAccountByLoginUseCase
-import com.alex3645.feature_conference_builder.usecase.SaveConferenceUseCase
-import com.alex3645.feature_conference_builder.usecase.SearchUsersUseCase
+import com.alex3645.feature_conference_builder.usecase.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -56,5 +54,15 @@ class BuilderViewModelModule(private val context: Context) {
     @Provides
     fun provideLoadUserByLogin(conferenceRepository: ConferenceBuilderRepository): LoadAccountByLoginUseCase {
         return LoadAccountByLoginUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideUpdateConferenceUseCase(conferenceRepository: ConferenceBuilderRepository): UpdateConferenceUseCase {
+        return UpdateConferenceUseCase(conferenceRepository)
+    }
+
+    @Provides
+    fun provideLoadConferenceByIdUseCase(conferenceRepository: ConferenceBuilderRepository): LoadConferenceByIdUseCase {
+        return LoadConferenceByIdUseCase(conferenceRepository)
     }
 }

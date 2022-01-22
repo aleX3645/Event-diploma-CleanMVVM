@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.alex3645.feature_conference_builder.data.model.TariffJson
 
 data class Tariff(
-    val id: Int,
+    var id: Int,
     val conferenceId: Int,
     val cost: Double,
     val name: String?,

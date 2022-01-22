@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.alex3645.base.extension.observe
 import com.alex3645.feature_conference_builder.R
 import com.alex3645.feature_conference_builder.databinding.FragmentConferenceEditorBinding
@@ -49,6 +50,8 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentConferenceEditorBinding? = null
     private val binding get() = _binding!!
 
+    private val args by navArgs<ConferenceEditorFragmentArgs>()
+
     private val dateTimeValidator = DateTimeValidator()
 
     private lateinit var googleMap: GoogleMap
@@ -75,6 +78,24 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.conferenceEditorMap) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+
+        Log.d("initView id =", args.conferenceId.toString())
+        if(args.conferenceId > 0){
+            viewModel.newConference = false
+
+            viewModel.loadedConference.observe(viewLifecycleOwner, Observer {
+                binding.nameInputText.text = Editable.Factory.getInstance().newEditable(it.name)
+                binding.descriptionInputText.text = Editable.Factory.getInstance().newEditable(it.description)
+                binding.startDateInputText.text = Editable.Factory.getInstance().newEditable(simpleDateFormatClientDate.format(simpleDateFormatServer.parse(it.dateStart)))
+                binding.endDateInputText.text = Editable.Factory.getInstance().newEditable(simpleDateFormatClientDate.format(simpleDateFormatServer.parse(it.dateEnd)))
+                binding.startTimeInputText.text = Editable.Factory.getInstance().newEditable(simpleDateFormatClientTime.format(simpleDateFormatServer.parse(it.dateStart)))
+                binding.endTimeInputText.text = Editable.Factory.getInstance().newEditable(simpleDateFormatClientTime.format(simpleDateFormatServer.parse(it.dateEnd)))
+                startDate.time = simpleDateFormatServer.parse(it.dateStart)
+                endDate.time = simpleDateFormatServer.parse(it.dateEnd)
+            })
+
+            viewModel.loadConferenceById(args.conferenceId)
+        }
 
         initBackStackObserver()
         initActions()
@@ -321,6 +342,10 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
                 startDate.set(Calendar.YEAR, temp.get(Calendar.YEAR))
                 startDate.set(Calendar.MONTH, temp.get(Calendar.MONTH))
                 startDate.set(Calendar.DATE,  temp.get(Calendar.DATE))
+                startDate.set(Calendar.HOUR_OF_DAY, 0)
+                startDate.set(Calendar.MINUTE, 0)
+                startDate.set(Calendar.SECOND, 0)
+                startDate.set(Calendar.MILLISECOND,0)
 
                 binding.startDateTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientDate.format(startDate.time).toString()
@@ -338,6 +363,8 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
             timePicker.addOnPositiveButtonClickListener {
                 startDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 startDate.set(Calendar.MINUTE, timePicker.minute)
+                startDate.set(Calendar.SECOND, 0)
+                startDate.set(Calendar.MILLISECOND,0)
 
                 binding.startTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientTime.format(startDate.time).toString()
@@ -362,6 +389,10 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
                 endDate.set(Calendar.YEAR, temp.get(Calendar.YEAR))
                 endDate.set(Calendar.MONTH, temp.get(Calendar.MONTH))
                 endDate.set(Calendar.DATE,  temp.get(Calendar.DATE))
+                endDate.set(Calendar.HOUR_OF_DAY, 0)
+                endDate.set(Calendar.MINUTE, 0)
+                endDate.set(Calendar.SECOND, 0)
+                endDate.set(Calendar.MILLISECOND,0)
 
                 binding.endDateTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientDate.format(endDate.time).toString()
@@ -379,6 +410,8 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
             timePicker.addOnPositiveButtonClickListener {
                 endDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 endDate.set(Calendar.MINUTE, timePicker.minute)
+                endDate.set(Calendar.SECOND, 0)
+                endDate.set(Calendar.MILLISECOND,0)
 
                 binding.endTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientTime.format(endDate.time).toString()

@@ -104,6 +104,9 @@ class SettingsConferenceFragment: Fragment() {
                         viewModel.navigateBack(findNavController())
                     }
                 }
+                menu[2]->{
+                    viewModel.navigateToBuilder(findNavController())
+                }
             }
         }
     }

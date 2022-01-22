@@ -1,6 +1,7 @@
 package com.alex3645.feature_conference_builder.presentation.tariffEditorView
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,18 @@ class TariffEditorFragment: Fragment() {
         args.conference?.let {
             viewModel.conference = it
         }
+
+        if(args.editableTariffId > 0){
+            viewModel.conference?.tariffs?.let { it1 -> initViewElements(it1.first { it -> it.id == args.editableTariffId }) }
+        }
+    }
+
+    private fun initViewElements(tariff: Tariff){
+
+
+        binding.ticketsInputText.text = Editable.Factory().newEditable(tariff.ticketsTotal.toString())
+        binding.costInputText.text = Editable.Factory().newEditable(tariff.cost.toString())
+        binding.nameInputText.text = Editable.Factory().newEditable(tariff.name)
     }
 
     private fun initActions(){
@@ -49,13 +62,15 @@ class TariffEditorFragment: Fragment() {
 
         binding.saveButton.setOnClickListener {
             viewModel.tariff = Tariff(
-                id = 0,
+                id = if(args.editableTariffId<=0) 0 else args.editableTariffId,
                 conferenceId = viewModel.conference?.id?: 0,
                 cost = binding.costTextField.editText?.text.toString().toDouble(),
                 name = binding.nameTextField.editText?.text.toString(),
                 ticketsLeft = 0,
                 ticketsTotal = binding.ticketsTextField.editText?.text.toString().toInt()
             )
+
+            viewModel.saveTariff()
             viewModel.navigateBack(findNavController())
         }
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {

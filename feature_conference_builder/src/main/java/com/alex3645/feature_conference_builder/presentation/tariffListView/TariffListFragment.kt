@@ -91,6 +91,10 @@ class TariffListFragment : Fragment(){
         binding.tariffFloatingActionButton.setOnClickListener {
             viewModel.navigateToTariffEditor(findNavController())
         }
+
+        tariffAdapter.setOnDebouncedClickListener {
+            viewModel.navigateToTariffEditorSpecified(findNavController(), it.id)
+        }
     }
 
     override fun onDestroyView() {

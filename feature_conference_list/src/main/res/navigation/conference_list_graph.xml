@@ -23,7 +23,11 @@
             app:destination="@id/authFeatureGraph"/>
         <action
             android:id="@+id/actionRecyclerToConferenceBuilderFeature"
-            app:destination="@id/conferenceBuilderFeatureGraph"/>
+            app:destination="@id/conferenceBuilderFeatureGraph">
+            <argument
+                android:name="conference_id"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/actionRecyclerToFilter"
             app:destination="@id/filterFragment"/>
@@ -66,5 +70,9 @@
     <include-dynamic
         android:id="@+id/conferenceBuilderFeatureGraph"
         app:moduleName="feature_conference_builder"
-        app:graphResName="conference_builder_graph"/>
+        app:graphResName="conference_builder_graph">
+        <argument
+            android:name="conference_id"
+            app:argType="integer" />
+    </include-dynamic>
 </navigation>

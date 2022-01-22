@@ -9,7 +9,7 @@
         android:label="conferenceBuilderFragment"
         app:moduleName="feature_conference_builder">
         <argument
-            android:name="editableConferenceId"
+            android:name="conference_id"
             app:argType="integer" />
         <action
             android:id="@+id/actionConferenceBuilderToEventEditorFragment"

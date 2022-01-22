@@ -16,7 +16,7 @@ data class Conference(
     var name: String?,
     var organizerId: Int?,
     val status: Int,
-    val tariffs: MutableList<Tariff>?,
+    var tariffs: MutableList<Tariff>?,
     var organizerLogin: String?
     ):Parcelable {
     constructor(parcel: Parcel) : this(

@@ -114,6 +114,11 @@ class SettingsViewModel(application: Application): BaseAndroidViewModel<Settings
         navController.navigate(action)
     }
 
+    fun navigateToBuilder(navController: NavController){
+        val action = SettingsConferenceFragmentDirections.actionSettingsToBuilder(conferenceId.toInt())
+        navController.navigate(action)
+    }
+
     fun navigateBack(navController: NavController){
         navController.popBackStack()
     }

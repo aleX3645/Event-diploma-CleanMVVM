@@ -104,8 +104,8 @@ class EventEditorFragment : Fragment() {
     }
 
     private fun initFields(event: Event){
-        globalDateStart.time = simpleDateFormatServer.parse(event.dateStart)
-        globalDateEnd.time = simpleDateFormatServer.parse(event.dateEnd)
+        startDate.time = simpleDateFormatServer.parse(event.dateStart)
+        endDate.time = simpleDateFormatServer.parse(event.dateEnd)
 
         binding.loginInputText.text = Editable.Factory.getInstance().newEditable(event.speakerLogin)
         binding.nameInputText.text = Editable.Factory.getInstance().newEditable(event.name)
@@ -291,6 +291,10 @@ class EventEditorFragment : Fragment() {
                 startDate.set(Calendar.YEAR, temp.get(Calendar.YEAR))
                 startDate.set(Calendar.MONTH, temp.get(Calendar.MONTH))
                 startDate.set(Calendar.DATE,  temp.get(Calendar.DATE))
+                startDate.set(Calendar.HOUR_OF_DAY, 0)
+                startDate.set(Calendar.MINUTE, 0)
+                startDate.set(Calendar.SECOND, 0)
+                startDate.set(Calendar.MILLISECOND,0)
 
                 binding.startDateTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientDate.format(startDate.time).toString()
@@ -308,6 +312,8 @@ class EventEditorFragment : Fragment() {
             timePicker.addOnPositiveButtonClickListener {
                 startDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 startDate.set(Calendar.MINUTE, timePicker.minute)
+                startDate.set(Calendar.SECOND, 0)
+                startDate.set(Calendar.MILLISECOND,0)
 
                 binding.startTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientTime.format(startDate.time).toString()
@@ -332,6 +338,10 @@ class EventEditorFragment : Fragment() {
                 endDate.set(Calendar.YEAR, temp.get(Calendar.YEAR))
                 endDate.set(Calendar.MONTH, temp.get(Calendar.MONTH))
                 endDate.set(Calendar.DATE,  temp.get(Calendar.DATE))
+                endDate.set(Calendar.HOUR_OF_DAY, 0)
+                endDate.set(Calendar.MINUTE, 0)
+                endDate.set(Calendar.SECOND, 0)
+                endDate.set(Calendar.MILLISECOND,0)
 
                 binding.endDateTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientDate.format(endDate.time).toString()
@@ -349,6 +359,8 @@ class EventEditorFragment : Fragment() {
             timePicker.addOnPositiveButtonClickListener {
                 endDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
                 endDate.set(Calendar.MINUTE, timePicker.minute)
+                endDate.set(Calendar.SECOND, 0)
+                endDate.set(Calendar.MILLISECOND,0)
 
                 binding.endTimeTextField.editText?.text = Editable.Factory.getInstance().newEditable(
                     simpleDateFormatClientTime.format(endDate.time).toString()
@@ -378,6 +390,7 @@ class EventEditorFragment : Fragment() {
         }
 
         if(globalDateStart > startDate){
+            Log.d("testDateTimeBug", globalDateEnd.toString() + " " + endDate.toString())
             binding.startTimeTextField.helperText =
                 "Момент начала конференции не может быть меньше начала родителя - " +
                         simpleDateFormatClientDate.format(globalDateStart.time) + " " +
@@ -386,6 +399,7 @@ class EventEditorFragment : Fragment() {
         }
 
         if(globalDateEnd < endDate){
+            Log.d("testDateTimeBug", globalDateEnd.toString() + " " + endDate.toString())
             binding.endTimeTextField.helperText =
                 "Момент окончания конференции не может быть позднее окончания родителя - " +
                         simpleDateFormatClientDate.format(globalDateEnd.time) + " " +

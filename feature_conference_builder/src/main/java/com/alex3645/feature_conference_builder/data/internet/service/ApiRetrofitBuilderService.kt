@@ -14,4 +14,10 @@ interface ApiRetrofitBuilderService {
 
     @GET("api/usr/info/{login}")
     suspend fun loadUserByLogin(@Path("login") login: String) : UserJson
+
+    @POST("api/org/changeConferenceWithAllElements/{id}")
+    suspend fun changeConference(@Header("token") token: String, @Path("id") id: Int, @Body conferenceJson: ConferenceJson) : Response
+
+    @GET("/api/usr/conferenceWithEvents/{id}")
+    suspend fun getConferenceById(@Path("id") id: Int): ConferenceJson
 }

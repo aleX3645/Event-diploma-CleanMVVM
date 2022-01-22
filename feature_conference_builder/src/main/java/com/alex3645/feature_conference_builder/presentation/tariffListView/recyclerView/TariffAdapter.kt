@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alex3645.base.delegate.observer
 import com.alex3645.feature_conference_builder.databinding.TariffItemBinding
+import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.Tariff
 
 @SuppressLint("NotifyDataSetChanged")
@@ -16,6 +17,10 @@ class TariffAdapter : RecyclerView.Adapter<TariffAdapter.ViewHolder>() {
     }
 
     private var onDebouncedClickListener: ((tariff: Tariff) -> Unit)? = null
+
+    fun setOnDebouncedClickListener(listener: (tariff: Tariff) -> Unit) {
+        this.onDebouncedClickListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
