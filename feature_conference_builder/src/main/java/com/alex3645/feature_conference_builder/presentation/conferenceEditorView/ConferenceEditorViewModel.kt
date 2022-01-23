@@ -2,12 +2,14 @@ package com.alex3645.feature_conference_builder.presentation.conferenceEditorVie
 
 import android.app.Application
 import android.content.ContentValues
+import android.net.Uri
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.alex3645.app.android.SharedPreferencesManager
+import com.alex3645.app.data.api.ServerConstants
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseAndroidViewModel
 import com.alex3645.base.presentation.BaseViewState
@@ -17,11 +19,10 @@ import com.alex3645.feature_conference_builder.di.module.BuilderViewModelModule
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.Event
 import com.alex3645.feature_conference_builder.domain.model.Tariff
-import com.alex3645.feature_conference_builder.domain.model.User
 import com.alex3645.feature_conference_builder.usecase.LoadConferenceByIdUseCase
 import com.alex3645.feature_conference_builder.usecase.SaveConferenceUseCase
-import com.alex3645.feature_conference_builder.usecase.SearchUsersUseCase
 import com.alex3645.feature_conference_builder.usecase.UpdateConferenceUseCase
+import com.alex3645.feature_conference_builder.usecase.UploadPictureToServerUseCase
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -29,9 +30,12 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.api.net.PlacesClient
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import java.util.*
 import javax.inject.Inject
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities
 
 class ConferenceEditorViewModel (application: Application):
     BaseAndroidViewModel<ConferenceEditorViewModel.ViewState, ConferenceEditorViewModel.Action>(ViewState(),application) {
@@ -48,7 +52,7 @@ class ConferenceEditorViewModel (application: Application):
     }
 
     var conference: Conference = Conference(0,0,null,null,"",
-        mutableListOf<Event>(),false,"",null,-1,0,mutableListOf<Tariff>(),null)
+        mutableListOf<Event>(),false,"",null,-1,0,mutableListOf<Tariff>(),null, null)
 
     data class ViewState(
         val isLoading: Boolean = true,
@@ -67,10 +71,29 @@ class ConferenceEditorViewModel (application: Application):
     lateinit var updateConferenceUseCase: UpdateConferenceUseCase
     @Inject
     lateinit var loadConferenceByIdUseCase: LoadConferenceByIdUseCase
+    @Inject
+    lateinit var uploadPictureToServerUseCase: UploadPictureToServerUseCase
 
     var newConference = false
-    fun saveConference(){
-        viewModelScope.launch {
+    fun saveConference(stream: InputStream?){
+        viewModelScope.launch(Dispatchers.IO) {
+
+            if(stream != null){
+                val spManager = SharedPreferencesManager(getApplication())
+                uploadPictureToServerUseCase(spManager.fetchAuthToken()?:"",stream).also { result ->
+                    when (result) {
+                        is UploadPictureToServerUseCase.Result.Success ->{
+                            conference.photoUrl = ServerConstants.LOCAL_SERVER + "/api/usr/getPictureById/" + result.response.message
+                        }
+                        is UploadPictureToServerUseCase.Result.Error ->
+                            sendAction(Action.BuildFailure(result.e.message?:"error"))
+                        else -> sendAction(Action.BuildFailure("error"))
+                    }
+                }
+
+                stream.close()
+            }
+
             if(newConference){
                 saveNewConference()
             }else{

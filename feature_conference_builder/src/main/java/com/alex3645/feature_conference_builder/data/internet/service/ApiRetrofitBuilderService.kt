@@ -3,6 +3,7 @@ package com.alex3645.feature_conference_builder.data.internet.service
 import com.alex3645.feature_conference_builder.data.model.ConferenceJson
 import com.alex3645.feature_conference_builder.data.model.Response
 import com.alex3645.feature_conference_builder.data.model.UserJson
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface ApiRetrofitBuilderService {
@@ -20,4 +21,8 @@ interface ApiRetrofitBuilderService {
 
     @GET("/api/usr/conferenceWithEvents/{id}")
     suspend fun getConferenceById(@Path("id") id: Int): ConferenceJson
+
+    @Multipart
+    @POST("api/usr/upload/picture")
+    suspend fun addImage(@Header("token") token: String, @Part file: MultipartBody.Part) : Response
 }

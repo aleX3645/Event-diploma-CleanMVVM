@@ -17,7 +17,8 @@ data class Conference(
     var organizerId: Int?,
     val status: Int,
     var tariffs: MutableList<Tariff>?,
-    var organizerLogin: String?
+    var organizerLogin: String?,
+    var photoUrl: String?
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -32,6 +33,7 @@ data class Conference(
         parcel.readInt(),
         parcel.readInt(),
         parcel.createTypedArrayList(Tariff),
+        parcel.readString(),
         parcel.readString()
     )
 
@@ -49,7 +51,8 @@ data class Conference(
             organizerId = null,
             status = this.status,
             tariffsJson = this.tariffs?.map { it.toJson() }?.toMutableList()?: mutableListOf(),
-            organizerLogin = this.organizerLogin?:""
+            organizerLogin = this.organizerLogin?:"",
+            photoUrl = this.photoUrl?: ""
         )
     }
 
@@ -67,6 +70,7 @@ data class Conference(
         parcel.writeInt(status)
         parcel.writeTypedList(tariffs)
         parcel.writeString(organizerLogin)
+        parcel.writeString(photoUrl)
     }
 
     override fun describeContents(): Int {

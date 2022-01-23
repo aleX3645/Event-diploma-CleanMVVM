@@ -8,6 +8,7 @@ import com.alex3645.feature_conference_builder.data.model.Response
 import com.alex3645.feature_conference_builder.domain.model.Conference
 import com.alex3645.feature_conference_builder.domain.model.User
 import com.alex3645.feature_conference_builder.domain.repository.ConferenceBuilderRepository
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class ConferenceBuilderRepositoryImpl @Inject constructor(
@@ -35,5 +36,9 @@ class ConferenceBuilderRepositoryImpl @Inject constructor(
 
     override suspend fun loadConferenceById(id: Int): Conference {
         return service.getConferenceById(id).toDomainModel()
+    }
+
+    override suspend fun uploadImage(token: String, file: MultipartBody.Part): Response {
+        return service.addImage(token,file)
     }
 }

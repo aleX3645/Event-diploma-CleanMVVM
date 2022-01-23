@@ -17,6 +17,7 @@ import com.alex3645.feature_account.domain.model.User
 import com.alex3645.feature_account.usecase.EditAccountUseCase
 import com.alex3645.feature_account.usecase.LoadAccountByLoginUseCase
 import com.alex3645.feature_account.usecase.UploadPictureToServer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.InputStream
 import java.net.URI
@@ -66,13 +67,13 @@ class EditAccountViewModel(application: Application) : BaseAndroidViewModel<Edit
 
     fun editAccountWithImage(user: User, stream: InputStream){
         val application: Application = this.getApplication()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val spManager = SharedPreferencesManager(application)
             uploadPictureToServer(spManager.fetchAuthToken()?:"",stream).also { result ->
                 when (result) {
                     is UploadPictureToServer.Result.Success ->{
                         user.photoUrl = ServerConstants.LOCAL_SERVER + "/api/usr/getPictureById/" + result.response.message
-                        Log.d("!!!", user.photoUrl)
+                        stream.close()
                         editAccount(user)
                     }
                     is UploadPictureToServer.Result.Error ->

@@ -3,6 +3,7 @@ package com.alex3645.feature_conference_builder.presentation.conferenceEditorVie
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -35,6 +36,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -165,6 +167,13 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private var uriInternal:Uri = Uri.EMPTY
+    private val pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+        uri?.let { it ->
+            uriInternal = it
+            Picasso.get().load(it).fit().centerCrop().into(binding.imageConference)
+        }
+    }
 
     var settledFlag = false
     private fun setActions(){
@@ -186,8 +195,18 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
         binding.saveButton.setOnClickListener {
             if(beforeNextStepCheck()){
                 setConference()
-                viewModel.saveConference()
+
+                if(uriInternal.path != Uri.EMPTY.path){
+                    val stream = activity?.contentResolver?.openInputStream(uriInternal)
+                    viewModel.saveConference(stream)
+                }else{
+                    viewModel.saveConference(null)
+                }
             }
+        }
+
+        binding.choosePhoto.setOnClickListener {
+            pickImages.launch("image/*")
         }
 
         (binding.addressTextInput.editText as? AutoCompleteTextView)?.onItemClickListener =
