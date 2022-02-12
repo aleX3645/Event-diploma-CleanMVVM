@@ -9,6 +9,7 @@ import com.alex3645.app.android.SharedPreferencesManager
 import com.alex3645.base.presentation.BaseAction
 import com.alex3645.base.presentation.BaseViewModel
 import com.alex3645.base.presentation.BaseViewState
+import com.alex3645.feature_conference_list.data.repositoryImpl.ConferenceRepositoryImpl
 import com.alex3645.feature_conference_list.di.component.DaggerConferenceViewModelComponent
 import com.alex3645.feature_conference_list.domain.model.Conference
 import com.alex3645.feature_conference_list.usecase.LoadNextConferencesUseCase
@@ -26,6 +27,7 @@ class ConferenceRecyclerViewModel: BaseViewModel<ConferenceRecyclerViewModel.Vie
     private val conferences: MutableList<Conference> = mutableListOf()
 
     var city: String = ""
+
 
     @Inject
     lateinit var loadNextConferencesUseCase: LoadNextConferencesUseCase

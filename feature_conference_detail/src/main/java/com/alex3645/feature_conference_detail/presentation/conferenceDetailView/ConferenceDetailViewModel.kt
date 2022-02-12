@@ -39,9 +39,9 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
         val conference: Conference? = null
     ) : BaseViewState
 
-    interface Action : BaseAction {
-        class LoadSuccess(val conference: Conference) : Action
-        class AuthFailure(val message: String) : Action
+    sealed class Action : BaseAction {
+        class LoadSuccess(val conference: Conference) : Action()
+        class AuthFailure(val message: String) : Action()
     }
 
     @Inject
@@ -62,7 +62,6 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
                     }
                     is LoadAccountByIdUseCase.Result.Error ->
                         sendAction(Action.AuthFailure("Ошибка загрузки данных организатора"))
-                    else -> sendAction(Action.AuthFailure("Ошибка загрузки данных организатора"))
                 }
             }
         }
@@ -133,13 +132,6 @@ class ConferenceDetailViewModel: BaseViewModel<ConferenceDetailViewModel.ViewSta
                 isLoading = false,
                 isError = true,
                 errorMessage = message
-            )
-        }
-        else -> {
-            state.copy(
-                isLoading = false,
-                isError = true,
-                errorMessage = "Произошла непредвиденная ошибка"
             )
         }
     }

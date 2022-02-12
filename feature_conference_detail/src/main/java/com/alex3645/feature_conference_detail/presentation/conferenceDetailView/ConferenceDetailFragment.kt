@@ -152,7 +152,6 @@ class ConferenceDetailFragment() : Fragment(), OnMapReadyCallback {
 
         if(binding.conferencePlace.text != ""){
             val geocoder = Geocoder(context, Locale.getDefault())
-
             GlobalScope.launch (Dispatchers.Main){
                 val addresses = geocoder.getFromLocationName(binding.conferencePlace.text.toString(), 1)
 

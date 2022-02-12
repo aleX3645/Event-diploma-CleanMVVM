@@ -97,6 +97,8 @@ class ConferenceEditorFragment : Fragment(), OnMapReadyCallback {
             })
 
             viewModel.loadConferenceById(args.conferenceId)
+        }else{
+            viewModel.newConference = true
         }
 
         initBackStackObserver()

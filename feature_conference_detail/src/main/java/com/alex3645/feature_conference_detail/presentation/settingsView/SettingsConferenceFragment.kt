@@ -19,6 +19,7 @@ import android.content.ClipboardManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alex3645.app.data.api.AppConstants
 import com.alex3645.base.extension.observe
 
@@ -80,7 +81,6 @@ class SettingsConferenceFragment: Fragment() {
     private fun initRecycler(){
         binding.settingsRecycler.adapter = settingsAdapter
         binding.settingsRecycler.layoutManager = LinearLayoutManager(activity)
-
         viewModel.determineMenuType()
     }
 
